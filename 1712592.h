@@ -3,7 +3,7 @@
 #define Height 30
 #define Width 30
 #define MAXMENU 4 //Danh sach max cua Menu
-
+//test
 struct PLAYER
 {
 	char Name[30] = {'a'};
