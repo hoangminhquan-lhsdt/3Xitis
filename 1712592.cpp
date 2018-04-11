@@ -33,9 +33,9 @@ void Shape(CAR &car, VATCAN vatcan[], COIN coin[]) //Tao ra cac hinh dang cua ca
 	int i;
 	// Xe
 	/*	Hinh dang
-	O-O
-	|M|
-	O-O
+						O-O
+						|M|
+						O-O
 	*/
 	car.hinhdang.o[0][0] = 'O'; car.hinhdang.o[0][2] = 'O'; //Banh truoc
 	car.hinhdang.o[2][0] = 'O'; car.hinhdang.o[2][2] = 'O'; //Banh sau
@@ -45,9 +45,9 @@ void Shape(CAR &car, VATCAN vatcan[], COIN coin[]) //Tao ra cac hinh dang cua ca
 
 	//Vat can
 	/*	Hinh dang
-	OOO
-	OOO
-	OOO
+						OOO
+						OOO
+						OOO
 	*/
 	for (i = 0; i < 5; i++)
 	{
@@ -258,7 +258,7 @@ void Rule()
 	gotoxy(30, 15);
 	printf("Dung cac phim mui ten di chuyen va nhat tien");
 	gotoxy(30, 16);
-	printf("Dont be hitted");
+	printf("Dont be hitted\n");
 }
 void Menu(char *menu[], CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character, FILE *file)
 {
@@ -319,7 +319,7 @@ void Menu(char *menu[], CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &characte
 						}
 					}
 				}
-				case 2: return;
+				case 2: return; break;
 				}
 				break;
 			}
