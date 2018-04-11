@@ -47,9 +47,9 @@ void Shape(CAR &car, VATCAN vatcan[], COIN coin[]) //Tao ra cac hinh dang cua ca
 	int i;
 	// Xe
 	/*	Hinh dang
-	O-O
-	|M|
-	O-O
+						O-O
+						|M|
+						O-O
 	*/
 	car.hinhdang.o[0][0] = 'O'; car.hinhdang.o[0][2] = 'O'; //Banh truoc
 	car.hinhdang.o[2][0] = 'O'; car.hinhdang.o[2][2] = 'O'; //Banh sau
@@ -59,9 +59,9 @@ void Shape(CAR &car, VATCAN vatcan[], COIN coin[]) //Tao ra cac hinh dang cua ca
 
 	//Vat can
 	/*	Hinh dang
-	OOO
-	OOO
-	OOO
+						OOO
+						OOO
+						OOO
 	*/
 	for (i = 0; i < 5; i++)
 	{
@@ -255,10 +255,10 @@ void playGame(CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character, FILE *f
 
 		if (GameOver(car, vatcan))
 		{
+			fprintf(file, "%d\n", score);
 			gotoxy(31, 16);
 			Input(character, "Player.txt", score);
 			_getch();
-			return;
 			return;
 		}
 
@@ -283,6 +283,7 @@ void Rule()
 	gotoxy(30, 15);
 	printf("Dung cac phim mui ten di chuyen va nhat tien.");
 	gotoxy(30, 16);
+	printf("Dont hit\n");
 	printf("Dont hit the obstacles.");
 	gotoxy(30, 17);
 }
@@ -345,7 +346,7 @@ void Menu(char *menu[], CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &characte
 						}
 					}
 				}
-				case 2: break;
+				case 2: return; break;
 				}
 				break;
 			}
