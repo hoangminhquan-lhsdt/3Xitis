@@ -6,7 +6,7 @@
 #include <time.h>
 #include <math.h>
 #include <string.h>
-#pragma disable(warning:4996)
+#pragma warning(disable:4996)
 void Input(PLAYER player, char filename[], int score)
 {
 	FILE *file = fopen(filename, "ab");
@@ -15,10 +15,19 @@ void Input(PLAYER player, char filename[], int score)
 	fclose(file);
 }
 void BXH(char filename[]) {
+	//PLAYER bxh[10];
 	PLAYER player;
-	FILE *f = fopen(filename, "rb");
+	PLAYER list[100];
+	int a;
+	FILE *f = fopen("Player.txt", "r");
 	if (f != NULL) {
-		fread(&player, sizeof(PLAYER), 1, f);
+		fseek(f, 0, SEEK_END);
+		a = ftell(f) / sizeof(PLAYER);
+		for (int i = 0; i < a; i++) {
+			fscanf(f, "%s	%d\n", player.Name, player.score);
+			list[i] = player;
+			printf("%d. %s   %d\n", i+1, list[i].Name, list[i].score);
+		}
 	}
 	fclose(f);
 }
@@ -240,7 +249,7 @@ void playGame(CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character)
 		if (GameOver(car, vatcan))
 		{
 			gotoxy(31, 16);
-			Input(character, "Player.txt" score);
+			Input(character, "Player.txt", score);
 			_getch();
 			return;
 		}
@@ -253,7 +262,7 @@ void runWord()
 	for (int i = 0; i < Height; i++)
 	{
 		gotoxy(40, i);
-		printf("Ban Dang Dua Xe")
+		printf("Ban Dang Dua Xe");
 	}
 
 }
@@ -265,7 +274,8 @@ void Rule()
 }
 void Menu(char *menu[], CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character)
 {
-	int vitri = 0;
+	BXH("Player.txt");
+	/*int vitri = 0;
 	while (1)
 	{
 		system("cls");
@@ -328,7 +338,7 @@ void Menu(char *menu[], CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &characte
 			}
 		}
 		Sleep(50);
-	}
+	}*/
 }
 
 
