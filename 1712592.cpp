@@ -6,21 +6,35 @@
 #include <time.h>
 #include <math.h>
 #include <string.h>
-#pragma disable(warning:4996)
-void Input(PLAYER player, char filename[], int score)
+#pragma warning(disable:4996)
+void Input(PLAYER character, char filename[], int score)
 {
-	FILE *file = fopen(filename, "ab");
-	printf("Nhap ten: "); gets_s(player.Name);
-	fwrite(&player, sizeof(PLAYER), 1, file);
+	char c;
+	fflush(stdin);
+	scanf("%c", &c);
+	FILE *file = fopen(filename, "a");
+	printf("Nhap ho va ten: "); gets_s(character.Name);
+	fprintf(file, "%s", character.Name);
+	fprintf(file, "\n");
+	fprintf(file, "%d", score);
+	fprintf(file, "\n");
 	fclose(file);
+	BXH();
 }
-void BXH(char filename[]) {
-	PLAYER player;
-	FILE *f = fopen(filename, "rb");
-	if (f != NULL) {
-		fread(&player, sizeof(PLAYER), 1, f);
+void BXH() {
+	char c;
+	system("cls");
+	PLAYER list[1000];
+	int i = 0;
+	FILE *f = fopen("Player.txt", "r");
+	while (!feof(f)) {
+		fgets(list[i].Name, 30, f);
+		fscanf(f, "%d", &list[i].score);
+		fgetc(f);
+		printf("%d. %s    %d\n", i + 1, list[i].Name, list[i].score);
+		i++;
 	}
-	fclose(f);
+
 }
 void gotoxy(int x, int y) //Dua con tro toi mot vi tri tren man hinh console
 {
@@ -237,11 +251,14 @@ void playGame(CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character, FILE *f
 									//Ai(car, vatcan, coin);
 		score = Score(car, coin); //Diem
 		gotoxy(31, 15);
-		printf("Socre: %d", score); //Viet diem
+		printf("Score: %d", score); //Viet diem
 
 		if (GameOver(car, vatcan))
 		{
 			fprintf(file, "%d\n", score);
+			gotoxy(31, 16);
+			Input(character, "Player.txt", score);
+			_getch();
 			return;
 		}
 
@@ -252,13 +269,23 @@ void playGame(CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character, FILE *f
 		else Sleep(time);
 	}
 }
+void runWord()
+{
+	for (int i = 0; i < Height; i++)
+	{
+		gotoxy(40, i);
+		printf("Ban Dang Dua Xe");
+	}
+}
 
 void Rule()
 {
 	gotoxy(30, 15);
-	printf("Dung cac phim mui ten di chuyen va nhat tien");
+	printf("Dung cac phim mui ten di chuyen va nhat tien.");
 	gotoxy(30, 16);
-	printf("Dont be hitted\n");
+	printf("Dont hit\n");
+	printf("Dont hit the obstacles.");
+	gotoxy(30, 17);
 }
 void Menu(char *menu[], CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character, FILE *file)
 {
