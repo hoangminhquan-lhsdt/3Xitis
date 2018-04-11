@@ -242,7 +242,6 @@ void playGame(CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character, FILE *f
 		if (GameOver(car, vatcan))
 		{
 			fprintf(file, "%d\n", score);
-			fclose(file);
 			return;
 		}
 
@@ -320,7 +319,7 @@ void Menu(char *menu[], CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &characte
 						}
 					}
 				}
-				case 2: break;
+				case 2: return;
 				}
 				break;
 			}
