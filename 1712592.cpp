@@ -34,6 +34,7 @@ void BXH() {
 		printf("%d. %s    %d\n", i + 1, list[i].Name, list[i].score);
 		i++;
 	}
+	_getch();
 
 }
 void gotoxy(int x, int y) //Dua con tro toi mot vi tri tren man hinh console
@@ -298,19 +299,19 @@ void Menu(char *menu[], CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &characte
 			if (GetAsyncKeyState(VK_UP))
 			{
 				if (vitri == 0)
-					vitri = 2;
+					vitri = MAXMENU;
 				else vitri--;
 			}
 			if (GetAsyncKeyState(VK_DOWN))
 			{
-				if (vitri == 2)
+				if (vitri == MAXMENU)
 					vitri = 0;
 				else vitri++;
 			}
 		}
 
 		// Viet menu
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < MAXMENU; i++)
 		{
 			gotoxy(40, 15 + i);
 			if (vitri == i)
@@ -327,7 +328,8 @@ void Menu(char *menu[], CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &characte
 				{
 				case 0:
 				{
-					playGame(car, vatcan, coin, character, file);
+					if(_kbhit())
+						playGame(car, vatcan, coin, character, file);
 					break;
 				}
 				case 1:
@@ -335,20 +337,27 @@ void Menu(char *menu[], CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &characte
 					system("cls");
 					Rule();
 					system("pause");
-					while (1)
+					if (_kbhit())
 					{
-						if (_kbhit())
-						{
-							if (GetAsyncKeyState(VK_RETURN))
-							{
-								Menu(menu, car, vatcan, coin, character, file);
-							}
-						}
+						Menu(menu, car, vatcan, coin, character, file);
 					}
+					break;
 				}
-				case 2: return; break;
+				case 2: //BXH
+				{
+					system("cls");
+					BXH();
+					system("pause");
+					if (_kbhit())
+					{
+						Menu(menu, car, vatcan, coin, character, file);
+					}
+					break;
 				}
-				break;
+
+				case 3: return; 
+				}
+				
 			}
 		}
 		Sleep(50);

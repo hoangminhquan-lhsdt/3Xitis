@@ -12,7 +12,7 @@ void main()
 	VATCAN vatcan[5];
 	COIN coin[10];
 	PLAYER character;
-	char *menu[] = { "Play game","Rule","Exit" };
+	char *menu[] = { "Play game","Rule","BXH","Exit" };
 	srand((unsigned)time(NULL));
 	FILE *file = fopen("Player.txt", "a+");
 	Menu(menu, car, vatcan, coin, character, file);
