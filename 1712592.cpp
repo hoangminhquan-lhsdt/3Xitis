@@ -6,18 +6,20 @@
 #include <time.h>
 #include <math.h>
 #include <string.h>
-
+#pragma disable(warning:4996)
 void Input(PLAYER player, char filename[], int score)
 {
 	FILE *file = fopen(filename, "ab");
 	printf("Nhap ten: "); gets_s(player.Name);
-	fwrite(&player, sizeof(PLAYER), 1, filename);
+	fwrite(&player, sizeof(PLAYER), 1, file);
 	fclose(file);
 }
 void BXH(char filename[]) {
-	PLAYER 
+	PLAYER player;
 	FILE *f = fopen(filename, "rb");
-	
+	if (f != NULL) {
+		fread(&player, sizeof(PLAYER), 1, f);
+	}
 	fclose(f);
 }
 void gotoxy(int x, int y)
@@ -238,7 +240,7 @@ void playGame(CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character)
 		if (GameOver(car, vatcan))
 		{
 			gotoxy(31, 16);
-			Input(character, "Player.txt", score);
+			Input(character, "Player.txt" score);
 			_getch();
 			return;
 		}
