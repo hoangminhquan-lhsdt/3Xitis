@@ -13,6 +13,7 @@ void Input(PLAYER character, char filename[], int score)
 	fflush(stdin);
 	scanf("%c", &c);
 	FILE *file = fopen(filename, "a");
+	gotoxy(31,16);
 	printf("Nhap ho va ten: "); gets_s(character.Name);
 	fprintf(file, "%s", character.Name);
 	fprintf(file, "\n");
