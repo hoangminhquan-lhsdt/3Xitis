@@ -32,6 +32,8 @@ struct COIN
 {
 	TOADO toado;
 };
+void BXH();
+void Input(PLAYER player, char filename[], int score);
 void gotoxy(int x, int y);
 void Shape(CAR &car, VATCAN vatcan[], COIN coin[]);
 void Lane(); 
@@ -45,7 +47,7 @@ int Score(CAR &car, COIN coin[]);
 int Distance(int x, int y);
 void Input(PLAYER character, char filename[], int score);
 void Ai(CAR &car, VATCAN vatcan[], COIN coin[]);
-void playGame(CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character);
+void playGame(CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character, FILE *file);
 void Rule();
-void Menu(char *menu[], CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character);
+void Menu(char *menu[], CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character, FILE *file);
 void runWord();

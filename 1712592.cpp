@@ -7,29 +7,34 @@
 #include <math.h>
 #include <string.h>
 #pragma warning(disable:4996)
-void Input(PLAYER player, char filename[], int score)
+void Input(PLAYER character, char filename[], int score)
 {
-	FILE *file = fopen(filename, "ab");
-	printf("Nhap ten: "); gets_s(player.Name);
-	fwrite(&player, sizeof(PLAYER), 1, file);
+	char c;
+	fflush(stdin);
+	scanf("%c", &c);
+	FILE *file = fopen(filename, "a");
+	printf("Nhap ho va ten: "); gets_s(character.Name);
+	fprintf(file, "%s", character.Name);
+	fprintf(file, "\n");
+	fprintf(file, "%d", score);
+	fprintf(file, "\n");
 	fclose(file);
+	BXH();
 }
-void BXH(char filename[]) {
-	//PLAYER bxh[10];
-	PLAYER player;
-	PLAYER list[100];
-	int a;
+void BXH() {
+	char c;
+	system("cls");
+	PLAYER list[1000];
+	int i = 0;
 	FILE *f = fopen("Player.txt", "r");
-	if (f != NULL) {
-		fseek(f, 0, SEEK_END);
-		a = ftell(f) / sizeof(PLAYER);
-		for (int i = 0; i < a; i++) {
-			fscanf(f, "%s	%d\n", player.Name, player.score);
-			list[i] = player;
-			printf("%d. %s   %d\n", i+1, list[i].Name, list[i].score);
-		}
+	while (!feof(f)) {
+		fgets(list[i].Name, 30, f);
+		fscanf(f, "%d", &list[i].score);
+		fgetc(f);
+		printf("%d. %s    %d\n", i + 1, list[i].Name, list[i].score);
+		i++;
 	}
-	fclose(f);
+
 }
 void gotoxy(int x, int y) //Dua con tro toi mot vi tri tren man hinh console
 {
@@ -246,18 +251,14 @@ void playGame(CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character, FILE *f
 									//Ai(car, vatcan, coin);
 		score = Score(car, coin); //Diem
 		gotoxy(31, 15);
-		printf("Socre: %d", score); //Viet diem
+		printf("Score: %d", score); //Viet diem
 
 		if (GameOver(car, vatcan))
 		{
-<<<<<<< HEAD
 			gotoxy(31, 16);
 			Input(character, "Player.txt", score);
 			_getch();
-=======
-			fprintf(file, "%d\n", score);
-			fclose(file);
->>>>>>> c1585fdedb1026947f43c26981279b5af737becb
+			return;
 			return;
 		}
 
@@ -268,7 +269,6 @@ void playGame(CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character, FILE *f
 		else Sleep(time);
 	}
 }
-<<<<<<< HEAD
 void runWord()
 {
 	for (int i = 0; i < Height; i++)
@@ -276,20 +276,19 @@ void runWord()
 		gotoxy(40, i);
 		printf("Ban Dang Dua Xe");
 	}
-=======
->>>>>>> c1585fdedb1026947f43c26981279b5af737becb
+}
 
 void Rule()
 {
 	gotoxy(30, 15);
-	printf("Dung cac phim mui ten di chuyen va nhat tien");
+	printf("Dung cac phim mui ten di chuyen va nhat tien.");
 	gotoxy(30, 16);
-	printf("Dont be hitted");
+	printf("Dont hit the obstacles.");
+	gotoxy(30, 17);
 }
 void Menu(char *menu[], CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character, FILE *file)
 {
-	BXH("Player.txt");
-	/*int vitri = 0;
+	int vitri = 0;
 	while (1)
 	{
 		system("cls");
@@ -352,7 +351,7 @@ void Menu(char *menu[], CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &characte
 			}
 		}
 		Sleep(50);
-	}*/
+	}
 }
 
 
