@@ -209,6 +209,7 @@ int Score(CAR &car, COIN coin[], int riatruoc, int riasau)
 				coin[i].toado.x = rand() % (riasau - 1) + 1 + riatruoc;
 			while ((coin[i].toado.x >= riasau) || (coin[i].toado.x <= riatruoc));
 			coin[i].toado.y = rand() % 4;
+			car.score++;
 		}
 	}
 	return car.score;
@@ -349,10 +350,10 @@ void playTwoCar(CAR &car1, VATCAN vatcan1[], COIN coin1[], CAR &car2, VATCAN vat
 		//Ai(car, vatcan, coin);
 		score1 = Score(car1, coin1, riatruoc1, riasau1);
 		score2 = Score(car2, coin2, riatruoc2, riasau2);//Diem
-		gotoxy(31, 7);
+		/*gotoxy(31, 7);
 		printf("Socre: %d", score1); //Viet diem
 		gotoxy(90, 15);
-		printf("Socre: %d", score2);
+		printf("Socre: %d", score2);*/
 
 		if (GameOver(car1, vatcan1))
 		{
