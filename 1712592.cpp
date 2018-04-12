@@ -14,29 +14,37 @@ void Input(PLAYER character, char filename[], int score)
 	scanf("%c", &c);
 	FILE *file = fopen(filename, "a");
 	gotoxy(31,16);
-	printf("Nhap ho va ten: "); gets_s(character.Name);
-	fprintf(file, "%s", character.Name);
-	fprintf(file, "\n");
-	fprintf(file, "%d", score);
-	fprintf(file, "\n");
+	printf("Nhap ho va ten: "); 
+	gets_s(character.Name);
+	fprintf(file, "%s" "\n", character.Name);
+	//fprintf(file, "\0");
+	fprintf(file, "	%d\n", score);
+	//fprintf(file, "\n");
 	fclose(file);
-	BXH();
+	fflush(stdin);
 }
-void BXH() {
+void BXH(FILE *f) {
 	char c;
+	int length;
 	system("cls");
 	PLAYER list[1000];
 	int i = 0;
-	FILE *f = fopen("Player.txt", "r");
+	//FILE *f = fopen("Player.txt", "r");
 	while (!feof(f)) {
+		fflush(stdin);
 		fgets(list[i].Name, 30, f);
-		fscanf(f, "%d", &list[i].score);
-		fgetc(f);
+		if (!strcmp(list[i].Name, "\n"))					// 
+			break;											//
+		length = strlen(list[i].Name) - 1;					//
+		if ((length > 0) && (list[i].Name[length] == '\n')) //
+			list[i].Name[length] = '\0';					// https://stackoverflow.com/questions/25615916/removing-newline-from-fgets
+		fscanf(f, "%d\n", &list[i].score);
+		//fgetc(f);
 		printf("%d. %s    %d\n", i + 1, list[i].Name, list[i].score);
 		i++;
+		fflush(stdin);
 	}
 	_getch();
-
 }
 void gotoxy(int x, int y) //Dua con tro toi mot vi tri tren man hinh console
 {
@@ -257,7 +265,8 @@ void playGame(CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character, FILE *f
 
 		if (GameOver(car, vatcan))
 		{
-			fprintf(file, "%d\n", score);
+			fflush(stdin);
+			//fprintf(file, "%d\n", score);
 			gotoxy(31, 16);
 			Input(character, "Player.txt", score);
 			_getch();
@@ -291,6 +300,7 @@ void Rule()
 }
 void Menu(char *menu[], CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character, FILE *file)
 {
+	fflush(stdin);
 	int vitri = 0;
 	while (1)
 	{
@@ -347,7 +357,7 @@ void Menu(char *menu[], CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &characte
 				case 2: //BXH
 				{
 					system("cls");
-					BXH();
+					BXH(file);
 					system("pause");
 					if (_kbhit())
 					{

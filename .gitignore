@@ -13,3 +13,6 @@ Debug/1712592.obj
 *.idb
 *.ilk
 *.exe
+.vs/3Xitis/v15/.suo
+.vs/3Xitis/v15/Browse.VC.db
+*.vcxproj
