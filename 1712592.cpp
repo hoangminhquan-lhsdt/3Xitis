@@ -52,7 +52,7 @@ void gotoxy(int x, int y) //Dua con tro toi mot vi tri tren man hinh console
 	COORD c = { x, y };
 	SetConsoleCursorPosition(h, c);
 }
-void Shape(CAR &car, VATCAN vatcan[], COIN coin[]) //Tao ra cac hinh dang cua cac vat tren man hinh
+void Shape(CAR &car, VATCAN vatcan[], COIN coin[], int riatruoc, int riasau) //Tao ra cac hinh dang cua cac vat tren man hinh
 {
 	int i;
 	// Xe
@@ -80,27 +80,31 @@ void Shape(CAR &car, VATCAN vatcan[], COIN coin[]) //Tao ra cac hinh dang cua ca
 		vatcan[i].hinhdang.o[0][1] = 'O'; vatcan[i].hinhdang.o[2][1] = 'O';
 		vatcan[i].hinhdang.o[1][0] = 'O'; vatcan[i].hinhdang.o[1][2] = 'O';
 		vatcan[i].hinhdang.o[1][1] = 'O';
-		vatcan[i].toado.x = rand() % (Width - 3) + 1;
+		do
+			vatcan[i].toado.x = rand() % (riasau - 3) + 1 + riatruoc;
+		while((vatcan[i].toado.x >= riasau) || (vatcan[i].toado.x <= riatruoc));
 		vatcan[i].toado.y = rand() % 4 - 6 * i;
 	}
 	//Coin
 	for (i = 0; i < 10; i++)
 	{
-		coin[i].toado.x = rand() % (Width - 1) + 1;
+		do
+			coin[i].toado.x = rand() % (riasau - 1) + 1 + riatruoc;
+		while ((coin[i].toado.x >= riasau) || (coin[i].toado.x <= riatruoc));
 		coin[i].toado.y = rand() % Height;
 	}
 }
-void Lane() //Ve lane
+void Lane(int riatruoc, int riasau) //Ve lane
 {
 	for (int i = 0; i < Height; i++)
 	{
-		gotoxy(0, i);
+		gotoxy(riatruoc, i);
 		putchar('|');
-		gotoxy(Width - 1, i);
+		gotoxy(riasau-1, i);
 		putchar('|');
 	}
 }
-void Create(CAR car, VATCAN vatcan[], COIN coin[]) // Ve xe vao duong dua
+void Create(CAR car, VATCAN vatcan[], COIN coin[], int riatruoc, int riasau) // Ve xe vao duong dua
 {
 	int i, j, k;
 	//Dua xe vao duong dua
@@ -137,7 +141,7 @@ void Create(CAR car, VATCAN vatcan[], COIN coin[]) // Ve xe vao duong dua
 	}
 
 	//Tao lai lane
-	Lane();
+	Lane(riatruoc,riasau);
 }
 void CarDiChuyen(CAR &car)
 {
@@ -149,7 +153,7 @@ void CarDiChuyen(CAR &car)
 			car.toado.x++;
 	}
 }
-void VatCanDiChuyen(VATCAN vatcan[])
+void VatCanDiChuyen(VATCAN vatcan[], int riatruoc, int riasau)
 {
 	int i;
 	for (i = 0; i < 5; i++)
@@ -157,12 +161,14 @@ void VatCanDiChuyen(VATCAN vatcan[])
 		vatcan[i].toado.y++;
 		if (vatcan[i].toado.y > Height) //Vat can ra khoi man hinh, tao vat can moi
 		{
-			vatcan[i].toado.x = rand() % (Width - 3) + 1;
-			vatcan[i].toado.y = rand() % 2;
+			do
+				vatcan[i].toado.x = rand() % (riasau - 3) + 1 + riatruoc;
+			while ((vatcan[i].toado.x >= riasau) || (vatcan[i].toado.x <= riatruoc));
+			vatcan[i].toado.y = rand() % 3;
 		}
 	}
 }
-void CoinDiChuyen(COIN coin[])
+void CoinDiChuyen(COIN coin[], int riatruoc, int riasau)
 {
 	int i;
 	for (i = 0; i < 10; i++)
@@ -170,36 +176,39 @@ void CoinDiChuyen(COIN coin[])
 		coin[i].toado.y++;
 		if (coin[i].toado.y > Height) //Coin ra khoi man hinh, tao coin moi
 		{
-			coin[i].toado.x = rand() % (Width - 3) + 1;
-			coin[i].toado.y = rand() % 2;
+			do
+				coin[i].toado.x = rand() % (riasau - 1) + 1 + riatruoc;
+			while ((coin[i].toado.x >= riasau) || (coin[i].toado.x <= riatruoc));
+			coin[i].toado.y = rand() % 4;
 		}
 	}
 }
-void Control(CAR &car, VATCAN vatcan[], COIN coin[])
+void Control(CAR &car, VATCAN vatcan[], COIN coin[], int riatruoc, int riasau)
 {
 	int dem = 0;
 	//Xe di chuyuen
 	CarDiChuyen(car);
 
 	//Vat can di chuyen
-	VatCanDiChuyen(vatcan);
+	VatCanDiChuyen(vatcan, riatruoc, riasau);
 
 	// coin roi
-	CoinDiChuyen(coin);
+	CoinDiChuyen(coin, riatruoc, riasau);
 }
 int Distance(int x, int y) //Khoang cach giua cac vat tinh tu tam vat
 {
 	return abs(x - y);
 }
-int Score(CAR &car, COIN coin[])
+int Score(CAR &car, COIN coin[], int riatruoc, int riasau)
 {
 	for (int i = 0; i < 10; i++)
 	{
 		if (Distance(car.toado.x, coin[i].toado.x) < 2 && Distance(car.toado.y, coin[i].toado.y) < 2)
 		{
-			coin[i].toado.x = rand() % (Width - 3) + 1;
+			do
+				coin[i].toado.x = rand() % (riasau - 1) + 1 + riatruoc;
+			while ((coin[i].toado.x >= riasau) || (coin[i].toado.x <= riatruoc));
 			coin[i].toado.y = rand() % 4;
-			return car.score++;
 		}
 	}
 	return car.score;
@@ -238,7 +247,7 @@ bool GameOver(CAR car, VATCAN vatcan[])
 	}
 	return false;
 }
-void playGame(CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character, FILE *file)
+void playGame(CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character, FILE *file, int riatruoc, int riasau)
 {
 	car.toado.x = 20;
 	car.toado.y = 28;
@@ -246,20 +255,20 @@ void playGame(CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character, FILE *f
 	int score, time;
 
 	//CB cac thu can thiet
-	Shape(car, vatcan, coin);
-	Lane();
-	Create(car, vatcan, coin);
+	Shape(car, vatcan, coin, riatruoc, riasau);
+	Lane(riatruoc, riasau);
+	Create(car, vatcan, coin, riatruoc, riasau);
 
 	//Bat dau game
 	while (1)
 	{
 		system("cls"); //Xoa man hinh
 
-		Create(car, vatcan, coin); //Dua xe,vc, coin vao man hinh
+		Create(car, vatcan, coin, riatruoc, riasau); //Dua xe,vc, coin vao man hinh
 
-		Control(car, vatcan, coin); //Lam cho cac vat di chuyen
+		Control(car, vatcan, coin, riatruoc, riasau); //Lam cho cac vat di chuyen
 									//Ai(car, vatcan, coin);
-		score = Score(car, coin); //Diem
+		score = Score(car, coin, riatruoc, riasau); //Diem
 		gotoxy(31, 15);
 		printf("Score: %d", score); //Viet diem
 
@@ -280,6 +289,96 @@ void playGame(CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character, FILE *f
 		else Sleep(time);
 	}
 }
+void controlTwoCar(CAR &car, CAR &car2, int riatruoc1, int riasau1, int riatruoc2, int riasau2)
+{
+	if (_kbhit()) //kiem tra xem co phim nao dc nhan khonog 
+	{
+
+		if ((GetAsyncKeyState(VK_NUMPAD4)) && (car2.toado.x > riatruoc2 + 2))
+			car2.toado.x--;
+		if ((GetAsyncKeyState(VK_NUMPAD6)) && (car2.toado.x < riasau2 - 3))
+			car2.toado.x++;
+		if ((GetAsyncKeyState(VK_LEFT)) && (car.toado.x > riatruoc1 + 2))
+			car.toado.x--;
+		if ((GetAsyncKeyState(VK_RIGHT)) && (car.toado.x < riasau1 - 3))
+			car.toado.x++;
+	}
+}
+void playTwoCar(CAR &car1, VATCAN vatcan1[], COIN coin1[], CAR &car2, VATCAN vatcan2[], COIN coin2[])
+{
+	car1.toado.x = 20;
+	car1.toado.y = 28;
+	car2.toado.x = 60;
+	car2.toado.y = 28;
+
+	car1.score = 0;
+	car2.score = 0;
+	int score1, score2, time;
+	int riatruoc1 = 0;
+	int riasau1 = Width;
+	int riatruoc2 = 50;
+	int riasau2 = 80;
+
+	//CB cac thu can thiet
+	//PLayer 1
+	Shape(car1, vatcan1, coin1, riatruoc1, riasau1);
+	Lane(riatruoc1, riasau1);
+	//Player 2
+	Shape(car2, vatcan2, coin2, riatruoc2, riasau2);
+	Lane(riatruoc2, riasau2);
+	//Dua vao 
+	Create(car1, vatcan1, coin1, riatruoc1, riasau1);
+	Create(car2, vatcan2, coin2, riatruoc2, riasau2);
+
+	//Bat dau game
+	while (1)
+	{
+		system("cls"); //Xoa man hinh
+					   //Xuat ra man hinh
+		Create(car1, vatcan1, coin1, riatruoc1, riasau1); //Dua xe,vc, coin vao man hinh
+		Create(car2, vatcan2, coin2, riatruoc2, riasau2);
+
+		//Control
+		controlTwoCar(car1, car2, riatruoc1, riasau1, riatruoc2, riasau2); //Lam cho cac vat di chuyen
+
+		VatCanDiChuyen(vatcan1, riatruoc1, riasau1);
+		VatCanDiChuyen(vatcan2, riatruoc2, riasau2);
+		CoinDiChuyen(coin1, riatruoc1, riasau1);
+		CoinDiChuyen(coin2, riatruoc2, riasau2);
+
+		//Ai(car, vatcan, coin);
+		score1 = Score(car1, coin1, riatruoc1, riasau1);
+		score2 = Score(car2, coin2, riatruoc2, riasau2);//Diem
+		gotoxy(31, 7);
+		printf("Socre: %d", score1); //Viet diem
+		gotoxy(90, 15);
+		printf("Socre: %d", score2);
+
+		if (GameOver(car1, vatcan1))
+		{
+			system("cls");
+			gotoxy(30, 15);
+			printf("Nguoi choi 2 thang\n");
+			system("pause");
+			return;
+		}
+		if (GameOver(car2, vatcan2))
+		{
+			system("cls");
+			gotoxy(30, 15);
+			printf("Nguoi choi 1 thang\n");
+			system("pause");
+			return;
+		}
+
+		//Nhip game
+		time = 100 - score1;
+
+		if (time>3)
+			Sleep(time); //Diem cang cao cang nhanh 
+		else Sleep(time);
+	}
+}
 void runWord()
 {
 	for (int i = 0; i < Height; i++)
@@ -288,7 +387,6 @@ void runWord()
 		printf("Ban Dang Dua Xe");
 	}
 }
-
 void Rule()
 {
 	gotoxy(30, 15);
@@ -298,7 +396,7 @@ void Rule()
 	printf("Dont hit the obstacles.");
 	gotoxy(30, 17);
 }
-void Menu(char *menu[], CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character, FILE *file)
+void Menu(char *menu[], CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character, FILE *file, CAR &car2, VATCAN vatcan2[], COIN coin2[])
 {
 	fflush(stdin);
 	int vitri = 0;
@@ -310,12 +408,12 @@ void Menu(char *menu[], CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &characte
 			if (GetAsyncKeyState(VK_UP))
 			{
 				if (vitri == 0)
-					vitri = MAXMENU;
+					vitri = MAXMENU-1;
 				else vitri--;
 			}
 			if (GetAsyncKeyState(VK_DOWN))
 			{
-				if (vitri == MAXMENU)
+				if (vitri == MAXMENU-1)
 					vitri = 0;
 				else vitri++;
 			}
@@ -340,34 +438,39 @@ void Menu(char *menu[], CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &characte
 				case 0:
 				{
 					if(_kbhit())
-						playGame(car, vatcan, coin, character, file);
+						playGame(car, vatcan, coin, character, file, 0 ,Width);
 					break;
 				}
 				case 1:
+				{
+					playTwoCar(car, vatcan, coin, car2, vatcan2, coin2);
+					break;
+				}
+				case 2:
 				{
 					system("cls");
 					Rule();
 					system("pause");
 					if (_kbhit())
 					{
-						Menu(menu, car, vatcan, coin, character, file);
+						Menu(menu, car, vatcan, coin, character, file, car2,vatcan2,coin2);
 					}
 					break;
 				}
-				case 2: //BXH
+				case 3: //BXH
 				{
 					system("cls");
 					BXH(file);
 					system("pause");
 					if (_kbhit())
 					{
-						Menu(menu, car, vatcan, coin, character, file);
+						Menu(menu, car, vatcan, coin, character, file, car2, vatcan2, coin2);
 					}
 					break;
 				}
 
-				case 3: return; 
-				}
+				case 4: return; 
+				} 
 				
 			}
 		}
