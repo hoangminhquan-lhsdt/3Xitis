@@ -307,9 +307,9 @@ void controlTwoCar(CAR &car, CAR &car2, int riatruoc1, int riasau1, int riatruoc
 }
 void playTwoCar(CAR &car1, VATCAN vatcan1[], COIN coin1[], CAR &car2, VATCAN vatcan2[], COIN coin2[])
 {
-	car1.toado.x = 20;
+	car1.toado.x = 15;
 	car1.toado.y = 28;
-	car2.toado.x = 60;
+	car2.toado.x = 100;
 	car2.toado.y = 28;
 
 	car1.score = 0;
@@ -317,8 +317,8 @@ void playTwoCar(CAR &car1, VATCAN vatcan1[], COIN coin1[], CAR &car2, VATCAN vat
 	int score1, score2, time;
 	int riatruoc1 = 0;
 	int riasau1 = Width;
-	int riatruoc2 = 50;
-	int riasau2 = 80;
+	int riatruoc2 = 90;
+	int riasau2 = 120;
 
 	//CB cac thu can thiet
 	//PLayer 1
@@ -350,26 +350,35 @@ void playTwoCar(CAR &car1, VATCAN vatcan1[], COIN coin1[], CAR &car2, VATCAN vat
 		//Ai(car, vatcan, coin);
 		score1 = Score(car1, coin1, riatruoc1, riasau1);
 		score2 = Score(car2, coin2, riatruoc2, riasau2);//Diem
-		/*gotoxy(31, 7);
-		printf("Socre: %d", score1); //Viet diem
-		gotoxy(90, 15);
-		printf("Socre: %d", score2);*/
+		gotoxy(31, 7);
+		printf("Socre 1: %d", score1); //Viet diem
+		gotoxy(80, 7);
+		printf("Socre 2: %d", score2);
 
-		if (GameOver(car1, vatcan1))
+		if (GameOver(car1, vatcan1) || GameOver(car2, vatcan2))
 		{
 			system("cls");
-			gotoxy(30, 15);
-			printf("Nguoi choi 2 thang\n");
-			system("pause");
-			return;
-		}
-		if (GameOver(car2, vatcan2))
-		{
-			system("cls");
-			gotoxy(30, 15);
-			printf("Nguoi choi 1 thang\n");
-			system("pause");
-			return;
+			if (score2 > score1)
+			{
+				gotoxy(30, 15);
+				printf("Nguoi choi 2 thang\n");
+				system("pause");
+				return;
+			}
+			else if (score1 > score2)
+			{
+				gotoxy(30, 15);
+				printf("Nguoi choi 1 thang\n");
+				system("pause");
+				return;
+			}
+			else
+			{
+				gotoxy(30, 15);
+				printf("Hoa\n");
+				system("pause");
+				return;
+			}
 		}
 
 		//Nhip game
@@ -380,20 +389,19 @@ void playTwoCar(CAR &car1, VATCAN vatcan1[], COIN coin1[], CAR &car2, VATCAN vat
 		else Sleep(time);
 	}
 }
-void runWord()
+void runWord(TOADO td)
 {
-	for (int i = 0; i < Height; i++)
-	{
-		gotoxy(40, i);
-		printf("Ban Dang Dua Xe");
-	}
+	td.y++;
+	if(td.y==Height)
+		
+	gotoxy(td.x, td.y);
+	printf("Ban Dang Dua Xe");
 }
 void Rule()
 {
 	gotoxy(30, 15);
 	printf("Dung cac phim mui ten di chuyen va nhat tien.");
 	gotoxy(30, 16);
-	printf("Dont hit\n");
 	printf("Dont hit the obstacles.");
 	gotoxy(30, 17);
 }

@@ -3,7 +3,9 @@
 #define Height 30
 #define Width 30
 #define MAXMENU 5 //Danh sach max cua Menu
-//test
+
+enum TrangThai  { UP,DOWN };
+
 struct PLAYER
 {
 	char Name[30] = {'a'};
