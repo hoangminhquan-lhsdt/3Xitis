@@ -2,7 +2,8 @@
 
 #define Height 30
 #define Width 30
-
+#define MAXMENU 5 //Danh sach max cua Menu
+//test
 struct PLAYER
 {
 	char Name[30] = {'a'};
@@ -32,22 +33,24 @@ struct COIN
 {
 	TOADO toado;
 };
-void BXH();
+void BXH(FILE *f);
 void Input(PLAYER player, char filename[], int score);
 void gotoxy(int x, int y);
-void Shape(CAR &car, VATCAN vatcan[], COIN coin[]);
-void Lane(); 
-void Create(CAR car, VATCAN vatcan[], COIN coin[]);
-void VatCanDiChuyen(VATCAN vatcan[]);
-void CoinDiChuyen(COIN coin[]);
+void Shape(CAR &car, VATCAN vatcan[], COIN coin[], int riatruoc, int riasau);
+void Lane(int riatruoc, int riasau);
+void Create(CAR car, VATCAN vatcan[], COIN coin[], int riatruoc, int riasau);
+void VatCanDiChuyen(VATCAN vatcan[], int riatruoc, int riasau);
+void CoinDiChuyen(COIN coin[], int riatruoc, int riasau);
 void CarDiChuyen(CAR &car);
-void Control(CAR &car, VATCAN vatcan[], COIN coin[]);
+void Control(CAR &car, VATCAN vatcan[], COIN coin[], int riatruoc, int riasau);
 bool GameOver(CAR car, VATCAN vatcan[]);
-int Score(CAR &car, COIN coin[]);
+int Score(CAR &car, COIN coin[], int riatruoc, int riasau);
 int Distance(int x, int y);
 void Input(PLAYER character, char filename[], int score);
 void Ai(CAR &car, VATCAN vatcan[], COIN coin[]);
-void playGame(CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character, FILE *file);
+void playGame(CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character, FILE *file, int riatruoc, int riasau);
+void controlTwoCar(CAR &car, CAR &car2, int riatruoc1, int riasau1, int riatruoc2, int riasau2);
+void playTwoCar(CAR &car1, VATCAN vatcan1[], COIN coin1[], CAR &car2, VATCAN vatcan2[], COIN coin2[]);
 void Rule();
-void Menu(char *menu[], CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character, FILE *file);
+void Menu(char *menu[], CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character, FILE *file, CAR &car2, VATCAN vatcan2[], COIN coin2[]);
 void runWord();

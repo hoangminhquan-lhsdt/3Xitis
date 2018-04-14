@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 hac 1
 9
 hieunghia
@@ -9,3 +10,31 @@ hieunghia
 hieunghia
 33
 33
+=======
+hsc
+	9
+sc
+	3
+hac
+	5
+ac
+	4
+Ho Phan Minh
+	24
+Ho
+	5
+HoPM
+	1
+Loz
+	3
+oz
+	69
+
+	1
+ll
+	4
+Loz
+	0
+Lo
+	5
+>>>>>>> d75920c4714a260f2cebb995aa6c10ad4a5614e7
