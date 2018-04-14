@@ -7,6 +7,10 @@
 #include <math.h>
 #include <string.h>
 #pragma warning(disable:4996)
+
+
+
+
 void Input(PLAYER character, char filename[], int score)
 {
 	char c;
@@ -139,6 +143,7 @@ void CarDiChuyen(CAR &car)
 			car.toado.x++;
 	}
 }
+
 void VatCanDiChuyen(VATCAN vatcan[])
 {
 	int i;
@@ -151,6 +156,8 @@ void VatCanDiChuyen(VATCAN vatcan[])
 			vatcan[i].toado.y = rand() % 2;
 		}
 	}
+	
+	
 }
 void CoinDiChuyen(COIN coin[])
 {
@@ -176,6 +183,7 @@ void Control(CAR &car, VATCAN vatcan[], COIN coin[])
 
 	// coin roi
 	CoinDiChuyen(coin);
+	//vatcanqualai
 }
 int Distance(int x, int y) //Khoang cach giua cac vat tinh tu tam vat
 {
@@ -354,5 +362,7 @@ void Menu(char *menu[], CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &characte
 		Sleep(50);
 	}
 }
+
+
 
 
