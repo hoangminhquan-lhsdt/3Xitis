@@ -66,7 +66,6 @@ void Shape(CAR &car, VATCAN vatcan[], COIN coin[], int riatruoc, int riasau) //T
 	car.hinhdang.o[0][1] = '-'; car.hinhdang.o[2][1] = '-'; // Than truoc, than sau
 	car.hinhdang.o[1][0] = '|'; car.hinhdang.o[1][2] = '|';
 	car.hinhdang.o[1][1] = 'M';
-
 	//Vat can
 	/*	Hinh dang
 						OOO
