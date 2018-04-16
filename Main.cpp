@@ -9,7 +9,7 @@
 void main()
 {
 	CAR car,car2;
-	VATCAN vatcan[5], vatcan2[5];
+	VATCAN vatcan[10], vatcan2[10];
 	COIN coin[10], coin2[10];
 	PLAYER character;
 	char *menu[] = { "Play game","2 Player","Rule","BXH","Exit" };

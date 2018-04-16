@@ -83,8 +83,9 @@ void Shape(CAR &car, VATCAN vatcan[], COIN coin[], int riatruoc, int riasau) //T
 			vatcan[i].toado.x = rand() % (riasau - 3) + 1 + riatruoc;
 		while((vatcan[i].toado.x >= riasau) || (vatcan[i].toado.x <= riatruoc));
 		vatcan[i].toado.y = rand() % 4 - 6 * i;
+
 	}
-	//Coin
+	//Coin: $
 	for (i = 0; i < 10; i++)
 	{
 		do
@@ -95,6 +96,12 @@ void Shape(CAR &car, VATCAN vatcan[], COIN coin[], int riatruoc, int riasau) //T
 }
 void Lane(int riatruoc, int riasau) //Ve lane
 {
+	/*
+			|	|
+			|	|
+			.....
+			|	|
+	*/
 	for (int i = 0; i < Height; i++)
 	{
 		gotoxy(riatruoc, i);

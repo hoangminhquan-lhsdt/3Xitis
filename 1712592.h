@@ -4,7 +4,7 @@
 #define Width 30
 #define MAXMENU 5 //Danh sach max cua Menu
 
-enum TrangThai  { UP,DOWN };
+enum TRANGTHAI  { UP,DOWN};
 
 struct PLAYER
 {
@@ -29,7 +29,6 @@ struct VATCAN
 {
 	SHAPE hinhdang;
 	TOADO toado;
-
 };
 struct COIN
 {

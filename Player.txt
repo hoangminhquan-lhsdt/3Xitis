@@ -26,3 +26,5 @@ Lo
 	5
 Fuck
 	86
+FFuck
+	86
