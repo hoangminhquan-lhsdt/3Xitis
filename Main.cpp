@@ -12,10 +12,11 @@ void main()
 	VATCAN vatcan[10], vatcan2[10];
 	COIN coin[10], coin2[10];
 	PLAYER character;
+	CHUCHAY cc;
 	char *menu[] = { "Play game","2 Player","Rule","BXH","Exit" };
 	srand((unsigned)time(NULL));
 	FILE *file = fopen("Player.txt", "a+");
-	Menu(menu, car, vatcan, coin, character, file, car2, vatcan2,coin2);
+	Menu(menu, car, vatcan, coin, character, file, car2, vatcan2,coin2,cc);
 	fclose(file);
 	//Thiet lap thong so ve xe
 	_getch();
