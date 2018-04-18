@@ -38,6 +38,7 @@ Loz
 Lo
 	5
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> d75920c4714a260f2cebb995aa6c10ad4a5614e7
 hieunghia
 	2
@@ -62,6 +63,8 @@ ieunghia
 
 	2
 =======
+=======
+>>>>>>> 46e5ae24ef3c5295bff976a69407317b67daf41f
 Fuck
 	86
 FFuck
@@ -74,4 +77,7 @@ FFuck
 	0
 
 	1
+<<<<<<< HEAD
+>>>>>>> 46e5ae24ef3c5295bff976a69407317b67daf41f
+=======
 >>>>>>> 46e5ae24ef3c5295bff976a69407317b67daf41f
