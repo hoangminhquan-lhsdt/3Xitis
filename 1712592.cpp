@@ -72,7 +72,7 @@ void Shape(CAR &car, VATCAN vatcan[], COIN coin[], int riatruoc, int riasau) //T
 						OOO
 						OOO
 	*/
-	for (i = 0; i < 5; i++)
+	for (i = 0; i < 10; i++)
 	{
 		vatcan[i].hinhdang.o[0][0] = 'O'; vatcan[i].hinhdang.o[0][2] = 'O';
 		vatcan[i].hinhdang.o[2][0] = 'O'; vatcan[i].hinhdang.o[2][2] = 'O';
@@ -110,7 +110,7 @@ void Lane(int riatruoc, int riasau) //Ve lane
 		putchar('|');
 	}
 }
-void Create(CAR car, VATCAN vatcan[], COIN coin[], int riatruoc, int riasau) // Ve xe vao duong dua
+void Create(CAR car, VATCAN vatcan[], COIN coin[], int riatruoc, int riasau,int sovatcan) // Ve xe vao duong dua
 {
 	int i, j, k;
 	//Dua xe vao duong dua
@@ -124,7 +124,7 @@ void Create(CAR car, VATCAN vatcan[], COIN coin[], int riatruoc, int riasau) // 
 	}
 
 	//Dua vat can vao duong dua
-	for (k = 0; k < 5; k++)
+	for (k = 0; k < sovatcan; k++)
 	{
 		if (vatcan[k].toado.y > 0 && vatcan[k].toado.y < Height) //Nam ngoai man hinh thi ko dua vao
 		{
@@ -159,10 +159,10 @@ void CarDiChuyen(CAR &car)
 			car.toado.x++;
 	}
 }
-void VatCanDiChuyen(VATCAN vatcan[], int riatruoc, int riasau)
+void VatCanDiChuyen(VATCAN vatcan[], int riatruoc, int riasau, int sovatcan)
 {
 	int i;
-	for (i = 0; i < 5; i++)
+	for (i = 0; i < sovatcan; i++)
 	{
 		vatcan[i].toado.y++;
 		if (vatcan[i].toado.y > Height) //Vat can ra khoi man hinh, tao vat can moi
@@ -189,14 +189,14 @@ void CoinDiChuyen(COIN coin[], int riatruoc, int riasau)
 		}
 	}
 }
-void Control(CAR &car, VATCAN vatcan[], COIN coin[], int riatruoc, int riasau, CHUCHAY &cc)
+void Control(CAR &car, VATCAN vatcan[], COIN coin[], int riatruoc, int riasau, CHUCHAY &cc, int sovatcan)
 {
 	int dem = 0;
 	//Xe di chuyuen
 	CarDiChuyen(car);
 
 	//Vat can di chuyen
-	VatCanDiChuyen(vatcan, riatruoc, riasau);
+	VatCanDiChuyen(vatcan, riatruoc, riasau, sovatcan);
 
 	// coin roi
 	CoinDiChuyen(coin, riatruoc, riasau);
@@ -257,31 +257,39 @@ bool GameOver(CAR car, VATCAN vatcan[])
 	}
 	return false;
 }
-void playGame(CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character, FILE *file, int riatruoc, int riasau, CHUCHAY &cc)
+void playGame(CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character, FILE *file, int riatruoc, int riasau, CHUCHAY &cc, int &sovatcan)
 {
 	car.toado.x = 20;
 	car.toado.y = 28;
 	car.score = 0;
-	int score, time;
+	int score, time, temp = -1;
 	cc.toaodo.y = 0;
 	//CB cac thu can thiet
 	Shape(car, vatcan, coin, riatruoc, riasau);
 	Lane(riatruoc, riasau);
-	Create(car, vatcan, coin, riatruoc, riasau);
+	Create(car, vatcan, coin, riatruoc, riasau,sovatcan);
 
 	//Bat dau game
 	while (1)
 	{
 		system("cls"); //Xoa man hinh
 
-		Create(car, vatcan, coin, riatruoc, riasau); //Dua xe,vc, coin vao man hinh
+		Create(car, vatcan, coin, riatruoc, riasau,sovatcan); //Dua xe,vc, coin vao man hinh
 
-		Control(car, vatcan, coin, riatruoc, riasau,cc); //Lam cho cac vat di chuyen
+		Control(car, vatcan, coin, riatruoc, riasau,cc,sovatcan); //Lam cho cac vat di chuyen
 									//Ai(car, vatcan, coin);
 		score = Score(car, coin, riatruoc, riasau); //Diem
 		gotoxy(31, 15);
 		printf("Score: %d", score); //Viet diem
-
+		if ((score %20 == 0)&& temp!=score && score >1)
+		{
+			temp = score;
+			/*do
+				vatcan[sovatcan].toado.x = rand() % (riasau - 3) + 1 + riatruoc;
+			while ((vatcan[sovatcan ].toado.x >= riasau) || (vatcan[sovatcan ].toado.x <= riatruoc));
+			vatcan[sovatcan].toado.y = rand() % 3;*/
+			sovatcan++;
+		}
 		if (GameOver(car, vatcan))
 		{
 			fflush(stdin);
@@ -314,7 +322,7 @@ void controlTwoCar(CAR &car, CAR &car2, int riatruoc1, int riasau1, int riatruoc
 			car.toado.x++;
 	}
 }
-void playTwoCar(CAR &car1, VATCAN vatcan1[], COIN coin1[], CAR &car2, VATCAN vatcan2[], COIN coin2[], CHUCHAY &cc)
+void playTwoCar(CAR &car1, VATCAN vatcan1[], COIN coin1[], CAR &car2, VATCAN vatcan2[], COIN coin2[], CHUCHAY &cc, int sovatcan)
 {
 	car1.toado.x = 15;
 	car1.toado.y = 28;
@@ -337,22 +345,22 @@ void playTwoCar(CAR &car1, VATCAN vatcan1[], COIN coin1[], CAR &car2, VATCAN vat
 	Shape(car2, vatcan2, coin2, riatruoc2, riasau2);
 	Lane(riatruoc2, riasau2);
 	//Dua vao 
-	Create(car1, vatcan1, coin1, riatruoc1, riasau1);
-	Create(car2, vatcan2, coin2, riatruoc2, riasau2);
+	Create(car1, vatcan1, coin1, riatruoc1, riasau1,sovatcan);
+	Create(car2, vatcan2, coin2, riatruoc2, riasau2,sovatcan);
 
 	//Bat dau game
 	while (1)
 	{
 		system("cls"); //Xoa man hinh
 					   //Xuat ra man hinh
-		Create(car1, vatcan1, coin1, riatruoc1, riasau1); //Dua xe,vc, coin vao man hinh
-		Create(car2, vatcan2, coin2, riatruoc2, riasau2);
+		Create(car1, vatcan1, coin1, riatruoc1, riasau1,sovatcan); //Dua xe,vc, coin vao man hinh
+		Create(car2, vatcan2, coin2, riatruoc2, riasau2,sovatcan);
 
 		//Control
 		controlTwoCar(car1, car2, riatruoc1, riasau1, riatruoc2, riasau2); //Lam cho cac vat di chuyen
 
-		VatCanDiChuyen(vatcan1, riatruoc1, riasau1);
-		VatCanDiChuyen(vatcan2, riatruoc2, riasau2);
+		VatCanDiChuyen(vatcan1, riatruoc1, riasau1,sovatcan);
+		VatCanDiChuyen(vatcan2, riatruoc2, riasau2,sovatcan);
 		CoinDiChuyen(coin1, riatruoc1, riasau1);
 		CoinDiChuyen(coin2, riatruoc2, riasau2);
 		runWord(cc);
@@ -422,7 +430,7 @@ void Rule()
 	printf("Dont hit the obstacles.");
 	gotoxy(30, 17);
 }
-void Menu(char *menu[], CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character, FILE *file, CAR &car2, VATCAN vatcan2[], COIN coin2[], CHUCHAY &cc)
+void Menu(char *menu[], CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character, FILE *file, CAR &car2, VATCAN vatcan2[], COIN coin2[], CHUCHAY &cc, int sovatcan)
 {
 	fflush(stdin);
 	int vitri = 0;
@@ -464,12 +472,12 @@ void Menu(char *menu[], CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &characte
 				case 0:
 				{
 					if(_kbhit())
-						playGame(car, vatcan, coin, character, file, 0 ,Width,cc);
+						playGame(car, vatcan, coin, character, file, 0 ,Width,cc, sovatcan);
 					break;
 				}
 				case 1:
 				{
-					playTwoCar(car, vatcan, coin, car2, vatcan2, coin2, cc);
+					playTwoCar(car, vatcan, coin, car2, vatcan2, coin2, cc,sovatcan);
 					break;
 				}
 				case 2:
@@ -479,7 +487,7 @@ void Menu(char *menu[], CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &characte
 					system("pause");
 					if (_kbhit())
 					{
-						Menu(menu, car, vatcan, coin, character, file, car2,vatcan2,coin2,cc);
+						Menu(menu, car, vatcan, coin, character, file, car2,vatcan2,coin2,cc,sovatcan);
 					}
 					break;
 				}
@@ -490,7 +498,7 @@ void Menu(char *menu[], CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &characte
 					system("pause");
 					if (_kbhit())
 					{
-						Menu(menu, car, vatcan, coin, character, file, car2, vatcan2, coin2,cc);
+						Menu(menu, car, vatcan, coin, character, file, car2, vatcan2, coin2,cc,sovatcan);
 					}
 					break;
 				}
