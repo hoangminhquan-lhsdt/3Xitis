@@ -164,7 +164,7 @@ void CarDiChuyen(CAR &car)
 	}
 }
 
-void DiChuyenPhai(VATCAN vatcan, int riatruoc, int riasau)//ban thu nghiem chua chay duoc
+void DiChuyenPhai(VATCAN vatcan, int riatruoc, int riasau)//thu nghiem
 {
 	vatcan.toado.y++;
 	vatcan.toado.x++;
@@ -179,7 +179,7 @@ void DiChuyenPhai(VATCAN vatcan, int riatruoc, int riasau)//ban thu nghiem chua 
 		return;
 
 }
-void DiChuyenTrai(VATCAN vatcan, int riatruoc, int riasau)
+void DiChuyenTrai(VATCAN vatcan, int riatruoc, int riasau)//thu nghiem
 {
 	vatcan.toado.y++;
 	vatcan.toado.x--;
@@ -192,9 +192,9 @@ void DiChuyenTrai(VATCAN vatcan, int riatruoc, int riasau)
 	}
 	if (vatcan.toado.x - 2 == riatruoc)
 		return;
-}//thu nghiem chua chay duoc
+}
 
-void VatCanDiChuyen(VATCAN vatcan[], int riatruoc, int riasau)
+void VatCanDiChuyen(VATCAN vatcan[], int riatruoc, int riasau)//add them di chuyen
 
 {
 	int i;
