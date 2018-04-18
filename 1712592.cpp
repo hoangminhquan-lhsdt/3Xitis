@@ -281,7 +281,7 @@ void playGame(CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character, FILE *f
 		score = Score(car, coin, riatruoc, riasau); //Diem
 		gotoxy(31, 15);
 		printf("Score: %d", score); //Viet diem
-		if ((score %20 == 0)&& temp!=score && score >1)
+		if ((score %20 == 0)&& temp!=score && score >1 && score <101)
 		{
 			temp = score;
 			/*do
