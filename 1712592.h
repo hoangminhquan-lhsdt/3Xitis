@@ -4,7 +4,7 @@
 #define Width 30
 #define MAXMENU 5 //Danh sach max cua Menu
 
-enum TRANGTHAI  { UP,DOWN};
+enum TRANGTHAI  { UP,DOWN,LEFT,RIGHT};
 
 struct PLAYER
 {
@@ -28,7 +28,8 @@ struct CAR
 struct VATCAN
 {
 	SHAPE hinhdang;
-	TOADO toado;
+	TOADO toado, trai, phai;
+	TRANGTHAI trangthai;
 };
 struct COIN
 {
@@ -46,7 +47,7 @@ void gotoxy(int x, int y);
 void Shape(CAR &car, VATCAN vatcan[], COIN coin[], int riatruoc, int riasau);
 void Lane(int riatruoc, int riasau);
 void Create(CAR car, VATCAN vatcan[], COIN coin[], int riatruoc, int riasau, int sovatcan);
-void VatCanDiChuyen(VATCAN vatcan[], int riatruoc, int riasau, int sovatcan);
+void moveVatCan(VATCAN vatcan[], int riatruoc, int riasau, int sovatcan);
 void CoinDiChuyen(COIN coin[], int riatruoc, int riasau);
 void CarDiChuyen(CAR &car);
 void Control(CAR &car, VATCAN vatcan[], COIN coin[], int riatruoc, int riasau, CHUCHAY &cc, int sovatcan);
@@ -61,3 +62,5 @@ void playTwoCar(CAR &car1, VATCAN vatcan1[], COIN coin1[], CAR &car2, VATCAN vat
 void Rule();
 void Menu(char *menu[], CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character, FILE *file, CAR &car2, VATCAN vatcan2[], COIN coin2[], CHUCHAY &cc, int sovatcan);
 void runWord(CHUCHAY &cc);
+void VatCanDiChuyen(VATCAN vatcan[], int riatruoc, int riasau, int sovatcan);
+

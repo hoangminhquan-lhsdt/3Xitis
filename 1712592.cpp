@@ -9,8 +9,6 @@
 #pragma warning(disable:4996)
 
 
-
-
 void Input(PLAYER character, char filename[], int score)
 {
 	char c;
@@ -58,7 +56,7 @@ void gotoxy(int x, int y) //Dua con tro toi mot vi tri tren man hinh console
 }
 void Shape(CAR &car, VATCAN vatcan[], COIN coin[], int riatruoc, int riasau) //Tao ra cac hinh dang cua cac vat tren man hinh
 {
-	int i;
+	int i, k;
 	// Xe
 	/*	Hinh dang
 						O-O
@@ -83,11 +81,24 @@ void Shape(CAR &car, VATCAN vatcan[], COIN coin[], int riatruoc, int riasau) //T
 		vatcan[i].hinhdang.o[0][1] = 'O'; vatcan[i].hinhdang.o[2][1] = 'O';
 		vatcan[i].hinhdang.o[1][0] = 'O'; vatcan[i].hinhdang.o[1][2] = 'O';
 		vatcan[i].hinhdang.o[1][1] = 'O';
+
+		//Gan toa doj vat can
 		do
 			vatcan[i].toado.x = rand() % (riasau - 3) + 1 + riatruoc;
 		while((vatcan[i].toado.x >= riasau) || (vatcan[i].toado.x <= riatruoc));
 		vatcan[i].toado.y = rand() % 4 - 6 * i;
+		
 
+		//Chon chieu vat can di chuyen
+		k = rand() % 2;
+		if (k == 0)
+			vatcan[i].trangthai = LEFT;
+		else
+			vatcan[i].trangthai = RIGHT;
+
+		//Bien
+		vatcan[i].trai.x = vatcan[i].toado.x - 2;
+		vatcan[i].phai.x = vatcan[i].toado.x + 2;
 	}
 	//Coin: $
 	for (i = 0; i < 10; i++)
@@ -163,11 +174,21 @@ void CarDiChuyen(CAR &car)
 			car.toado.x++;
 	}
 }
-<<<<<<< HEAD
-void VatCanDiChuyen(VATCAN vatcan[], int riatruoc, int riasau, int sovatcan)
-=======
 
-void DiChuyenPhai(VATCAN vatcan, int riatruoc, int riasau)//ban thu nghiem chua chay duoc
+void moveVatCan(VATCAN vatcan[], int riatruoc, int riasau, int sovatcan)
+{
+	int i;
+	for (i = 0; i < sovatcan; i++)
+	{
+		vatcan[i].toado.y++;
+		if (vatcan[i].toado.y > Height) //Vat can ra khoi man hinh, tao vat can moi
+		{
+			vatcan[i].toado.x = rand() % (Width - 3) + 1;
+			vatcan[i].toado.y = rand() % 2;
+		}
+	}
+}
+/*void DiChuyenPhai(VATCAN vatcan, int riatruoc, int riasau)//ban thu nghiem chua chay duoc
 {
 	vatcan.toado.y++;
 	vatcan.toado.x++;
@@ -195,16 +216,13 @@ void DiChuyenTrai(VATCAN vatcan, int riatruoc, int riasau)
 	}
 	if (vatcan.toado.x - 2 == riatruoc)
 		return;
-}//thu nghiem chua chay duoc
-
-void VatCanDiChuyen(VATCAN vatcan[], int riatruoc, int riasau)
-
->>>>>>> c04c0166a92acfb5686f0674a05a0dbd128b6cb0
+}//thu nghiem chua chay duoc*/
+void VatCanDiChuyen(VATCAN vatcan[], int riatruoc, int riasau, int sovatcan)
 {
 	int i;
 	for (i = 0; i < sovatcan; i++)
 	{
-		vatcan[i].toado.y++;
+		/*vatcan[i].toado.y++;
 		vatcan[i].toado.x++;
 		if (vatcan[i].toado.x+2 == riasau)
 			while (vatcan[i].toado.x != riatruoc)
@@ -216,7 +234,32 @@ void VatCanDiChuyen(VATCAN vatcan[], int riatruoc, int riasau)
 			while ((vatcan[i].toado.x >= riasau) || (vatcan[i].toado.x <= riatruoc));
 			vatcan[i].toado.y = rand() % 3;
 		}
-		DiChuyenPhai(vatcan[i], riatruoc, riasau);
+		DiChuyenPhai(vatcan[i], riatruoc, riasau);*/
+
+		//Sang trai phai
+		if (vatcan[i].toado.x == riatruoc + 2)
+			vatcan[i].trangthai = RIGHT;
+		if (vatcan[i].toado.x == riasau - 3)
+			vatcan[i].trangthai = LEFT;
+		if (vatcan[i].toado.x == vatcan[i].trai.x)
+			vatcan[i].trangthai = RIGHT;
+		if (vatcan[i].toado.x == vatcan[i].phai.x)
+			vatcan[i].trangthai = LEFT;
+		if (vatcan[i].trangthai == LEFT)
+			vatcan[i].toado.x--;
+		if (vatcan[i].trangthai == RIGHT)
+			vatcan[i].toado.x++;
+
+		//Di xuong
+		vatcan[i].toado.y++;
+		if (vatcan[i].toado.y > Height) //Vat can ra khoi man hinh, tao vat can moi
+		{
+			do
+				vatcan[i].toado.x = rand() % (riasau - 3) + 1 + riatruoc;
+			while ((vatcan[i].toado.x >= riasau) || (vatcan[i].toado.x <= riatruoc));
+			vatcan[i].toado.y = rand() % 3;
+		}
+		
 	}
 	
 }
@@ -246,8 +289,8 @@ void Control(CAR &car, VATCAN vatcan[], COIN coin[], int riatruoc, int riasau, C
 	CarDiChuyen(car);
 
 	//Vat can di chuyen
+	//moveVatCan(vatcan, riatruoc, riasau, sovatcan);
 	VatCanDiChuyen(vatcan, riatruoc, riasau, sovatcan);
-
 
 	// coin roi
 
@@ -260,8 +303,6 @@ void Control(CAR &car, VATCAN vatcan[], COIN coin[], int riatruoc, int riasau, C
 	//chu chay
 	runWord(cc);
 
-	//chu chay
-	runWord(cc);
 
 }
 int Distance(int x, int y) //Khoang cach giua cac vat tinh tu tam vat
@@ -344,10 +385,6 @@ void playGame(CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character, FILE *f
 		if ((score %20 == 0)&& temp!=score && score >1 && score <101)
 		{
 			temp = score;
-			/*do
-				vatcan[sovatcan].toado.x = rand() % (riasau - 3) + 1 + riatruoc;
-			while ((vatcan[sovatcan ].toado.x >= riasau) || (vatcan[sovatcan ].toado.x <= riatruoc));
-			vatcan[sovatcan].toado.y = rand() % 3;*/
 			sovatcan++;
 		}
 		if (GameOver(car, vatcan))
