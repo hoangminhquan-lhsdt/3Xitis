@@ -163,43 +163,10 @@ void CarDiChuyen(CAR &car)
 			car.toado.x++;
 	}
 }
-<<<<<<< HEAD
+
 void VatCanDiChuyen(VATCAN vatcan[], int riatruoc, int riasau, int sovatcan)
-=======
 
-void DiChuyenPhai(VATCAN vatcan, int riatruoc, int riasau)//thu nghiem
-{
-	vatcan.toado.y++;
-	vatcan.toado.x++;
-	if (vatcan.toado.y > Height) //Vat can ra khoi man hinh, tao vat can moi
-	{
-		do
-			vatcan.toado.x = rand() % (riasau - 3) + 1 + riatruoc;
-		while ((vatcan.toado.x >= riasau) || (vatcan.toado.x <= riatruoc));
-		vatcan.toado.y = rand() % 3;
-	}
-	if (vatcan.toado.x + 2 == riasau)
-		return;
 
-}
-void DiChuyenTrai(VATCAN vatcan, int riatruoc, int riasau)//thu nghiem
-{
-	vatcan.toado.y++;
-	vatcan.toado.x--;
-	if (vatcan.toado.y > Height) //Vat can ra khoi man hinh, tao vat can moi
-	{
-		do
-			vatcan.toado.x = rand() % (riasau - 3) + 1 + riatruoc;
-		while ((vatcan.toado.x >= riasau) || (vatcan.toado.x <= riatruoc));
-		vatcan.toado.y = rand() % 3;
-	}
-	if (vatcan.toado.x - 2 == riatruoc)
-		return;
-}
-
-void VatCanDiChuyen(VATCAN vatcan[], int riatruoc, int riasau)//add them di chuyen
-
->>>>>>> c04c0166a92acfb5686f0674a05a0dbd128b6cb0
 {
 	int i;
 	for (i = 0; i < sovatcan; i++)
@@ -216,7 +183,7 @@ void VatCanDiChuyen(VATCAN vatcan[], int riatruoc, int riasau)//add them di chuy
 			while ((vatcan[i].toado.x >= riasau) || (vatcan[i].toado.x <= riatruoc));
 			vatcan[i].toado.y = rand() % 3;
 		}
-		DiChuyenPhai(vatcan[i], riatruoc, riasau);
+		
 	}
 	
 }
