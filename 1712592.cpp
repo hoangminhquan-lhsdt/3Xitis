@@ -7,6 +7,10 @@
 #include <math.h>
 #include <string.h>
 #pragma warning(disable:4996)
+
+
+
+
 void Input(PLAYER character, char filename[], int score)
 {
 	char c;
@@ -159,12 +163,52 @@ void CarDiChuyen(CAR &car)
 			car.toado.x++;
 	}
 }
+<<<<<<< HEAD
 void VatCanDiChuyen(VATCAN vatcan[], int riatruoc, int riasau, int sovatcan)
+=======
+
+void DiChuyenPhai(VATCAN vatcan, int riatruoc, int riasau)//ban thu nghiem chua chay duoc
+{
+	vatcan.toado.y++;
+	vatcan.toado.x++;
+	if (vatcan.toado.y > Height) //Vat can ra khoi man hinh, tao vat can moi
+	{
+		do
+			vatcan.toado.x = rand() % (riasau - 3) + 1 + riatruoc;
+		while ((vatcan.toado.x >= riasau) || (vatcan.toado.x <= riatruoc));
+		vatcan.toado.y = rand() % 3;
+	}
+	if (vatcan.toado.x + 2 == riasau)
+		return;
+
+}
+void DiChuyenTrai(VATCAN vatcan, int riatruoc, int riasau)
+{
+	vatcan.toado.y++;
+	vatcan.toado.x--;
+	if (vatcan.toado.y > Height) //Vat can ra khoi man hinh, tao vat can moi
+	{
+		do
+			vatcan.toado.x = rand() % (riasau - 3) + 1 + riatruoc;
+		while ((vatcan.toado.x >= riasau) || (vatcan.toado.x <= riatruoc));
+		vatcan.toado.y = rand() % 3;
+	}
+	if (vatcan.toado.x - 2 == riatruoc)
+		return;
+}//thu nghiem chua chay duoc
+
+void VatCanDiChuyen(VATCAN vatcan[], int riatruoc, int riasau)
+
+>>>>>>> c04c0166a92acfb5686f0674a05a0dbd128b6cb0
 {
 	int i;
 	for (i = 0; i < sovatcan; i++)
 	{
 		vatcan[i].toado.y++;
+		vatcan[i].toado.x++;
+		if (vatcan[i].toado.x+2 == riasau)
+			while (vatcan[i].toado.x != riatruoc)
+				vatcan[i].toado.x--;
 		if (vatcan[i].toado.y > Height) //Vat can ra khoi man hinh, tao vat can moi
 		{
 			do
@@ -172,8 +216,14 @@ void VatCanDiChuyen(VATCAN vatcan[], int riatruoc, int riasau, int sovatcan)
 			while ((vatcan[i].toado.x >= riasau) || (vatcan[i].toado.x <= riatruoc));
 			vatcan[i].toado.y = rand() % 3;
 		}
+		DiChuyenPhai(vatcan[i], riatruoc, riasau);
 	}
+	
 }
+
+
+
+
 void CoinDiChuyen(COIN coin[], int riatruoc, int riasau)
 {
 	int i;
@@ -198,11 +248,24 @@ void Control(CAR &car, VATCAN vatcan[], COIN coin[], int riatruoc, int riasau, C
 	//Vat can di chuyen
 	VatCanDiChuyen(vatcan, riatruoc, riasau, sovatcan);
 
+
 	// coin roi
+
+	//CoinDiChuyen(coin);
+
+
 	CoinDiChuyen(coin, riatruoc, riasau);
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
 	//chu chay
 	runWord(cc);
+>>>>>>> 46e5ae24ef3c5295bff976a69407317b67daf41f
+=======
+	//chu chay
+	runWord(cc);
+>>>>>>> 46e5ae24ef3c5295bff976a69407317b67daf41f
 }
 int Distance(int x, int y) //Khoang cach giua cac vat tinh tu tam vat
 {
@@ -511,5 +574,7 @@ void Menu(char *menu[], CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &characte
 		Sleep(50);
 	}
 }
+
+
 
 
