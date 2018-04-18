@@ -256,16 +256,13 @@ void Control(CAR &car, VATCAN vatcan[], COIN coin[], int riatruoc, int riasau, C
 
 	CoinDiChuyen(coin, riatruoc, riasau);
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+
 	//chu chay
 	runWord(cc);
->>>>>>> 46e5ae24ef3c5295bff976a69407317b67daf41f
-=======
+
 	//chu chay
 	runWord(cc);
->>>>>>> 46e5ae24ef3c5295bff976a69407317b67daf41f
+
 }
 int Distance(int x, int y) //Khoang cach giua cac vat tinh tu tam vat
 {
