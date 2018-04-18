@@ -175,6 +175,7 @@ void CarDiChuyen(CAR &car)
 	}
 }
 
+
 void moveVatCan(VATCAN vatcan[], int riatruoc, int riasau, int sovatcan)
 {
 	int i;
@@ -189,6 +190,9 @@ void moveVatCan(VATCAN vatcan[], int riatruoc, int riasau, int sovatcan)
 	}
 }
 /*void DiChuyenPhai(VATCAN vatcan, int riatruoc, int riasau)//ban thu nghiem chua chay duoc
+=======
+void DiChuyenPhai(VATCAN vatcan, int riatruoc, int riasau)//thu nghiem
+>>>>>>> 573a36769a928466b17d9e0d501062ef0ab5b55a
 {
 	vatcan.toado.y++;
 	vatcan.toado.x++;
@@ -203,7 +207,7 @@ void moveVatCan(VATCAN vatcan[], int riatruoc, int riasau, int sovatcan)
 		return;
 
 }
-void DiChuyenTrai(VATCAN vatcan, int riatruoc, int riasau)
+void DiChuyenTrai(VATCAN vatcan, int riatruoc, int riasau)//thu nghiem
 {
 	vatcan.toado.y++;
 	vatcan.toado.x--;
@@ -216,8 +220,11 @@ void DiChuyenTrai(VATCAN vatcan, int riatruoc, int riasau)
 	}
 	if (vatcan.toado.x - 2 == riatruoc)
 		return;
+<<<<<<< HEAD
 }//thu nghiem chua chay duoc*/
-void VatCanDiChuyen(VATCAN vatcan[], int riatruoc, int riasau, int sovatcan)
+
+void VatCanDiChuyen(VATCAN vatcan[], int riatruoc, int riasau, int sovatcan)//add them di chuyen
+
 {
 	int i;
 	for (i = 0; i < sovatcan; i++)
