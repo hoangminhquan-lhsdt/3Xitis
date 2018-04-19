@@ -56,11 +56,11 @@ int Score(CAR &car, COIN coin[], int riatruoc, int riasau);
 int Distance(int x, int y);
 void Input(PLAYER character, char filename[], int score);
 void Ai(CAR &car, VATCAN vatcan[], COIN coin[]);
-void playGame(CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character, int riatruoc, int riasau, CHUCHAY &cc, int &sovatcan);
+void playGame();
 void controlTwoCar(CAR &car, CAR &car2, int riatruoc1, int riasau1, int riatruoc2, int riasau2);
-void playTwoCar(CAR &car1, VATCAN vatcan1[], COIN coin1[], CAR &car2, VATCAN vatcan2[], COIN coin2[], CHUCHAY &cc, int sovatcan);
+void playTwoCar();
 void Rule();
-void Menu(char *menu[], CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character, CAR &car2, VATCAN vatcan2[], COIN coin2[], CHUCHAY &cc, int sovatcan);
+void Menu(char *menu[]);
 void runWord(CHUCHAY &cc);
 void VatCanDiChuyen(VATCAN vatcan[], int riatruoc, int riasau, int sovatcan);
 

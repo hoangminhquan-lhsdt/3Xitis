@@ -17,7 +17,7 @@ void main()
 	char *menu[] = { "Play game","2 Player","Rule","BXH","Exit" };
 	srand((unsigned)time(NULL));
 	//FILE *file = fopen("Player.txt", "a+");
-	Menu(menu, car, vatcan, coin, character, car2, vatcan2, coin2, cc, sovatcan);
+	Menu(menu);
 	//Thiet lap thong so ve xe
 	_getch();
 }

@@ -175,8 +175,6 @@ void CarDiChuyen(CAR &car)
 			car.toado.x++;
 	}
 }
-
-
 void moveVatCan(VATCAN vatcan[], int riatruoc, int riasau, int sovatcan)
 {
 	int i;
@@ -223,7 +221,6 @@ void DiChuyenTrai(VATCAN vatcan, int riatruoc, int riasau)//thu nghiem
 		return;
 <<<<<<< HEAD
 }//thu nghiem chua chay duoc*/
-
 void VatCanDiChuyen(VATCAN vatcan[], int riatruoc, int riasau, int sovatcan)//add them di chuyen
 
 {
@@ -273,7 +270,6 @@ void VatCanDiChuyen(VATCAN vatcan[], int riatruoc, int riasau, int sovatcan)//ad
 	}
 	
 }
-
 void CoinDiChuyen(COIN coin[], int riatruoc, int riasau)
 {
 	int i;
@@ -360,13 +356,21 @@ bool GameOver(CAR car, VATCAN vatcan[])
 	}
 	return false;
 }
-void playGame(CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character, int riatruoc, int riasau, CHUCHAY &cc, int &sovatcan)
+void playGame()
 {
+	CAR car;
+	VATCAN vatcan[10];
+	COIN coin[10];
+	PLAYER character;
+	int riatruoc = 0, riasau = Width, sovatcan=5, score, time, temp = -1;
+	CHUCHAY cc;
+
+	//Thiet lap thong so
 	car.toado.x = 20;
 	car.toado.y = 28;
 	car.score = 0;
-	int score, time, temp = -1;
 	cc.toaodo.y = 0;
+
 	//CB cac thu can thiet
 	Shape(car, vatcan, coin, riatruoc, riasau);
 	Lane(riatruoc, riasau);
@@ -380,7 +384,7 @@ void playGame(CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character, int ria
 		Create(car, vatcan, coin, riatruoc, riasau,sovatcan); //Dua xe,vc, coin vao man hinh
 
 		Control(car, vatcan, coin, riatruoc, riasau,cc,sovatcan); //Lam cho cac vat di chuyen
-									//Ai(car, vatcan, coin);
+		//Ai(car, vatcan, coin);
 		score = Score(car, coin, riatruoc, riasau); //Diem
 		gotoxy(31, 15);
 		printf("Score: %d", score); //Viet diem
@@ -423,21 +427,26 @@ void controlTwoCar(CAR &car, CAR &car2, int riatruoc1, int riasau1, int riatruoc
 			car.toado.x++;
 	}
 }
-void playTwoCar(CAR &car1, VATCAN vatcan1[], COIN coin1[], CAR &car2, VATCAN vatcan2[], COIN coin2[], CHUCHAY &cc, int sovatcan)
+void playTwoCar()
 {
+	CAR car1, car2;
+	VATCAN vatcan1[10], vatcan2[10];
+	COIN coin1[10], coin2[10];
+	CHUCHAY cc;
+	int sovatcan1= 5,sovatcan2 = 5;
+
+	//Thiet lap thong so 2 xe
 	car1.toado.x = 15;
 	car1.toado.y = 28;
 	car2.toado.x = 100;
 	car2.toado.y = 28;
 
+	//Thiet lap cac thong so khac
 	car1.score = 0;
 	car2.score = 0;
-	int score1, score2, time;
-	int riatruoc1 = 0;
-	int riasau1 = Width;
-	int riatruoc2 = 90;
-	int riasau2 = 120;
+	int score1, score2, time, riatruoc1 = 0, riasau1 = Width, riatruoc2 = 90, riasau2 = 120, temp1 =-1, temp2 = -1;
 	cc.toaodo.y = 0;
+
 	//CB cac thu can thiet
 	//PLayer 1
 	Shape(car1, vatcan1, coin1, riatruoc1, riasau1);
@@ -446,28 +455,38 @@ void playTwoCar(CAR &car1, VATCAN vatcan1[], COIN coin1[], CAR &car2, VATCAN vat
 	Shape(car2, vatcan2, coin2, riatruoc2, riasau2);
 	Lane(riatruoc2, riasau2);
 	//Dua vao 
-	Create(car1, vatcan1, coin1, riatruoc1, riasau1,sovatcan);
-	Create(car2, vatcan2, coin2, riatruoc2, riasau2,sovatcan);
+	Create(car1, vatcan1, coin1, riatruoc1, riasau1,sovatcan1);
+	Create(car2, vatcan2, coin2, riatruoc2, riasau2,sovatcan2);
 
 	//Bat dau game
 	while (1)
 	{
 		system("cls"); //Xoa man hinh
 					   //Xuat ra man hinh
-		Create(car1, vatcan1, coin1, riatruoc1, riasau1,sovatcan); //Dua xe,vc, coin vao man hinh
-		Create(car2, vatcan2, coin2, riatruoc2, riasau2,sovatcan);
+		Create(car1, vatcan1, coin1, riatruoc1, riasau1,sovatcan1); //Dua xe,vc, coin vao man hinh
+		Create(car2, vatcan2, coin2, riatruoc2, riasau2,sovatcan2);
 
 		//Control
 		controlTwoCar(car1, car2, riatruoc1, riasau1, riatruoc2, riasau2); //Lam cho cac vat di chuyen
 
-		VatCanDiChuyen(vatcan1, riatruoc1, riasau1,sovatcan);
-		VatCanDiChuyen(vatcan2, riatruoc2, riasau2,sovatcan);
+		VatCanDiChuyen(vatcan1, riatruoc1, riasau1,sovatcan1);
+		VatCanDiChuyen(vatcan2, riatruoc2, riasau2,sovatcan2);
 		CoinDiChuyen(coin1, riatruoc1, riasau1);
 		CoinDiChuyen(coin2, riatruoc2, riasau2);
 		runWord(cc);
 		//Ai(car, vatcan, coin);
 		score1 = Score(car1, coin1, riatruoc1, riasau1);
 		score2 = Score(car2, coin2, riatruoc2, riasau2);//Diem
+		if ((score1 % 20 == 0) && temp1 != score1 && score1 >1 && score1 <101) //Tao ra them cac vat can
+		{
+			temp1 = score1;
+			sovatcan1++;
+		}
+		if ((score2 % 20 == 0) && temp2 != score2 && score2 >1 && score2 <101) //Tao ra them cac vat can
+		{
+			temp2 = score2;
+			sovatcan2++;
+		}
 		gotoxy(31, 7);
 		printf("Score 1: %d", score1); //Viet diem
 		gotoxy(80, 7);
@@ -564,7 +583,7 @@ int VietMenu(char *menu[]) {
 	}
 
 }
-void Menu(char *menu[], CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character, CAR &car2, VATCAN vatcan2[], COIN coin2[], CHUCHAY &cc, int sovatcan)
+void Menu(char *menu[])
 {
 	int breaker = 1;
 	int vitri;
@@ -574,12 +593,12 @@ void Menu(char *menu[], CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &characte
 		case 0:
 		{
 			if (_kbhit())
-				playGame(car, vatcan, coin, character, 0, Width, cc, sovatcan);
+				playGame();
 			break;
 		}
 		case 1:
 		{
-			playTwoCar(car, vatcan, coin, car2, vatcan2, coin2, cc, sovatcan);
+			playTwoCar();
 			continue;
 		}
 		case 2:
@@ -604,6 +623,7 @@ void Menu(char *menu[], CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &characte
 		}
 		case 4: breaker = 0; break;
 		}
+		Sleep(500);
 	}
 
 	/*int vitri = 0;
