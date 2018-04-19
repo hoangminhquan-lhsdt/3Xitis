@@ -11,9 +11,7 @@
 
 void Input(PLAYER character, char filename[], int score)
 {
-	char c;
-	fflush(stdin);
-	scanf("%c", &c);
+	flushall();
 	FILE *file = fopen(filename, "a");
 	gotoxy(31,16);
 	printf("Nhap ho va ten: "); 
@@ -23,15 +21,16 @@ void Input(PLAYER character, char filename[], int score)
 	fprintf(file, "	%d\n", score);
 	//fprintf(file, "\n");
 	fclose(file);
-	fflush(stdin);
+	flushall();
+	FlushConsoleInputBuffer;
 }
-void BXH(FILE *f) {
+void BXH() {
 	char c;
 	int length;
 	system("cls");
 	PLAYER list[1000];
 	int i = 0;
-	//FILE *f = fopen("Player.txt", "r");
+	FILE *f = fopen("Player.txt", "r");
 	while (!feof(f)) {
 		fflush(stdin);
 		fgets(list[i].Name, 30, f);
@@ -46,6 +45,7 @@ void BXH(FILE *f) {
 		i++;
 		fflush(stdin);
 	}
+	fclose(f);
 	_getch();
 }
 void gotoxy(int x, int y) //Dua con tro toi mot vi tri tren man hinh console
@@ -365,7 +365,7 @@ bool GameOver(CAR car, VATCAN vatcan[])
 	}
 	return false;
 }
-void playGame(CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character, FILE *file, int riatruoc, int riasau, CHUCHAY &cc, int &sovatcan)
+void playGame(CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character, int riatruoc, int riasau, CHUCHAY &cc, int &sovatcan)
 {
 	car.toado.x = 20;
 	car.toado.y = 28;
@@ -396,8 +396,10 @@ void playGame(CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character, FILE *f
 		}
 		if (GameOver(car, vatcan))
 		{
-			fflush(stdin);
+			//FlushConsoleInputBuffer;
+			//fflush(stdin);
 			//fprintf(file, "%d\n", score);
+			flushall();
 			gotoxy(31, 16);
 			Input(character, "Player.txt", score);
 			_getch();
@@ -472,9 +474,9 @@ void playTwoCar(CAR &car1, VATCAN vatcan1[], COIN coin1[], CAR &car2, VATCAN vat
 		score1 = Score(car1, coin1, riatruoc1, riasau1);
 		score2 = Score(car2, coin2, riatruoc2, riasau2);//Diem
 		gotoxy(31, 7);
-		printf("Socre 1: %d", score1); //Viet diem
+		printf("Score 1: %d", score1); //Viet diem
 		gotoxy(80, 7);
-		printf("Socre 2: %d", score2);
+		printf("Score 2: %d", score2);
 
 		if (GameOver(car1, vatcan1) || GameOver(car2, vatcan2))
 		{
@@ -534,10 +536,80 @@ void Rule()
 	printf("Dont hit the obstacles.");
 	gotoxy(30, 17);
 }
-void Menu(char *menu[], CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character, FILE *file, CAR &car2, VATCAN vatcan2[], COIN coin2[], CHUCHAY &cc, int sovatcan)
-{
-	fflush(stdin);
+int VietMenu(char *menu[]) {
 	int vitri = 0;
+	while (1)
+	{
+		system("cls");
+		if (_kbhit)
+		{
+			if (GetAsyncKeyState(VK_UP))
+			{
+				if (vitri == 0)
+					vitri = MAXMENU - 1;
+				else vitri--;
+			}
+			if (GetAsyncKeyState(VK_DOWN))
+			{
+				if (vitri == MAXMENU - 1)
+					vitri = 0;
+				else vitri++;
+			}
+		}
+		for (int i = 0; i < MAXMENU; i++)
+		{
+			gotoxy(40, 15 + i);
+			if (vitri == i)
+				printf(">>%s<<\n", menu[i]);
+			else printf("--%s--\n", menu[i]);
+		}
+		if (GetAsyncKeyState(VK_RETURN)) return vitri;
+	}
+
+}
+void Menu(char *menu[], CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character, CAR &car2, VATCAN vatcan2[], COIN coin2[], CHUCHAY &cc, int sovatcan)
+{
+	int breaker = 1;
+	int vitri;
+	while (breaker) {
+		vitri = VietMenu(menu);
+		switch (vitri) {
+		case 0:
+		{
+			if (_kbhit())
+				playGame(car, vatcan, coin, character, 0, Width, cc, sovatcan);
+			break;
+		}
+		case 1:
+		{
+			playTwoCar(car, vatcan, coin, car2, vatcan2, coin2, cc, sovatcan);
+			continue;
+		}
+		case 2:
+		{
+			system("cls");
+			Rule();
+			system("pause");
+			if (_kbhit())
+			{
+				continue;
+			}
+		}
+		case 3: //BXH
+		{
+			system("cls");
+			BXH();
+			system("pause");
+			if (_kbhit())
+			{
+				continue;
+			}
+		}
+		case 4: breaker = 0; break;
+		}
+	}
+
+	/*int vitri = 0;
 	while (1)
 	{
 		system("cls");
@@ -564,56 +636,54 @@ void Menu(char *menu[], CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &characte
 			if (vitri == i)
 				printf(">>%s<<\n", menu[i]);
 			else printf("--%s--\n", menu[i]);
-		}
+		}*/
 
 		// Vao menu
-		if (_kbhit())
+	/*while (1) {
+		if (GetAsyncKeyState(VK_RETURN))
 		{
-			if (GetAsyncKeyState(VK_RETURN))
+			switch (vitri)
 			{
-				switch (vitri)
-				{
-				case 0:
-				{
-					if(_kbhit())
-						playGame(car, vatcan, coin, character, file, 0 ,Width,cc, sovatcan);
-					break;
-				}
-				case 1:
-				{
-					playTwoCar(car, vatcan, coin, car2, vatcan2, coin2, cc,sovatcan);
-					break;
-				}
-				case 2:
-				{
-					system("cls");
-					Rule();
-					system("pause");
-					if (_kbhit())
-					{
-						Menu(menu, car, vatcan, coin, character, file, car2,vatcan2,coin2,cc,sovatcan);
-					}
-					break;
-				}
-				case 3: //BXH
-				{
-					system("cls");
-					BXH(file);
-					system("pause");
-					if (_kbhit())
-					{
-						Menu(menu, car, vatcan, coin, character, file, car2, vatcan2, coin2,cc,sovatcan);
-					}
-					break;
-				}
-
-				case 4: return; 
-				} 
-				
+			case 0:
+			{
+				if (_kbhit())
+					playGame(car, vatcan, coin, character, file, 0, Width, cc, sovatcan);
+				break;
 			}
+			case 1:
+			{
+				playTwoCar(car, vatcan, coin, car2, vatcan2, coin2, cc, sovatcan);
+				break;
+			}
+			case 2:
+			{
+				system("cls");
+				Rule();
+				system("pause");
+				if (_kbhit())
+				{
+					Menu(menu, car, vatcan, coin, character, file, car2, vatcan2, coin2, cc, sovatcan);
+				}
+				break;
+			}
+			case 3: //BXH
+			{
+				system("cls");
+				BXH(file);
+				system("pause");
+				if (_kbhit())
+				{
+					Menu(menu, car, vatcan, coin, character, file, car2, vatcan2, coin2, cc, sovatcan);
+				}
+				break;
+			}
+
+			case 4: return;
+			}
+
 		}
-		Sleep(50);
-	}
+	}*/
+		//Sleep(50);
 }
 
 
