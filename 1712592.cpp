@@ -82,7 +82,7 @@ void Shape(CAR &car, VATCAN vatcan[], COIN coin[], int riatruoc, int riasau) //T
 		vatcan[i].hinhdang.o[1][0] = 'O'; vatcan[i].hinhdang.o[1][2] = 'O';
 		vatcan[i].hinhdang.o[1][1] = 'O';
 
-		//Gan toa doj vat can
+		//Gan toa do vat can
 		do
 			vatcan[i].toado.x = rand() % (riasau - 3) + 1 + riatruoc;
 		while((vatcan[i].toado.x >= riasau) || (vatcan[i].toado.x <= riatruoc));
@@ -100,6 +100,7 @@ void Shape(CAR &car, VATCAN vatcan[], COIN coin[], int riatruoc, int riasau) //T
 		vatcan[i].trai.x = vatcan[i].toado.x - 2;
 		vatcan[i].phai.x = vatcan[i].toado.x + 2;
 	}
+
 	//Coin: $
 	for (i = 0; i < 10; i++)
 	{
@@ -243,7 +244,7 @@ void VatCanDiChuyen(VATCAN vatcan[], int riatruoc, int riasau, int sovatcan)//ad
 		}
 		DiChuyenPhai(vatcan[i], riatruoc, riasau);*/
 
-		//Sang trai phai
+		//Doi huong
 		if (vatcan[i].toado.x == riatruoc + 2)
 			vatcan[i].trangthai = RIGHT;
 		if (vatcan[i].toado.x == riasau - 3)
@@ -252,6 +253,8 @@ void VatCanDiChuyen(VATCAN vatcan[], int riatruoc, int riasau, int sovatcan)//ad
 			vatcan[i].trangthai = RIGHT;
 		if (vatcan[i].toado.x == vatcan[i].phai.x)
 			vatcan[i].trangthai = LEFT;
+
+		//Sang trai phai
 		if (vatcan[i].trangthai == LEFT)
 			vatcan[i].toado.x--;
 		if (vatcan[i].trangthai == RIGHT)
@@ -270,9 +273,6 @@ void VatCanDiChuyen(VATCAN vatcan[], int riatruoc, int riasau, int sovatcan)//ad
 	}
 	
 }
-
-
-
 
 void CoinDiChuyen(COIN coin[], int riatruoc, int riasau)
 {
@@ -299,17 +299,12 @@ void Control(CAR &car, VATCAN vatcan[], COIN coin[], int riatruoc, int riasau, C
 	//moveVatCan(vatcan, riatruoc, riasau, sovatcan);
 	VatCanDiChuyen(vatcan, riatruoc, riasau, sovatcan);
 
-	// coin roi
-
 	//CoinDiChuyen(coin);
-
 
 	CoinDiChuyen(coin, riatruoc, riasau);
 
-
 	//chu chay
 	runWord(cc);
-
 
 }
 int Distance(int x, int y) //Khoang cach giua cac vat tinh tu tam vat
@@ -389,7 +384,7 @@ void playGame(CAR &car, VATCAN vatcan[], COIN coin[], PLAYER &character, int ria
 		score = Score(car, coin, riatruoc, riasau); //Diem
 		gotoxy(31, 15);
 		printf("Score: %d", score); //Viet diem
-		if ((score %20 == 0)&& temp!=score && score >1 && score <101)
+		if ((score %20 == 0)&& temp!=score && score >1 && score <101) //Tao ra them cac vat can
 		{
 			temp = score;
 			sovatcan++;
@@ -515,11 +510,13 @@ void playTwoCar(CAR &car1, VATCAN vatcan1[], COIN coin1[], CAR &car2, VATCAN vat
 void runWord(CHUCHAY &cc)
 {
 	
-	
+	//Di xuong di len
 	if(cc.trangthai==DOWN)
 		cc.toaodo.y++;
 	if (cc.trangthai == UP)
 		cc.toaodo.y--;
+
+	//Doi chieu chuyen dong
 	if (cc.toaodo.y == Height)
 		cc.trangthai = UP;
 	if (cc.toaodo.y == 0)
