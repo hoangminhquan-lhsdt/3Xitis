@@ -6,6 +6,7 @@
 #include <time.h>
 #include <math.h>
 #include <string.h>
+#include <mmsystem.h>
 #pragma warning(disable:4996)
 
 O buffer[30][30];
@@ -321,7 +322,7 @@ void playGame()
 	CHUCHAY cc;
 	cc.toaodo.y = 0;
 	system("cls");
-
+	
 	//CB cac thu can thiet
 	Shape(car, vatcan, coin, riatruoc, riasau);
 	Lane(riatruoc, riasau);
