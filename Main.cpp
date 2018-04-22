@@ -8,17 +8,8 @@
 
 void main()
 {
-	CAR car,car2;
-	VATCAN vatcan[10], vatcan2[10];
-	COIN coin[10], coin2[10];
-	PLAYER character;
-	CHUCHAY cc;
-	int sovatcan = 5;
 	char *menu[] = { "Play game","2 Player","Rule","BXH","Exit" };
 	srand((unsigned)time(NULL));
-	FILE *file = fopen("Player.txt", "a+");
-	Menu(menu, car, vatcan, coin, character, file, car2, vatcan2,coin2,cc,sovatcan);
-	fclose(file);
-	//Thiet lap thong so ve xe
+	Menu(menu);
 	_getch();
 }
