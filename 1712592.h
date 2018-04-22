@@ -41,6 +41,10 @@ struct CHUCHAY
 	TOADO toaodo;
 	TRANGTHAI trangthai;
 };
+struct O
+{
+	char kytu;
+};
 void BXH();
 void Input(PLAYER player, char filename[], int score);
 void gotoxy(int x, int y);
@@ -51,7 +55,7 @@ void moveVatCan(VATCAN vatcan[], int riatruoc, int riasau, int sovatcan);
 void CoinDiChuyen(COIN coin[], int riatruoc, int riasau);
 void CarDiChuyen(CAR &car);
 void Control(CAR &car, VATCAN vatcan[], COIN coin[], int riatruoc, int riasau, CHUCHAY &cc, int sovatcan);
-bool GameOver(CAR car, VATCAN vatcan[]);
+bool GameOver(CAR car, VATCAN vatcan[], int sovatcan);
 int Score(CAR &car, COIN coin[], int riatruoc, int riasau);
 int Distance(int x, int y);
 void Input(PLAYER character, char filename[], int score);
@@ -63,4 +67,5 @@ void Rule();
 void Menu(char *menu[]);
 void runWord(CHUCHAY &cc);
 void VatCanDiChuyen(VATCAN vatcan[], int riatruoc, int riasau, int sovatcan);
-
+void drawBuffer(int dong, int cot, char kytu);
+void Nocursortype();
