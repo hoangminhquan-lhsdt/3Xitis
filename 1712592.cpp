@@ -192,6 +192,12 @@ void CarDiChuyen(CAR &car)
 			car.toado.y++;
 	}
 }
+<<<<<<< HEAD
+
+void VatCanDiChuyen(VATCAN vatcan[], int riatruoc, int riasau, int sovatcan)
+
+
+=======
 void moveVatCan(VATCAN vatcan[], int riatruoc, int riasau, int sovatcan)
 {
 	int i;
@@ -207,6 +213,7 @@ void moveVatCan(VATCAN vatcan[], int riatruoc, int riasau, int sovatcan)
 }
 void VatCanDiChuyen(VATCAN vatcan[], int riatruoc, int riasau, int sovatcan)//add them di chuyen
 
+>>>>>>> 68c2b8c809855084a4813b7a0430ec6d6a70836c
 {
 	int i;
 	for (i = 0; i < sovatcan; i++)
