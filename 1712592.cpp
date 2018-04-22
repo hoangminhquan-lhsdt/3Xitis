@@ -192,12 +192,6 @@ void CarDiChuyen(CAR &car)
 			car.toado.y++;
 	}
 }
-<<<<<<< HEAD
-
-void VatCanDiChuyen(VATCAN vatcan[], int riatruoc, int riasau, int sovatcan)
-
-
-=======
 void moveVatCan(VATCAN vatcan[], int riatruoc, int riasau, int sovatcan)
 {
 	int i;
@@ -212,8 +206,6 @@ void moveVatCan(VATCAN vatcan[], int riatruoc, int riasau, int sovatcan)
 	}
 }
 void VatCanDiChuyen(VATCAN vatcan[], int riatruoc, int riasau, int sovatcan)//add them di chuyen
-
->>>>>>> 68c2b8c809855084a4813b7a0430ec6d6a70836c
 {
 	int i;
 	for (i = 0; i < sovatcan; i++)
@@ -439,7 +431,7 @@ void playTwoCar()
 		gotoxy(78, 7);
 		printf("Score 2: %d", score2);
 
-		/*if (GameOver(car1, vatcan1,sovatcan1) || GameOver(car2, vatcan2,sovatcan2))
+		if (GameOver(car1, vatcan1,sovatcan1) || GameOver(car2, vatcan2,sovatcan2))
 		{
 			system("cls");
 			if (score2 > score1)
@@ -463,7 +455,7 @@ void playTwoCar()
 				system("pause");
 				return;
 			}
-		}*/
+		}
 		Nocursortype();
 		//Nhip game
 		time = 100 - score1;
