@@ -65,7 +65,8 @@ void controlTwoCar(CAR &car, CAR &car2, int riatruoc1, int riasau1, int riatruoc
 void playTwoCar();
 void Rule();
 void Menu(char *menu[]);
-void runWord(CHUCHAY &cc);
+//void runWord(CHUCHAY &cc);
 void VatCanDiChuyen(VATCAN vatcan[], int riatruoc, int riasau, int sovatcan);
 void drawBuffer(int dong, int cot, char kytu);
 void Nocursortype();
+inline int random(int a, int b);
