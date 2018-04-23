@@ -13,13 +13,17 @@ O buffer[30][30];
 
 void Input(int score)
 {
+	system("cls");
 	FILE *f = fopen("Player.txt", "a");
 	PLAYER player;
 	char c;
+	gotoxy(0, 15);
+	printf("Nhap ten:  ");
 	scanf(" %[^\n]s &c", player.Name, &c);
 	fprintf(f, "%s\n", player.Name);
 	fprintf(f, "	%d\n", score);
 	fclose(f);
+	c = getch();
 }
 void BXH() {
 	//char c;
@@ -342,9 +346,7 @@ void playGame()
 		//Game over
 		if (GameOver(thing))
 		{
-			gotoxy(31, 16);
 			Input(score);
-			_getch();
 			return;
 		}
 		//Xoa con tro chuot tren man hinh
