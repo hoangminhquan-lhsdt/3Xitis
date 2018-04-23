@@ -30,10 +30,18 @@ struct VATCAN
 	SHAPE hinhdang;
 	TOADO toado, trai, phai;
 	TRANGTHAI trangthai;
+	int sovatcan;
 };
 struct COIN
 {
 	TOADO toado;
+};
+struct THINGS
+{
+	CAR car;
+	VATCAN vatcan[10];
+	COIN coin[10];
+	int sovatcan, riatruoc, riasau;
 };
 struct CHUCHAY
 {
@@ -48,24 +56,24 @@ struct O
 void BXH();
 void Input(int score);
 void gotoxy(int x, int y);
-void Shape(CAR &car, VATCAN vatcan[], COIN coin[], int riatruoc, int riasau);
+void Shape(THINGS &thing);
 void Lane(int riatruoc, int riasau);
-void Create(CAR car, VATCAN vatcan[], COIN coin[], int riatruoc, int riasau, int sovatcan);
-void moveVatCan(VATCAN vatcan[], int riatruoc, int riasau, int sovatcan);
-void CoinDiChuyen(COIN coin[], int riatruoc, int riasau);
-void CarDiChuyen(CAR &car);
-void Control(CAR &car, VATCAN vatcan[], COIN coin[], int riatruoc, int riasau, CHUCHAY &cc, int sovatcan);
-bool GameOver(CAR car, VATCAN vatcan[], int sovatcan);
-int Score(CAR &car, COIN coin[], int riatruoc, int riasau);
+void Create(THINGS thing);
+void moveVatCan(THINGS &thing);
+void VatCanDiChuyen(THINGS &thing);
+void CoinDiChuyen(THINGS &thing);
+void CarDiChuyen(THINGS &thing);
+void Control(THINGS &thing);
+bool GameOver(THINGS thing);
+int Score(THINGS &thing);
 int Distance(int x, int y);
 void Ai(CAR &car, VATCAN vatcan[], COIN coin[]);
 void playGame();
-void controlTwoCar(CAR &car, CAR &car2, int riatruoc1, int riasau1, int riatruoc2, int riasau2);
+void controlTwoCar(THINGS &thing1, THINGS &thing2);
 void playTwoCar();
 void Rule();
 void Menu(char *menu[]);
 //void runWord(CHUCHAY &cc);
-void VatCanDiChuyen(VATCAN vatcan[], int riatruoc, int riasau, int sovatcan);
 void drawBuffer(int dong, int cot, char kytu);
 void Nocursortype();
 inline int random(int a, int b);
