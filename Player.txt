@@ -1,121 +1,36 @@
-<<<<<<< HEAD
-hac 1
-9
-hieunghia
-2
-2
-hieunghia
-8
-8
-hieunghia
-33
-33
-=======
-hsc
-	9
-sc
-	3
-hac
-	5
-ac
-	4
-Ho Phan Minh
-	24
-Ho
-	5
-HoPM
-	1
-Loz
-	3
-oz
-	69
 
+	15
+l
 	1
-ll
-	4
-Loz
-	0
-Lo
+
 	5
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> d75920c4714a260f2cebb995aa6c10ad4a5614e7
-hieunghia
+
+	5
+
 	2
-ieunghia
-	33
-
-	0
-
-	1
 
 	3
+
+	5
 
 	7
 
-	4
-
-	2
-
-	3
-
-	4
-
-	2
-=======
-=======
->>>>>>> 46e5ae24ef3c5295bff976a69407317b67daf41f
-Fuck
-	86
-FFuck
-	86
-
-	18
-
-	1
-
-	0
-
-	1
-<<<<<<< HEAD
-
-	12
-
-	20
-=======
-<<<<<<< HEAD
->>>>>>> 46e5ae24ef3c5295bff976a69407317b67daf41f
-=======
->>>>>>> 46e5ae24ef3c5295bff976a69407317b67daf41f
-<<<<<<< HEAD
->>>>>>> c04c0166a92acfb5686f0674a05a0dbd128b6cb0
-=======
-
-	2
-
-	3
-hieunghiadiep
-	1
-
-	4
-
-	1
-gf
-	8
-hgf
 	5
 
+	1
+
+	6
+
+	1
+
 	2
-hgf
-	23
 
 	3
 
 	3
 
-	2
+	13
 
-	7
+	1
 
 	2
->>>>>>> 43853037e171676ee7a902c5ae448fdca9dc46c6

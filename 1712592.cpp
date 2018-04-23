@@ -8,7 +8,7 @@
 #include <string.h>
 #pragma warning(disable:4996)
 
-O buffer[30][30];
+
 
 void Input(PLAYER character, char filename[], int score)
 {
@@ -55,10 +55,10 @@ void gotoxy(int x, int y) //Dua con tro toi mot vi tri tren man hinh console
 	COORD c = { x, y };
 	SetConsoleCursorPosition(h, c);
 }
-void drawBuffer(int dong, int cot, char kytu)
-{
-	buffer[dong][cot].kytu = kytu;
-}
+//void drawBuffer(int dong, int cot, char kytu)
+//{
+	//buffer[dong][cot].kytu = kytu;
+//}
 void Shape(CAR &car, VATCAN vatcan[], COIN coin[], int riatruoc, int riasau) //Tao ra cac hinh dang cua cac vat tren man hinh
 {
 	int i, k;
@@ -116,9 +116,9 @@ void Shape(CAR &car, VATCAN vatcan[], COIN coin[], int riatruoc, int riasau) //T
 	}
 
 	//lam trang Buffer
-	for (i = 0; i < 30; i++)
-		for (k = 0; k < 30; k++)
-			buffer[i][k].kytu = ' ';
+	//for (i = 0; i < 30; i++)
+		//for (k = 0; k < 30; k++)
+			//buffer[i][k].kytu = ' ';
 
 }
 inline int random(int a, int b)
@@ -191,12 +191,12 @@ void CarDiChuyen(CAR &car)
 			car.toado.y++;
 	}
 }
-<<<<<<< HEAD
-
-void VatCanDiChuyen(VATCAN vatcan[], int riatruoc, int riasau, int sovatcan)
 
 
-=======
+//void VatCanDiChuyen(VATCAN vatcan[], int riatruoc, int riasau, int sovatcan)
+
+
+
 void moveVatCan(VATCAN vatcan[], int riatruoc, int riasau, int sovatcan)
 {
 	int i;
@@ -212,7 +212,7 @@ void moveVatCan(VATCAN vatcan[], int riatruoc, int riasau, int sovatcan)
 }
 void VatCanDiChuyen(VATCAN vatcan[], int riatruoc, int riasau, int sovatcan)//add them di chuyen
 
->>>>>>> 68c2b8c809855084a4813b7a0430ec6d6a70836c
+
 {
 	int i;
 	for (i = 0; i < sovatcan; i++)
