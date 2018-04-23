@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 	15
 l
@@ -34,3 +35,19 @@ l
 	1
 
 	2
+=======
+Ho phan Minh
+	8
+CLGT
+	2
+l
+	4
+l
+	3
+gag
+	25
+>>>>>>> d057cd0901b673aaa9b3cecd23778749cd299f01
+hieunghia
+	25
+hieunghia
+	1
