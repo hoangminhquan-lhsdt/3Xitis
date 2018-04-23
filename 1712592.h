@@ -46,7 +46,7 @@ struct O
 	char kytu;
 };
 void BXH();
-void Input(PLAYER player, char filename[], int score);
+void Input(int score);
 void gotoxy(int x, int y);
 void Shape(CAR &car, VATCAN vatcan[], COIN coin[], int riatruoc, int riasau);
 void Lane(int riatruoc, int riasau);
@@ -58,7 +58,6 @@ void Control(CAR &car, VATCAN vatcan[], COIN coin[], int riatruoc, int riasau, C
 bool GameOver(CAR car, VATCAN vatcan[], int sovatcan);
 int Score(CAR &car, COIN coin[], int riatruoc, int riasau);
 int Distance(int x, int y);
-void Input(PLAYER character, char filename[], int score);
 void Ai(CAR &car, VATCAN vatcan[], COIN coin[]);
 void playGame();
 void controlTwoCar(CAR &car, CAR &car2, int riatruoc1, int riasau1, int riatruoc2, int riasau2);

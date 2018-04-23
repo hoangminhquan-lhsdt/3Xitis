@@ -11,23 +11,18 @@
 
 O buffer[30][30];
 
-void Input(PLAYER character, char filename[], int score)
+void Input(int score)
 {
-	flushall();
-	FILE *file = fopen(filename, "a");
-	gotoxy(31,16);
-	printf("Nhap ho va ten: "); 
-	gets_s(character.Name);
-	fprintf(file, "%s" "\n", character.Name);
-	//fprintf(file, "\0");
-	fprintf(file, "	%d\n", score);
-	//fprintf(file, "\n");
-	fclose(file);
-	flushall();
-	FlushConsoleInputBuffer;
+	FILE *f = fopen("Player.txt", "a");
+	PLAYER player;
+	char c;
+	scanf(" %[^\n]s &c", player.Name, &c);
+	fprintf(f, "%s\n", player.Name);
+	fprintf(f, "	%d\n", score);
+	fclose(f);
 }
 void BXH() {
-	char c;
+	//char c;
 	int length;
 	system("cls");
 	PLAYER list[1000];
@@ -316,7 +311,6 @@ void playGame()
 	CAR car;
 	VATCAN vatcan[10];
 	COIN coin[10];
-	PLAYER character;
 	int riatruoc = 0, riasau = Width, sovatcan = 5, score, time, temp = -1;
 	CHUCHAY cc;
 	cc.toaodo.y = 0;
@@ -344,12 +338,8 @@ void playGame()
 		}
 		if (GameOver(car, vatcan,sovatcan))
 		{
-			//FlushConsoleInputBuffer;
-			//fflush(stdin);
-			//fprintf(file, "%d\n", score);
-			flushall();
 			gotoxy(31, 16);
-			Input(character, "Player.txt", score);
+			Input(score);
 			_getch();
 			return;
 		}
