@@ -177,18 +177,18 @@ void Nocursortype() // Xoa con tro chuot tren man hinh console: https://daynhauh
 	Info.dwSize = 20;
 	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &Info);
 }
-void CarDiChuyen(THINGS &thing)
+void CarDiChuyen(CAR &car)
 {
 	if (_kbhit()) //kiem tra xem co phim nao dc nhan khonog 
 	{
-		if ((GetAsyncKeyState(VK_LEFT)) && (thing.car.toado.x > 2)) //Trai
-			thing.car.toado.x--;
-		if ((GetAsyncKeyState(VK_RIGHT)) && (thing.car.toado.x < Width - 3)) //Phai
-			thing.car.toado.x++;
-		if ((GetAsyncKeyState(VK_UP)) && (thing.car.toado.y > 1)) //Len
-			thing.car.toado.y--;
-		if ((GetAsyncKeyState(VK_DOWN)) && (thing.car.toado.y < Height - 2)) //Xuong
-			thing.car.toado.y++;
+		if ((GetAsyncKeyState(VK_LEFT)) && (car.toado.x > 2)) //Trai
+			car.toado.x--;
+		if ((GetAsyncKeyState(VK_RIGHT)) && (car.toado.x < Width - 3)) //Phai
+			car.toado.x++;
+		if ((GetAsyncKeyState(VK_UP)) && (car.toado.y > 1)) //Len
+			car.toado.y--;
+		if ((GetAsyncKeyState(VK_DOWN)) && (car.toado.y < Height - 2)) //Xuong
+			car.toado.y++;
 	}
 }
 void moveVatCan(THINGS &thing)
@@ -252,7 +252,7 @@ void CoinDiChuyen(THINGS &thing)
 void Control(THINGS &thing)
 {
 	//Xe di chuyuen
-	CarDiChuyen(thing);
+	CarDiChuyen(thing.car);
 
 	//CoinDiChuyen(coin)
 	CoinDiChuyen(thing);
@@ -262,7 +262,7 @@ void Control(THINGS &thing)
 		moveVatCan(thing);
 	else VatCanDiChuyen(thing);
 }
-int Distance(int x, int y) //Khoang cach giua cac vat tinh tu tam vat
+inline int Distance(int x, int y) //Khoang cach giua cac vat tinh tu tam vat
 {
 	return abs(x - y);
 }
@@ -332,7 +332,7 @@ void playGame()
 		//vecac vat vao duong dua
 		Create(thing); 
 		//Lam xe di chuyen muot hon
-		CarDiChuyen(thing);
+		CarDiChuyen(thing.car);
 		Create(thing);
 		//Tinh diem va ghi trong man hinh
 		score = Score(thing); //Diem
@@ -382,6 +382,24 @@ void controlTwoCar(THINGS &thing1, THINGS &thing2)
 			thing2.car.toado.y++;
 	}
 }
+void control2Player(THINGS &thing1, THINGS &thing2)
+{
+	// Xe
+	controlTwoCar(thing1, thing2);
+
+	//Coin
+	CoinDiChuyen(thing1);
+	CoinDiChuyen(thing2);
+
+	//Vat can
+	if (thing1.car.score < 20)
+		moveVatCan(thing1);
+	else VatCanDiChuyen(thing1);
+
+	if (thing2.car.score < 20)
+		moveVatCan(thing2);
+	else VatCanDiChuyen(thing2);
+}
 void playTwoCar()
 {
 	//Thiet lap cac thong so khac
@@ -412,11 +430,7 @@ void playTwoCar()
 	while (1)
 	{
 		//Control: Lam cho cac vat di chuyen
-		controlTwoCar(thing1,thing2); 
-		VatCanDiChuyen(thing1);
-		VatCanDiChuyen(thing2);
-		CoinDiChuyen(thing1);
-		CoinDiChuyen(thing2);
+		control2Player(thing1, thing2);
 
 		//ve ra man hinh
 		Create(thing1); //Player 1
@@ -481,23 +495,6 @@ void playTwoCar()
 		else Sleep(2);
 	}
 }
-/*void runWord(CHUCHAY &cc)
-{
-	//Di xuong di len
-	if(cc.trangthai==DOWN)
-		cc.toaodo.y++;
-	if (cc.trangthai == UP)
-		cc.toaodo.y--;
-
-	//Doi chieu chuyen dong
-	if (cc.toaodo.y == Height)
-		cc.trangthai = UP;
-	if (cc.toaodo.y == 0)
-		cc.trangthai = DOWN;
-
-	gotoxy(55, cc.toaodo.y);
-	printf("%s", cc.str);
-}*/
 void Rule()
 {
 	gotoxy(30, 15);
