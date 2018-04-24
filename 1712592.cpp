@@ -279,29 +279,25 @@ int Score(THINGS &thing)
 	}
 	return thing.car.score;
 }
-void Ai(CAR &car, VATCAN vatcan[], COIN coin[]) // chua tinh truong hop car.toado.x == 2 vay no sang left 1 cai thi dung cmn
+void Ai(THINGS &thing) // chua tinh truong hop car.toado.x == 2 vay no sang left 1 cai thi dung cmn
 {
-	for (int i = 0; i < 10; i++)
+	//Chi an coin[0] thoi
+	if (thing.car.toado.x <= thing.coin[0].toado.x)
+		thing.car.toado.x++;
+	if (thing.car.toado.x >= thing.coin[0].toado.x)
+		thing.car.toado.x--;
+	for (int i = 0; i < thing.sovatcan; i++)
 	{
-		if (car.toado.x <= coin[i].toado.x)
-			//while (car.toado.x - 1 != coin.toado.x)
-			car.toado.x++;
-		if (car.toado.x >= coin[i].toado.x)
-			//while (car.toado.x + 1 != coin.toado.x)
-			car.toado.x--;
-	}
-	for (int i = 0; i < 5; i++)
-	{
-		if (vatcan[i].toado.x + 1 == car.toado.x - 1)
-			car.toado.x++;
-		if (vatcan[i].toado.x - 1 == car.toado.x + 1)
-			car.toado.x--;
-		if (car.toado.x == vatcan[i].toado.x - 1)
-			car.toado.x = car.toado.x - 2;
-		if (car.toado.x == vatcan[i].toado.x + 1)
-			car.toado.x = car.toado.x + 2;
-		if (car.toado.x == vatcan[i].toado.x)
-			car.toado.x = car.toado.x + 3;
+		if (thing.vatcan[i].toado.x + 1 == thing.car.toado.x - 1)
+			thing.car.toado.x++;
+		if (thing.vatcan[i].toado.x - 1 == thing.car.toado.x + 1)
+			thing.car.toado.x--;
+		if (thing.car.toado.x == thing.vatcan[i].toado.x - 1)
+			thing.car.toado.x = thing.car.toado.x --;
+		if (thing.car.toado.x == thing.vatcan[i].toado.x + 1)
+			thing.car.toado.x = thing.car.toado.x ++;
+		if (thing.car.toado.x == thing.vatcan[i].toado.x)
+			thing.car.toado.x = thing.car.toado.x ++;
 	}
 }
 bool GameOver(THINGS thing)
@@ -329,10 +325,12 @@ void playGame()
 	{
 		//Dieu khien xe
 		Control(thing); 
+		Ai(thing);
 		//vecac vat vao duong dua
 		Create(thing); 
 		//Lam xe di chuyen muot hon
-		CarDiChuyen(thing.car);
+		//CarDiChuyen(thing.car);
+		Ai(thing);
 		Create(thing);
 		//Tinh diem va ghi trong man hinh
 		score = Score(thing); //Diem

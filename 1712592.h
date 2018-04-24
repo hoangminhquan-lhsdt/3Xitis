@@ -67,7 +67,7 @@ void Control(THINGS &thing);
 bool GameOver(THINGS thing);
 int Score(THINGS &thing);
 int Distance(int x, int y);
-void Ai(CAR &car, VATCAN vatcan[], COIN coin[]);
+void Ai(THINGS &thing);
 void playGame();
 void controlTwoCar(THINGS &thing1, THINGS &thing2);
 void control2Player(THINGS &thing1, THINGS &thing2);
