@@ -8,9 +8,7 @@
 #include <string.h>
 #include <mmsystem.h>
 #pragma warning(disable:4996)
-
 O buffer[30][30];
-
 void Input(int score)
 {
 	system("cls");
@@ -171,6 +169,8 @@ void Create(THINGS thing) // Ve xe vao duong dua
 			putchar(buffer[i][j].kytu);
 			buffer[i][j].kytu = ' '; // in xoa xong huy ky tu
 		}
+	//create bullet
+	DrawBullet(thing);
 }
 void Nocursortype() // Xoa con tro chuot tren man hinh console: https://daynhauhoc.com/t/hoi-ve-con-tro-chuot-tren-man-hinh-console/34411/3
 {
@@ -181,16 +181,64 @@ void Nocursortype() // Xoa con tro chuot tren man hinh console: https://daynhauh
 }
 void CarDiChuyen(THINGS &thing)
 {
-	if (_kbhit()) //kiem tra xem co phim nao dc nhan khonog 
+	if (_kbhit()) //kiem tra xem co phim nao dc nhan khong 
 	{
 		if ((GetAsyncKeyState(VK_LEFT)) && (thing.car.toado.x > 2)) //Trai
+		{
 			thing.car.toado.x--;
+		}
 		if ((GetAsyncKeyState(VK_RIGHT)) && (thing.car.toado.x < Width - 3)) //Phai
+		{
 			thing.car.toado.x++;
+		}
 		if ((GetAsyncKeyState(VK_UP)) && (thing.car.toado.y > 1)) //Len
+		{
 			thing.car.toado.y--;
+		}
+
 		if ((GetAsyncKeyState(VK_DOWN)) && (thing.car.toado.y < Height - 2)) //Xuong
+		{
 			thing.car.toado.y++;
+		}
+	}
+}
+void createbullet2(THINGS &thing)
+{
+	int i;
+	for (i = 0; i < 10; i+=2)
+	{
+		thing.bullet[i].toado.x = thing.car.toado.x-1;
+		thing.bullet[i].toado.y = thing.car.toado.y-2;
+		thing.bullet[i + 1].toado.x = thing.car.toado.x + 1;
+		thing.bullet[i + 1].toado.y = thing.car.toado.y - 2;
+	}
+}
+void ControlBullet(THINGS &thing)
+{
+		if (GetAsyncKeyState(VK_SPACE))//create bullet
+		{
+			thing.bullet[thing.sodan].bullet = 'l';
+			thing.bullet[thing.sodan +1].bullet = 'l';
+			thing.sodan+=2;
+			if (thing.sodan>=sizeof(thing.bullet[10])) thing.sodan = 0;
+		}
+}
+void BulletMove(THINGS &thing)
+{
+	int j;
+	for (j = 2; j < thing.sodan; j++)
+	{
+			thing.bullet[j].toado.y -= 2;
+			//thing.bullet[j+1].toado.y -= 2;	
+	}
+}
+void DrawBullet(THINGS &thing)
+{
+	int i;
+	for (i = 2; i < thing.sodan; i++)
+	{
+		drawBuffer(thing.bullet[i].toado.y, thing.bullet[i].toado.x, thing.bullet[i].bullet = 'l');
+		//drawBuffer(thing.bullet[i +1].toado.y, thing.bullet[i +1].toado.x, thing.bullet[i +1].bullet = 'l');
 	}
 }
 
@@ -257,9 +305,12 @@ void CoinDiChuyen(THINGS &thing)
 }
 void Control(THINGS &thing)
 {
+	
 	//Xe di chuyuen
 	CarDiChuyen(thing);
-
+	//bullet move
+	ControlBullet(thing);
+	BulletMove(thing);
 	//CoinDiChuyen(coin)
 	CoinDiChuyen(thing);
 
@@ -321,7 +372,7 @@ bool GameOver(THINGS thing)
 void playGame()
 {
 	THINGS thing;
-	thing.riatruoc = 0, thing.riasau = Width, thing.sovatcan = 5;
+	thing.riatruoc = 0, thing.riasau = Width, thing.sovatcan = 5,thing.sodan=0;
 	int score, time, temp = -1;
 	system("cls");
 	

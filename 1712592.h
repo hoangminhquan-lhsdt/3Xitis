@@ -4,8 +4,7 @@
 #define Width 30
 #define MAXMENU 5 //Danh sach max cua Menu
 
-enum TRANGTHAI  { UP,DOWN,LEFT,RIGHT};
-
+enum TRANGTHAI  { UP,DOWN,LEFT,RIGHT}; 
 struct PLAYER
 {
 	char Name[30] = {'a'};
@@ -36,12 +35,19 @@ struct COIN
 {
 	TOADO toado;
 };
+struct BULLET
+{
+	char bullet;
+	TOADO toado;
+	TRANGTHAI trangthai;
+};
 struct THINGS
 {
+	BULLET bullet[10];
 	CAR car;
 	VATCAN vatcan[10];
 	COIN coin[10];
-	int sovatcan, riatruoc, riasau;
+	int sovatcan, riatruoc, riasau,sodan;
 };
 struct CHUCHAY
 {
@@ -53,6 +59,11 @@ struct O
 {
 	char kytu;
 };
+void ControlBullet(THINGS &thing);//
+void DrawBullet(THINGS &thing);//
+void BulletMove(THINGS &thing);
+void createbullet2(THINGS &thing);//
+//void CreateBullet(THINGS &thing);//
 void BXH();
 void Input(int score);
 void gotoxy(int x, int y);
