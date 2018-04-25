@@ -282,22 +282,37 @@ int Score(THINGS &thing)
 void Ai(THINGS &thing) // chua tinh truong hop car.toado.x == 2 vay no sang left 1 cai thi dung cmn
 {
 	//Chi an coin[0] thoi
-	if (thing.car.toado.x <= thing.coin[0].toado.x)
+	if (thing.car.toado.x < thing.coin[0].toado.x)
 		thing.car.toado.x++;
-	if (thing.car.toado.x >= thing.coin[0].toado.x)
+	if (thing.car.toado.x > thing.coin[0].toado.x)
 		thing.car.toado.x--;
 	for (int i = 0; i < thing.sovatcan; i++)
 	{
 		if (thing.vatcan[i].toado.x + 1 == thing.car.toado.x - 1)
+		{
 			thing.car.toado.x++;
+			//return;
+		}
 		if (thing.vatcan[i].toado.x - 1 == thing.car.toado.x + 1)
+		{
 			thing.car.toado.x--;
+			//return;
+		}
 		if (thing.car.toado.x == thing.vatcan[i].toado.x - 1)
-			thing.car.toado.x = thing.car.toado.x --;
+		{
+			thing.car.toado.x = thing.car.toado.x--;
+			//return;
+		}
 		if (thing.car.toado.x == thing.vatcan[i].toado.x + 1)
-			thing.car.toado.x = thing.car.toado.x ++;
+		{
+			thing.car.toado.x = thing.car.toado.x++;
+			//return;
+		}
 		if (thing.car.toado.x == thing.vatcan[i].toado.x)
-			thing.car.toado.x = thing.car.toado.x ++;
+		{
+			thing.car.toado.x = thing.car.toado.x++;
+			//return;
+		}
 	}
 }
 bool GameOver(THINGS thing)
