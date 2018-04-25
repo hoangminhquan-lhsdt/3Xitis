@@ -199,6 +199,7 @@ void moveVatCan(THINGS &thing)
 		thing.vatcan[i].toado.y++;
 		if (thing.vatcan[i].toado.y > Height) //Vat can ra khoi man hinh, tao vat can moi
 		{
+			thing.car.score++;
 			thing.vatcan[i].toado.x = rand() % (Width - 3) + 1;
 			thing.vatcan[i].toado.y = rand() % 2;
 		}
@@ -229,6 +230,7 @@ void VatCanDiChuyen(THINGS &thing)//add them di chuyen
 		thing.vatcan[i].toado.y++;
 		if (thing.vatcan[i].toado.y > Height) //Vat can ra khoi man hinh, tao vat can moi
 		{
+			thing.car.score++;
 			thing.vatcan[i].toado.x = random(thing.riatruoc, thing.riasau);
 			thing.vatcan[i].toado.y = rand() % 4;
 		}
@@ -340,12 +342,12 @@ void playGame()
 	{
 		//Dieu khien xe
 		Control(thing); 
-		Ai(thing);
+		//Ai(thing);
 		//vecac vat vao duong dua
 		Create(thing); 
 		//Lam xe di chuyen muot hon
-		//CarDiChuyen(thing.car);
-		Ai(thing);
+		CarDiChuyen(thing.car);
+		//Ai(thing);
 		Create(thing);
 		//Tinh diem va ghi trong man hinh
 		score = Score(thing); //Diem
