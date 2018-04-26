@@ -161,19 +161,25 @@ void Create(THINGS thing) // Ve xe vao duong dua
 					drawBuffer(thing.vatcan[k].toado.y + i, thing.vatcan[k].toado.x + j, thing.vatcan[k].hinhdang.o[i + 1][j + 1]); //Ve vat can vao buffer
 	}
 
+	//create bullet
+	for (i = 0; i < thing.sodan; i++)
+	{
+		drawBuffer(thing.bullet[i].toado.y, thing.bullet[i].toado.x, thing.bullet[i].bullet = 'l');
+		//drawBuffer(thing.bullet[i +1].toado.y, thing.bullet[i +1].toado.x, thing.bullet[i +1].bullet = 'l');
+	}
+
 	//ve lai lane
 	Lane(thing.riatruoc, thing.riasau);
 
 	//In buffer ra man hinh
-	for(int i=0;i<Height;i++)
-		for (int j = thing.riatruoc; j < thing.riasau; j++)
+	for(i=0;i<Height;i++)
+		for (j = thing.riatruoc; j < thing.riasau; j++)
 		{
 			gotoxy(j, i);
 			putchar(buffer[i][j].kytu);
 			buffer[i][j].kytu = ' '; // in xoa xong huy ky tu
 		}
-	//create bullet
-	DrawBullet(thing);
+	
 }
 void Nocursortype() // Xoa con tro chuot tren man hinh console: https://daynhauhoc.com/t/hoi-ve-con-tro-chuot-tren-man-hinh-console/34411/3
 {
@@ -206,25 +212,12 @@ void ControlBullet(THINGS &thing)
 			thing.bullet[thing.sodan + 1].toado.y = thing.car.toado.y - 2;
 			thing.sodan+=2;
 		}
-}
-void BulletMove(THINGS &thing)
-{
-	int j;
-	for (j = 0; j < thing.sodan; j++)
-	{
-		if(thing.bullet[j].toado.y>=0)
-		thing.bullet[j].toado.y -= 2;
-		//thing.bullet[j + 1].toado.y -= 2;
-	}
-}
-void DrawBullet(THINGS &thing)
-{
-	int i;
-	for (i = 0; i < thing.sodan; i++)
-	{
-		drawBuffer(thing.bullet[i].toado.y, thing.bullet[i].toado.x, thing.bullet[i].bullet = 'l');
-		//drawBuffer(thing.bullet[i +1].toado.y, thing.bullet[i +1].toado.x, thing.bullet[i +1].bullet = 'l');
-	}
+		int j;
+		for (j = 0; j < thing.sodan; j++)
+		{
+			if (thing.bullet[j].toado.y >= 0)
+				thing.bullet[j].toado.y -= 2;
+		}
 }
 
 void moveVatCan(THINGS &thing)
@@ -293,11 +286,12 @@ void CoinDiChuyen(THINGS &thing)
 void Control(THINGS &thing)
 {
 	//Xe di chuyuen
-	CarDiChuyen(thing);
+	CarDiChuyen(thing.car);
+
 	//bullet move
 	ControlBullet(thing);
-	BulletMove(thing);
-	//CoinDiChuyen(coin)
+
+	//CoinDiChuyen
 	CoinDiChuyen(thing);
 
 	//Vat can di chuyen
