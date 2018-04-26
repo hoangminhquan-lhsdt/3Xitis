@@ -223,6 +223,7 @@ void BulletMove(THINGS &thing)
 	int j;
 	for (j = 0; j < thing.sodan; j++)
 	{
+		if(thing.bullet[j].toado.y>=0)
 		thing.bullet[j].toado.y -= 2;
 		//thing.bullet[j + 1].toado.y -= 2;
 	}
