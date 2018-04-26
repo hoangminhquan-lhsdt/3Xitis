@@ -196,17 +196,6 @@ void CarDiChuyen(THINGS &thing)
 			thing.car.toado.y++;
 	}
 }
-void createbullet2(THINGS &thing)
-{
-	int i;
-	for (i = 0; i < 10; i+=2)
-	{
-		thing.bullet[i].toado.x = thing.car.toado.x-1;
-		thing.bullet[i].toado.y = thing.car.toado.y-2;
-		thing.bullet[i + 1].toado.x = thing.car.toado.x + 1;
-		thing.bullet[i + 1].toado.y = thing.car.toado.y - 2;
-	}
-}
 void ControlBullet(THINGS &thing)
 {
 		if (GetAsyncKeyState(VK_SPACE) && thing.sodan<10)//create bullet

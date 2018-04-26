@@ -62,8 +62,6 @@ struct O
 void ControlBullet(THINGS &thing);//
 void DrawBullet(THINGS &thing);//
 void BulletMove(THINGS &thing);
-void createbullet2(THINGS &thing);//
-//void CreateBullet(THINGS &thing);//
 void BXH();
 void Input(int score);
 void gotoxy(int x, int y);
