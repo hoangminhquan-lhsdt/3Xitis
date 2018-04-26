@@ -120,6 +120,9 @@ void Shape(THINGS &thing) //Tao ra cac hinh dang cua cac vat tren man hinh
 		//for (k = 0; k < 30; k++)
 			//buffer[i][k].kytu = ' ';
 
+	//tao hinh cho dan
+	for(i=0;i<10;i++)
+		thing.bullet[i].bullet = 'l';
 }
 inline int random(int a, int b)
 {
@@ -208,8 +211,6 @@ void ControlBullet(THINGS &thing)
 {
 		if (GetAsyncKeyState(VK_SPACE) && thing.sodan<10)//create bullet
 		{
-			thing.bullet[thing.sodan].bullet = 'l';
-			thing.bullet[thing.sodan +1].bullet = 'l';
 			thing.bullet[thing.sodan].toado.x = thing.car.toado.x - 1;
 			thing.bullet[thing.sodan].toado.y = thing.car.toado.y - 2;
 			thing.bullet[thing.sodan + 1].toado.x = thing.car.toado.x + 1;
@@ -229,7 +230,7 @@ void BulletMove(THINGS &thing)
 void DrawBullet(THINGS &thing)
 {
 	int i;
-	for (i = 2; i < thing.sodan; i++)
+	for (i = 0; i < thing.sodan; i++)
 	{
 		drawBuffer(thing.bullet[i].toado.y, thing.bullet[i].toado.x, thing.bullet[i].bullet = 'l');
 		//drawBuffer(thing.bullet[i +1].toado.y, thing.bullet[i +1].toado.x, thing.bullet[i +1].bullet = 'l');
@@ -368,7 +369,7 @@ bool GameOver(THINGS thing)
 void playGame()
 {
 	THINGS thing;
-	thing.riatruoc = 0, thing.riasau = Width, thing.sovatcan = 5,thing.sodan=0;
+	thing.riatruoc = 0, thing.riasau = Width, thing.sovatcan = 5, thing.sodan = 0;
 	int score, time, temp = -1;
 	system("cls");
 	
