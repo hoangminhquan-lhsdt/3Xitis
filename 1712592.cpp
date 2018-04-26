@@ -184,22 +184,13 @@ void CarDiChuyen(THINGS &thing)
 	if (_kbhit()) //kiem tra xem co phim nao dc nhan khong 
 	{
 		if ((GetAsyncKeyState(VK_LEFT)) && (thing.car.toado.x > 2)) //Trai
-		{
 			thing.car.toado.x--;
-		}
 		if ((GetAsyncKeyState(VK_RIGHT)) && (thing.car.toado.x < Width - 3)) //Phai
-		{
 			thing.car.toado.x++;
-		}
 		if ((GetAsyncKeyState(VK_UP)) && (thing.car.toado.y > 1)) //Len
-		{
 			thing.car.toado.y--;
-		}
-
 		if ((GetAsyncKeyState(VK_DOWN)) && (thing.car.toado.y < Height - 2)) //Xuong
-		{
 			thing.car.toado.y++;
-		}
 	}
 }
 void createbullet2(THINGS &thing)
@@ -215,21 +206,24 @@ void createbullet2(THINGS &thing)
 }
 void ControlBullet(THINGS &thing)
 {
-		if (GetAsyncKeyState(VK_SPACE))//create bullet
+		if (GetAsyncKeyState(VK_SPACE) && thing.sodan<10)//create bullet
 		{
 			thing.bullet[thing.sodan].bullet = 'l';
 			thing.bullet[thing.sodan +1].bullet = 'l';
+			thing.bullet[thing.sodan].toado.x = thing.car.toado.x - 1;
+			thing.bullet[thing.sodan].toado.y = thing.car.toado.y - 2;
+			thing.bullet[thing.sodan + 1].toado.x = thing.car.toado.x + 1;
+			thing.bullet[thing.sodan + 1].toado.y = thing.car.toado.y - 2;
 			thing.sodan+=2;
-			if (thing.sodan>=sizeof(thing.bullet[10])) thing.sodan = 0;
 		}
 }
 void BulletMove(THINGS &thing)
 {
 	int j;
-	for (j = 2; j < thing.sodan; j++)
+	for (j = 0; j < thing.sodan; j++)
 	{
-			thing.bullet[j].toado.y -= 2;
-			//thing.bullet[j+1].toado.y -= 2;	
+		thing.bullet[j].toado.y -= 2;
+		//thing.bullet[j + 1].toado.y -= 2;
 	}
 }
 void DrawBullet(THINGS &thing)
@@ -310,7 +304,9 @@ void Control(THINGS &thing)
 	CarDiChuyen(thing);
 	//bullet move
 	ControlBullet(thing);
+	//createbullet2(thing);
 	BulletMove(thing);
+
 	//CoinDiChuyen(coin)
 	CoinDiChuyen(thing);
 
