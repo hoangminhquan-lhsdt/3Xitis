@@ -407,6 +407,7 @@ void playGame()
 			Sleep(time); //Diem cang cao cang nhanh 
 		else Sleep(2); 
 	}
+	
 }
 void controlTwoCar(THINGS &thing1, THINGS &thing2)
 {
@@ -539,7 +540,6 @@ void playTwoCar()
 		Nocursortype();
 		//Nhip game
 		time = 100 - score1;
-
 		if (time>2)
 			Sleep(time); //Diem cang cao cang nhanh 
 		else Sleep(2);
@@ -581,6 +581,7 @@ int VietMenu(char *menu[]) {
 			else printf("--%s--\n", menu[i]);
 		}
 		if (GetAsyncKeyState(VK_RETURN)) return vitri;
+		Sleep(100);
 	}
 
 }
@@ -593,37 +594,31 @@ void Menu(char *menu[])
 		switch (vitri) {
 		case 0:
 		{
-			if (_kbhit())
-				playGame();
+			playGame();
 			break;
 		}
 		case 1:
 		{
 			playTwoCar();
-			continue;
+			break;
 		}
 		case 2:
 		{
 			system("cls");
 			Rule();
 			system("pause");
-			if (_kbhit())
-			{
-				continue;
-			}
+			break;
 		}
 		case 3: //BXH
 		{
 			system("cls");
 			BXH();
 			system("pause");
-			if (_kbhit())
-			{
-				continue;
-			}
+			break;
 		}
-		case 4: breaker = 0; break;
+		case 4: breaker = 0; return;
 		}
+		vitri = VietMenu(menu);
 		Sleep(500);
 	}
 }
