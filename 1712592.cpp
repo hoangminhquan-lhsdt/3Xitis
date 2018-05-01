@@ -23,6 +23,28 @@ void Input(int score)
 	fclose(f);
 	c = getch();
 }
+void sortBXH(PLAYER arr[], int n) {
+	PLAYER temp;
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < i; j++)
+			if (arr[i].score > arr[j].score) {
+				strcpy(temp.Name,arr[i].Name);
+				temp.score = arr[i].score;
+				strcpy(arr[i].Name, arr[j].Name);
+				arr[i].score = arr[j].score;
+				strcpy(arr[j].Name, temp.Name);
+				arr[j].score = temp.score;
+			}
+	int length;
+	for (int i = 0; i < n; i++) {
+		if (!strcmp(arr[i].Name, "\n"))						// 
+			break;											//
+		length = strlen(arr[i].Name) - 1;					//
+		if ((length > 0) && (arr[i].Name[length] == '\n'))	//
+			arr[i].Name[length] = '\0';						// https://stackoverflow.com/questions/25615916/removing-newline-from-fgets
+		printf("%d. %s    %d\n", i + 1, arr[i].Name, arr[i].score);
+	}
+}
 void BXH() {
 	//char c;
 	int length;
@@ -31,20 +53,12 @@ void BXH() {
 	int i = 0;
 	FILE *f = fopen("Player.txt", "r");
 	while (!feof(f)) {
-		fflush(stdin);
 		fgets(list[i].Name, 30, f);
-		if (!strcmp(list[i].Name, "\n"))					// 
-			break;											//
-		length = strlen(list[i].Name) - 1;					//
-		if ((length > 0) && (list[i].Name[length] == '\n')) //
-			list[i].Name[length] = '\0';					// https://stackoverflow.com/questions/25615916/removing-newline-from-fgets
 		fscanf(f, "%d\n", &list[i].score);
-		//fgetc(f);
-		printf("%d. %s    %d\n", i + 1, list[i].Name, list[i].score);
 		i++;
-		fflush(stdin);
 	}
 	fclose(f);
+	sortBXH(list, i);
 	_getch();
 }
 void gotoxy(int x, int y) //Dua con tro toi mot vi tri tren man hinh console

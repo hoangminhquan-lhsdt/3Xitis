@@ -1,80 +1,8 @@
-<<<<<<< HEAD
-
-	15
-l
-	1
-
-	5
-
-	5
-
-	2
-
-	3
-
-	5
-
-	7
-
-	5
-
-	1
-
-	6
-
-	1
-
-	2
-
-	3
-
-	3
-
-	13
-
-	1
-
-	2
-=======
-Ho phan Minh
-	8
-CLGT
-	2
-l
-	4
-l
-	3
-gag
-	25
-<<<<<<< HEAD
->>>>>>> d057cd0901b673aaa9b3cecd23778749cd299f01
-hieunghia
-	25
-hieunghia
-	1
-diephieunghia
-	0
-hieunghia
-	1
-hieunghia
-	1
-hieunghia
-	3
-=======
-HPM
-	27
-HPM
-	39
-The fuck
-	8
-The hell
-	18
-y
-	4
-HPM
-	21
->>>>>>> 86e795e1edbe0c6a6d7a25dac769266cee04948b
-l
-	48
-HPM
-	0
+hac
+	12
+hac2
+	20
+hac3
+	14
+hac4
+	17
