@@ -165,7 +165,6 @@ void Create(THINGS thing) // Ve xe vao duong dua
 	for (i = 0; i < thing.sodan; i++)
 	{
 		drawBuffer(thing.bullet[i].toado.y, thing.bullet[i].toado.x, thing.bullet[i].bullet = 'l');
-		//drawBuffer(thing.bullet[i +1].toado.y, thing.bullet[i +1].toado.x, thing.bullet[i +1].bullet = 'l');
 	}
 
 	//ve lai lane
@@ -204,7 +203,7 @@ void CarDiChuyen(CAR &car)
 }
 void ControlBullet(THINGS &thing)
 {
-		if (GetAsyncKeyState(VK_SPACE) && thing.sodan<10)//create bullet
+		if (GetAsyncKeyState(VK_SPACE) && thing.sodan<6)//create bullet
 		{
 			thing.bullet[thing.sodan].toado.x = thing.car.toado.x - 1;
 			thing.bullet[thing.sodan].toado.y = thing.car.toado.y - 2;
@@ -215,9 +214,38 @@ void ControlBullet(THINGS &thing)
 		int j;
 		for (j = 0; j < thing.sodan; j++)
 		{
-			if (thing.bullet[j].toado.y >= 0)
+			if (thing.bullet[j].toado.y >= 0&&thing.bullet[j].bullet=='l')
 				thing.bullet[j].toado.y -= 2;
 		}
+		if (thing.bullet[0].toado.y <= 0 && thing.bullet[2].toado.y <= 0 && thing.bullet[4].toado.y <= 0 )
+			if (thing.sodan >= 5)
+				thing.sodan = 0;
+
+}
+void bulletvatcan(THINGS &thing)
+{
+	int i,j;
+	for(i=0;i<thing.sodan;i++)
+		for (j = 0; j < 10; j++)
+		{
+			if (Distance(thing.bullet[i].toado.x, thing.vatcan[j].toado.x) == 0 && Distance(thing.bullet[i].toado.y, thing.vatcan[j].toado.y) == 0)
+			{
+				thing.vatcan[j].hinhdang.o[0][0] = ' '; thing.vatcan[j].hinhdang.o[0][2] = 219;
+				thing.vatcan[j].hinhdang.o[2][0] = ' '; thing.vatcan[j].hinhdang.o[2][2] = ' ';
+				thing.vatcan[j].hinhdang.o[0][1] = ' '; thing.vatcan[j].hinhdang.o[2][1] = ' ';
+				thing.vatcan[j].hinhdang.o[1][0] = ' '; thing.vatcan[j].hinhdang.o[1][2] = ' ';
+				thing.vatcan[j].hinhdang.o[1][1] = ' ';
+			}
+			//if (Distance(thing.bullet[i].toado.x, thing.vatcan[j].toado.x-1) == 0 && Distance(thing.bullet[i].toado.y, thing.vatcan[j].toado.y) == 0)
+				//thing.vatcan[j].hinhdang.o[1][0] = ' ';
+			//if (Distance(thing.bullet[i].toado.x, thing.vatcan[j].toado.x+1) == 0 && Distance(thing.bullet[i].toado.y, thing.vatcan[j].toado.y) == 0)
+				//thing.vatcan[j].hinhdang.o[1][2] = ' ';
+			//if (Distance(thing.bullet[i].toado.x, thing.vatcan[j].toado.x - 1) == 0 && Distance(thing.bullet[i].toado.y, thing.vatcan[j].toado.y+1) == 0)
+				//thing.vatcan[j].hinhdang.o[2][0] = ' ';
+			//if (Distance(thing.bullet[i].toado.x, thing.vatcan[j].toado.x + 1) == 0 && Distance(thing.bullet[i].toado.y, thing.vatcan[j].toado.y + 1) == 0)
+				//thing.vatcan[j].hinhdang.o[2][2] = ' ';
+		}
+			
 }
 
 void moveVatCan(THINGS &thing)
@@ -290,6 +318,7 @@ void Control(THINGS &thing)
 
 	//bullet move
 	ControlBullet(thing);
+	bulletvatcan(thing);
 
 	//CoinDiChuyen
 	CoinDiChuyen(thing);
@@ -355,8 +384,8 @@ void Ai(THINGS &thing) // chua tinh truong hop car.toado.x == 2 vay no sang left
 bool GameOver(THINGS thing)
 {
 	for (int i = 0; i < thing.sovatcan; i++)
-	{
-		if ((Distance(thing.car.toado.x, thing.vatcan[i].toado.x) < 3) && (Distance(thing.car.toado.y, thing.vatcan[i].toado.y) < 3)) return true;
+	{	
+			if ((Distance(thing.car.toado.x, thing.vatcan[i].toado.x) < 3) && (Distance(thing.car.toado.y, thing.vatcan[i].toado.y) < 3)) return true;
 	}
 	return false;
 }

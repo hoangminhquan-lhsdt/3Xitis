@@ -60,6 +60,7 @@ struct O
 	char kytu;
 };
 void ControlBullet(THINGS &thing);//
+void bulletvatcan(THINGS &thing);//
 void BXH();
 void Input(int score);
 void gotoxy(int x, int y);
