@@ -15,8 +15,8 @@ void Input(int score)
 	FILE *f = fopen("Player.txt", "a");
 	PLAYER player;
 	char c;
-	gotoxy(40, 15);
-	printf("Nhap ten:  ");
+	gotoxy(0, 15);
+	printf("Nhap ten:");
 	scanf(" %[^\n]s &c", player.Name, &c);
 	fprintf(f, "%s\n", player.Name);
 	fprintf(f, "	%d\n", score);
@@ -244,11 +244,11 @@ void bulletvatcan(THINGS &thing)
 		{
 			if (Distance(thing.bullet[i].toado.x, thing.vatcan[j].toado.x) == 0 && Distance(thing.bullet[i].toado.y, thing.vatcan[j].toado.y) == 0)
 			{
-				thing.vatcan[j].hinhdang.o[0][0] = ' '; thing.vatcan[j].hinhdang.o[0][2] = 219;
+				thing.vatcan[j].hinhdang.o[0][0] = ' '; thing.vatcan[j].hinhdang.o[0][2] = ' ';
 				thing.vatcan[j].hinhdang.o[2][0] = ' '; thing.vatcan[j].hinhdang.o[2][2] = ' ';
 				thing.vatcan[j].hinhdang.o[0][1] = ' '; thing.vatcan[j].hinhdang.o[2][1] = ' ';
 				thing.vatcan[j].hinhdang.o[1][0] = ' '; thing.vatcan[j].hinhdang.o[1][2] = ' ';
-				thing.vatcan[j].hinhdang.o[1][1] = ' ';
+				thing.vatcan[j].hinhdang.o[1][1] = 219;
 			}
 			//if (Distance(thing.bullet[i].toado.x, thing.vatcan[j].toado.x-1) == 0 && Distance(thing.bullet[i].toado.y, thing.vatcan[j].toado.y) == 0)
 				//thing.vatcan[j].hinhdang.o[1][0] = ' ';
