@@ -15,7 +15,7 @@ void Input(int score)
 	FILE *f = fopen("Player.txt", "a");
 	PLAYER player;
 	char c;
-	gotoxy(0, 15);
+	gotoxy(40, 15);
 	printf("Nhap ten:  ");
 	scanf(" %[^\n]s &c", player.Name, &c);
 	fprintf(f, "%s\n", player.Name);
