@@ -134,10 +134,6 @@ void Shape(THINGS &thing) //Tao ra cac hinh dang cua cac vat tren man hinh
 	for(i=0;i<10;i++)
 		thing.bullet[i].bullet = 'l';
 }
-void shapeOfCar(CAR &car)
-{
-
-}
 inline int random(int a, int b) // random trong doan [a,b]
 {
 	return rand() % (b - a - 1) + a;
