@@ -228,7 +228,7 @@ void ControlBullet(THINGS &thing)
 		int j;
 		for (j = 0; j < thing.sodan; j++)
 		{
-			if (thing.bullet[j].toado.y >= 0&&thing.bullet[j].bullet=='l')
+			if (thing.bullet[j].toado.y >= 0)
 				thing.bullet[j].toado.y -= 2;
 		}
 		if (thing.bullet[0].toado.y <= 0 && thing.bullet[2].toado.y <= 0 && thing.bullet[4].toado.y <= 0 )
@@ -238,28 +238,20 @@ void ControlBullet(THINGS &thing)
 }
 void bulletvatcan(THINGS &thing)
 {
-	int i,j;
-	for(i=0;i<thing.sodan;i++)
-		for (j = 0; j < 10; j++)
-		{
-			if (Distance(thing.bullet[i].toado.x, thing.vatcan[j].toado.x) == 0 && Distance(thing.bullet[i].toado.y, thing.vatcan[j].toado.y) == 0)
+	int i,j,k;
+	for (i = 0; i < thing.sodan; i++)
+	{
+		for (j = 0; j < 10; j++)	
+			if (Distance(thing.bullet[i].toado.x, thing.coin[j].toado.x) == 0 && Distance(thing.bullet[i].toado.y, thing.coin[j].toado.y) == 0)
 			{
-				thing.vatcan[j].hinhdang.o[0][0] = ' '; thing.vatcan[j].hinhdang.o[0][2] = 219;
-				thing.vatcan[j].hinhdang.o[2][0] = ' '; thing.vatcan[j].hinhdang.o[2][2] = ' ';
-				thing.vatcan[j].hinhdang.o[0][1] = ' '; thing.vatcan[j].hinhdang.o[2][1] = ' ';
-				thing.vatcan[j].hinhdang.o[1][0] = ' '; thing.vatcan[j].hinhdang.o[1][2] = ' ';
-				thing.vatcan[j].hinhdang.o[1][1] = ' ';
+				thing.coin[j].toado.x = random(thing.riatruoc, thing.riasau);
+				thing.coin[j].toado.y = rand() % 4;
+				thing.car.score++;
 			}
-			//if (Distance(thing.bullet[i].toado.x, thing.vatcan[j].toado.x-1) == 0 && Distance(thing.bullet[i].toado.y, thing.vatcan[j].toado.y) == 0)
-				//thing.vatcan[j].hinhdang.o[1][0] = ' ';
-			//if (Distance(thing.bullet[i].toado.x, thing.vatcan[j].toado.x+1) == 0 && Distance(thing.bullet[i].toado.y, thing.vatcan[j].toado.y) == 0)
-				//thing.vatcan[j].hinhdang.o[1][2] = ' ';
-			//if (Distance(thing.bullet[i].toado.x, thing.vatcan[j].toado.x - 1) == 0 && Distance(thing.bullet[i].toado.y, thing.vatcan[j].toado.y+1) == 0)
-				//thing.vatcan[j].hinhdang.o[2][0] = ' ';
-			//if (Distance(thing.bullet[i].toado.x, thing.vatcan[j].toado.x + 1) == 0 && Distance(thing.bullet[i].toado.y, thing.vatcan[j].toado.y + 1) == 0)
-				//thing.vatcan[j].hinhdang.o[2][2] = ' ';
-		}
-			
+		for (k = 0; k < thing.sovatcan; k++)
+			if (Distance(thing.bullet[i].toado.x, thing.vatcan[k].toado.x) == 0 && Distance(thing.bullet[i].toado.y, thing.vatcan[k].toado.y) == 0)
+			thing.vatcan[k].toado.y-=2;
+	}	
 }
 
 void moveVatCan(THINGS &thing)
