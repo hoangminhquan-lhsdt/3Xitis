@@ -119,8 +119,8 @@ void Shape(THINGS &thing) //Tao ra cac hinh dang cua cac vat tren man hinh
 			thing.vatcan[i].trangthai = RIGHT;
 
 		//Bien
-		thing.vatcan[i].trai.x = thing.vatcan[i].toado.x - 1;
-		thing.vatcan[i].phai.x = thing.vatcan[i].toado.x + 1;
+		thing.vatcan[i].bientrai.x = thing.vatcan[i].toado.x - 1;
+		thing.vatcan[i].bienphai.x = thing.vatcan[i].toado.x + 1;
 	}
 
 	//Coin: $
@@ -133,6 +133,10 @@ void Shape(THINGS &thing) //Tao ra cac hinh dang cua cac vat tren man hinh
 	//tao hinh cho dan. hinh dang l
 	for(i=0;i<10;i++)
 		thing.bullet[i].bullet = 'l';
+}
+void shapeOfCar(CAR &car)
+{
+
 }
 inline int random(int a, int b) // random trong doan [a,b]
 {
@@ -277,9 +281,9 @@ void VatCanDiChuyen(THINGS &thing)//add them di chuyen
 			thing.vatcan[i].trangthai = RIGHT;
 		if (thing.vatcan[i].toado.x == thing.riasau - 3)
 			thing.vatcan[i].trangthai = LEFT;
-		if (thing.vatcan[i].toado.x == thing.vatcan[i].trai.x)
+		if (thing.vatcan[i].toado.x == thing.vatcan[i].bientrai.x)
 			thing.vatcan[i].trangthai = RIGHT;
-		if (thing.vatcan[i].toado.x == thing.vatcan[i].phai.x)
+		if (thing.vatcan[i].toado.x == thing.vatcan[i].bienphai.x)
 			thing.vatcan[i].trangthai = LEFT;
 
 		//Sang trai phai
@@ -578,11 +582,8 @@ void playTwoCar()
 }
 void Rule()
 {
-	gotoxy(30, 15);
-	printf("Dung cac phim mui ten di chuyen va nhat tien.");
-	gotoxy(30, 16);
-	printf("Dont hit the obstacles.");
-	gotoxy(30, 17);
+	gotoxy(40, 15);
+	printf("Dieu khien va khong dung vat can va luom tien\n");
 }
 int VietMenu(char *menu[]) {
 	int vitri = 0;

@@ -27,7 +27,7 @@ struct CAR
 struct VATCAN
 {
 	SHAPE hinhdang;
-	TOADO toado, trai, phai;
+	TOADO toado, bientrai, bienphai;
 	TRANGTHAI trangthai;
 	int sovatcan;
 };
@@ -85,3 +85,4 @@ void Menu(char *menu[]);
 void drawBuffer(int dong, int cot, char kytu);
 void Nocursortype();
 inline int random(int a, int b);
+int VietMenu(char *menu[]);
