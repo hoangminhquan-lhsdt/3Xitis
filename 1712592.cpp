@@ -8,6 +8,7 @@
 #include <string.h>
 #include <mmsystem.h>
 #pragma warning(disable:4996)
+
 O buffer[30][30];
 void Input(int score)
 {
@@ -68,7 +69,7 @@ void gotoxy(int x, int y) //Dua con tro toi mot vi tri tren man hinh console
 	SetConsoleCursorPosition(h, c);
 }
 
-void drawBuffer(int dong, int cot, char kytu)
+void drawBuffer(int dong, int cot, char kytu) // Giam giat cho man hinh console, link: https://www.youtube.com/watch?v=hsvzJlxG2LY
 {
 	buffer[dong][cot].kytu = kytu;
 }
@@ -129,22 +130,17 @@ void Shape(THINGS &thing) //Tao ra cac hinh dang cua cac vat tren man hinh
 		thing.coin[i].toado.y = rand() % Height;
 	}
 
-	//lam trang Buffer
-	//for (i = 0; i < 30; i++)
-		//for (k = 0; k < 30; k++)
-			//buffer[i][k].kytu = ' ';
-
-	//tao hinh cho dan
+	//tao hinh cho dan. hinh dang l
 	for(i=0;i<10;i++)
 		thing.bullet[i].bullet = 'l';
 }
-inline int random(int a, int b)
+inline int random(int a, int b) // random trong doan [a,b]
 {
 	return rand() % (b - a - 1) + a;
 }
-void Lane(int riatruoc, int riasau) //Ve lane
+void Lane(int riatruoc, int riasau) //Tao lane
 {
-	/*
+	/* Hinh dang
 			|	|
 			|	|
 	*/
@@ -154,10 +150,10 @@ void Lane(int riatruoc, int riasau) //Ve lane
 		drawBuffer(i, riasau - 1, '|');
 	}
 }
-void Create(THINGS thing) // Ve xe vao duong dua
+void Create(THINGS thing) // Ve cac vat vao duong dua
 {
 	int i, j, k;
-	//ve xe vao duong dua
+	//ve xe
 	for (i = -1; i < 2; i++)
 		for (j = -1; j < 2; j++)
 			drawBuffer(thing.car.toado.y + i, thing.car.toado.x + j, thing.car.hinhdang.o[i + 1][j + 1]); //Ve xe vào buffer
@@ -166,7 +162,7 @@ void Create(THINGS thing) // Ve xe vao duong dua
 	for (k = 0; k < 10; k++)
 		drawBuffer(thing.coin[k].toado.y, thing.coin[k].toado.x, '$'); // ve tien vao buffer
 
-	//ve vat can vao duong dua
+	//ve vat can 
 	for (k = 0; k < thing.sovatcan; k++)
 	{
 		if (thing.vatcan[k].toado.y > 0 && thing.vatcan[k].toado.y < Height) //Nam ngoai man hinh thi ko dua vao
@@ -175,7 +171,7 @@ void Create(THINGS thing) // Ve xe vao duong dua
 					drawBuffer(thing.vatcan[k].toado.y + i, thing.vatcan[k].toado.x + j, thing.vatcan[k].hinhdang.o[i + 1][j + 1]); //Ve vat can vao buffer
 	}
 
-	//create bullet
+	//ve dan
 	for (i = 0; i < thing.sodan; i++)
 	{
 		drawBuffer(thing.bullet[i].toado.y, thing.bullet[i].toado.x, thing.bullet[i].bullet = 'l');
@@ -201,7 +197,7 @@ void Nocursortype() // Xoa con tro chuot tren man hinh console: https://daynhauh
 	Info.dwSize = 20;
 	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &Info);
 }
-void CarDiChuyen(CAR &car)
+void CarDiChuyen(CAR &car) // dieu khien xe
 {
 	if (_kbhit()) //kiem tra xem co phim nao dc nhan khong 
 	{
@@ -215,11 +211,11 @@ void CarDiChuyen(CAR &car)
 			car.toado.y++;
 	}
 }
-void ControlBullet(THINGS &thing)
+void ControlBullet(THINGS &thing) // dieu khien dan
 {
 		if (GetAsyncKeyState(VK_SPACE) && thing.sodan<6)//create bullet
 		{
-			thing.bullet[thing.sodan].toado.x = thing.car.toado.x - 1;
+			thing.bullet[thing.sodan].toado.x = thing.car.toado.x - 1; 
 			thing.bullet[thing.sodan].toado.y = thing.car.toado.y - 2;
 			thing.bullet[thing.sodan + 1].toado.x = thing.car.toado.x + 1;
 			thing.bullet[thing.sodan + 1].toado.y = thing.car.toado.y - 2;
@@ -236,33 +232,25 @@ void ControlBullet(THINGS &thing)
 				thing.sodan = 0;
 
 }
-void bulletvatcan(THINGS &thing)
+void bulletvatcan(THINGS &thing) // khi dan trung vat can
 {
 	int i,j;
 	for(i=0;i<thing.sodan;i++)
 		for (j = 0; j < 10; j++)
 		{
-			if (Distance(thing.bullet[i].toado.x, thing.vatcan[j].toado.x) == 0 && Distance(thing.bullet[i].toado.y, thing.vatcan[j].toado.y) == 0)
+			if (Distance(thing.bullet[i].toado.x, thing.vatcan[j].toado.x) <2 && Distance(thing.bullet[i].toado.y, thing.vatcan[j].toado.y) <2)
 			{
+				//Thu nho vat can
 				thing.vatcan[j].hinhdang.o[0][0] = ' '; thing.vatcan[j].hinhdang.o[0][2] = ' ';
 				thing.vatcan[j].hinhdang.o[2][0] = ' '; thing.vatcan[j].hinhdang.o[2][2] = ' ';
 				thing.vatcan[j].hinhdang.o[0][1] = ' '; thing.vatcan[j].hinhdang.o[2][1] = ' ';
 				thing.vatcan[j].hinhdang.o[1][0] = ' '; thing.vatcan[j].hinhdang.o[1][2] = ' ';
 				thing.vatcan[j].hinhdang.o[1][1] = 219;
 			}
-			//if (Distance(thing.bullet[i].toado.x, thing.vatcan[j].toado.x-1) == 0 && Distance(thing.bullet[i].toado.y, thing.vatcan[j].toado.y) == 0)
-				//thing.vatcan[j].hinhdang.o[1][0] = ' ';
-			//if (Distance(thing.bullet[i].toado.x, thing.vatcan[j].toado.x+1) == 0 && Distance(thing.bullet[i].toado.y, thing.vatcan[j].toado.y) == 0)
-				//thing.vatcan[j].hinhdang.o[1][2] = ' ';
-			//if (Distance(thing.bullet[i].toado.x, thing.vatcan[j].toado.x - 1) == 0 && Distance(thing.bullet[i].toado.y, thing.vatcan[j].toado.y+1) == 0)
-				//thing.vatcan[j].hinhdang.o[2][0] = ' ';
-			//if (Distance(thing.bullet[i].toado.x, thing.vatcan[j].toado.x + 1) == 0 && Distance(thing.bullet[i].toado.y, thing.vatcan[j].toado.y + 1) == 0)
-				//thing.vatcan[j].hinhdang.o[2][2] = ' ';
-		}
-			
+		}	
 }
 
-void moveVatCan(THINGS &thing)
+void moveVatCan(THINGS &thing) // vat can dung yen
 
 {
 	int i;
@@ -337,7 +325,7 @@ void Control(THINGS &thing)
 	//CoinDiChuyen
 	CoinDiChuyen(thing);
 
-	//Vat can di chuyen
+	//Vat can, vat can di chuyen
 	if (thing.car.score < 20)
 		moveVatCan(thing);
 	else VatCanDiChuyen(thing);
@@ -399,7 +387,8 @@ bool GameOver(THINGS thing)
 {
 	for (int i = 0; i < thing.sovatcan; i++)
 	{	
-			if ((Distance(thing.car.toado.x, thing.vatcan[i].toado.x) < 3) && (Distance(thing.car.toado.y, thing.vatcan[i].toado.y) < 3)) return true;
+			if ((Distance(thing.car.toado.x, thing.vatcan[i].toado.x) < 3) && (Distance(thing.car.toado.y, thing.vatcan[i].toado.y) < 3)) 
+				return true;
 	}
 	return false;
 }
@@ -535,7 +524,6 @@ void playTwoCar()
 		Create(thing1); //Player 1
 		Create(thing2);//Player 2
 
-		//Ai(car, vatcan, coin);
 		//Diem
 		score1 = Score(thing1);
 		score2 = Score(thing2);//Diem
