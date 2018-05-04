@@ -13,7 +13,7 @@ void main()
 	char *menu[] = { "Play game","2 Player","Rule","BXH","Exit" };
 	srand((unsigned)time(NULL));
 	// https://daynhauhoc.com/t/long-nhac-mp3-vao-ung-dung-console-c/34035
-	//PlaySound("NguoiLaOi.wav", NULL, SND_FILENAME | SND_LOOP | SND_ASYNC); //https://msdn.microsoft.com/en-us/library/windows/desktop/dd743680(v=vs.85).aspx
+	PlaySound("DuongToiVinhQuang1.wav", NULL, SND_FILENAME | SND_LOOP | SND_ASYNC); //https://msdn.microsoft.com/en-us/library/windows/desktop/dd743680(v=vs.85).aspx
 	Menu(menu);
 	_getch();
 }

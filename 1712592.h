@@ -1,8 +1,11 @@
-#include <stdio.h>
+﻿#include <stdio.h>
 
 #define Height 30
 #define Width 30
 #define MAXMENU 5 //Danh sach max cua Menu
+#define MAXVATCAN 10
+#define MAXCOIN 10
+#define MAXBULLET 6
 
 enum TRANGTHAI  { UP,DOWN,LEFT,RIGHT}; 
 struct PLAYER
@@ -59,30 +62,42 @@ struct O
 {
 	char kytu;
 };
-void ControlBullet(THINGS &thing);//
-void bulletvatcan(THINGS &thing);//
-void BXH();
+
+//File, sắp xếp
 void Input(int score);
+void sortBXH(PLAYER arr[], int n);
+void BXH();
+//Các hàm tham khảo
 void gotoxy(int x, int y);
+void drawBuffer(int dong, int cot, char kytu);
+void Nocursortype();
+// các hàm tính toán
+inline int random(int a, int b);
+inline int Distance(int x, int y);
+//Hàm trong game
 void Shape(THINGS &thing);
 void Lane(int riatruoc, int riasau);
 void Create(THINGS thing);
+void CarDiChuyen(CAR &car);
 void moveVatCan(THINGS &thing);
 void VatCanDiChuyen(THINGS &thing);
 void CoinDiChuyen(THINGS &thing);
-void CarDiChuyen(CAR &car);
+void ControlBullet(THINGS &thing);
+void bulletvatcan(THINGS &thing);
 void Control(THINGS &thing);
-bool GameOver(THINGS thing);
 int Score(THINGS &thing);
-int Distance(int x, int y);
 void Ai(THINGS &thing);
+bool GameOver(THINGS thing);
 void playGame();
 void controlTwoCar(THINGS &thing1, THINGS &thing2);
 void control2Player(THINGS &thing1, THINGS &thing2);
 void playTwoCar();
+//Menu
 void Rule();
-void Menu(char *menu[]);
-void drawBuffer(int dong, int cot, char kytu);
-void Nocursortype();
-inline int random(int a, int b);
 int VietMenu(char *menu[]);
+void Menu(char *menu[]);
+
+
+
+
+
