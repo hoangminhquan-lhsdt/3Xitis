@@ -80,7 +80,7 @@ void Nocursortype() // Xóa con trỏ chuột trên màn hình console: https://
 	Info.dwSize = 20;
 	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &Info);
 }
-inline int random(int a, int b) // random trong đoạn [a,b]
+inline int Random(int a, int b) // random trong đoạn [a,b]
 {
 	return rand() % (b - a - 1) + a;
 }
@@ -123,7 +123,7 @@ void Shape(THINGS &thing) //Tạo hình dạng các vật: xe, vật cản, ti�
 		thing.vatcan[i].hinhdang.o[1][1] = 219;
 
 		//Gán tọa độ vật cản
-		thing.vatcan[i].toado.x = random(thing.riatruoc, thing.riasau); //Chú thích ở hàm random
+		thing.vatcan[i].toado.x = Random(thing.riatruoc, thing.riasau); //Chú thích ở hàm random
 		thing.vatcan[i].toado.y = rand() % 4 - 6 * i; // Làm các vật cản không bị dính vào nhau qua việc -6*i
 		
 		//random chiều vật cản sẽ đi: trái hoặc phải
@@ -141,7 +141,7 @@ void Shape(THINGS &thing) //Tạo hình dạng các vật: xe, vật cản, ti�
 	//Coin: $
 	for (i = 0; i < MAXCOIN; i++)
 	{
-		thing.coin[i].toado.x = random(thing.riatruoc, thing.riasau); // chú thích ở hàm random
+		thing.coin[i].toado.x = Random(thing.riatruoc, thing.riasau); // chú thích ở hàm random
 		thing.coin[i].toado.y = rand() % Height; // cho tiền xuất hiện toàn màn hình
 	}
 
@@ -225,7 +225,7 @@ void moveVatCan(THINGS &thing) // Vật cản đứng yên
 		{
 			thing.car.score++; // tăng điểm cho người chơi
 							   //Tạo vật cản mới
-			thing.vatcan[i].toado.x = random(thing.riatruoc, thing.riasau);
+			thing.vatcan[i].toado.x = Random(thing.riatruoc, thing.riasau);
 			thing.vatcan[i].toado.y = rand() % 2;
 		}
 	}
@@ -257,7 +257,7 @@ void VatCanDiChuyen(THINGS &thing)// Vật cản di chuyển
 		if (thing.vatcan[i].toado.y > Height) //Vat can ra khoi man hinh, tao vat can moi
 		{
 			thing.car.score++;
-			thing.vatcan[i].toado.x = random(thing.riatruoc, thing.riasau); // chú thích ở hàm random
+			thing.vatcan[i].toado.x = Random(thing.riatruoc, thing.riasau); // chú thích ở hàm random
 			thing.vatcan[i].toado.y = rand() % 4;
 		}
 
@@ -271,7 +271,7 @@ void CoinDiChuyen(THINGS &thing) // coin di chuyển
 		thing.coin[i].toado.y++;
 		if (thing.coin[i].toado.y > Height) //Coin ra khỏi màn hình, tọa coin mới
 		{
-			thing.coin[i].toado.x = random(thing.riatruoc, thing.riasau); // chú thích ở hàm random
+			thing.coin[i].toado.x = Random(thing.riatruoc, thing.riasau); // chú thích ở hàm random
 			thing.coin[i].toado.y = rand() % 4;
 		}
 	}
@@ -308,7 +308,7 @@ void bulletvatcan(THINGS &thing) // Đạn, vật cản ,và tiền
 			if (Distance(thing.bullet[i].toado.x, thing.coin[j].toado.x) == 0 && Distance(thing.bullet[i].toado.y, thing.coin[j].toado.y) == 0)
 			{
 				//Tạo tiền mới
-				thing.coin[j].toado.x = random(thing.riatruoc, thing.riasau); // chú thích ở hàm random
+				thing.coin[j].toado.x = Random(thing.riatruoc, thing.riasau); // chú thích ở hàm random
 				thing.coin[j].toado.y = rand() % 4;
 				// tăng điểm cho người chơi
 				thing.car.score++; 
@@ -342,7 +342,7 @@ int Score(THINGS &thing) // Điểm
 	{
 		if (Distance(thing.car.toado.x, thing.coin[i].toado.x) < 2 && Distance(thing.car.toado.y, thing.coin[i].toado.y) < 2)
 		{
-			thing.coin[i].toado.x = random(thing.riatruoc, thing.riasau); // chú thích ở hàm random
+			thing.coin[i].toado.x = Random(thing.riatruoc, thing.riasau); // chú thích ở hàm random
 			thing.coin[i].toado.y = rand() % 4;
 			thing.car.score++; // tăng điểm
 		}
@@ -579,8 +579,18 @@ void playTwoCar()//Hàm dưới cho 2 người chơi: Mục đích : ăn nhiều
 }
 void Rule() // Luật chơi
 {
+	gotoxy(40, 7);
+	printf("Dieu khien xe tranh vat can\n");
+	gotoxy(40, 9);
+	printf("Nhan phim RIGHT de qua phai\n");
+	gotoxy(40, 11);
+	printf("Nhan phin LEFT de qua trai");
+	gotoxy(40, 13);
+	printf("Nhan phim UP de di len\n");
 	gotoxy(40, 15);
-	printf("Dieu khien va khong dung vat can va luom tien\n");
+	printf("Nhan phim DOWN de di xong\n");
+	gotoxy(40, 17);
+	printf("Nhan SPACE de ban\n");
 }
 int VietMenu(char *menu[]) // Viết menu
 {

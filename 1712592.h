@@ -7,17 +7,18 @@
 #define MAXCOIN 10
 #define MAXBULLET 6
 
-enum TRANGTHAI  { UP,DOWN,LEFT,RIGHT}; 
-struct PLAYER
+enum TRANGTHAI  { UP,DOWN,LEFT,RIGHT}; // Liệt kê trạng thái gồm có các thành phần UP, DOWN, LEFT, RIGHT
+
+struct PLAYER // Thông tin người chơi: họ tên, điểm ghi được
 {
 	char Name[30] = {'a'};
 	int score;
 };
-struct TOADO
+struct TOADO // tọa độ của 1 điểm
 {
 	int x, y; //x: hoanh do, y: tung do
 };
-struct SHAPE
+struct SHAPE // hình mạng của các vật
 {
 	char o[3][3];
 };
@@ -52,12 +53,6 @@ struct THINGS
 	COIN coin[10];
 	int sovatcan, riatruoc, riasau,sodan;
 };
-struct CHUCHAY
-{
-	char str[8] = { "Playing" };
-	TOADO toaodo;
-	TRANGTHAI trangthai;
-};
 struct O
 {
 	char kytu;
@@ -72,7 +67,7 @@ void gotoxy(int x, int y);
 void drawBuffer(int dong, int cot, char kytu);
 void Nocursortype();
 // các hàm tính toán
-inline int random(int a, int b);
+inline int Random(int a, int b);
 inline int Distance(int x, int y);
 //Hàm trong game
 void Shape(THINGS &thing);
