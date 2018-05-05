@@ -6,6 +6,7 @@
 #define MAXVATCAN 10
 #define MAXCOIN 10
 #define MAXBULLET 6
+#define TOPPLAYER 10
 
 enum TRANGTHAI  { UP,DOWN,LEFT,RIGHT}; // Liệt kê trạng thái gồm có các thành phần UP, DOWN, LEFT, RIGHT
 

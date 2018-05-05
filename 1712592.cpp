@@ -17,8 +17,10 @@ void Input(int score)
 	FILE *f = fopen("Player.txt", "a");
 	PLAYER player;
 	char c;
+	gotoxy(0, 14);
+	printf("Diem: %d",score);
 	gotoxy(0, 15);
-	printf("Nhap ten:");
+	printf("Nhap ten: ");
 	scanf(" %[^\n]s &c", player.Name, &c);
 	fprintf(f, "%s\n", player.Name);
 	fprintf(f, "	%d\n", score);
@@ -38,13 +40,22 @@ void sortBXH(PLAYER arr[], int n) {
 				arr[j].score = temp.score;
 			}
 	int length;
-	for (int i = 0; i < n; i++) {
+	gotoxy(47,8);
+	printf("HIGHEST SCORE\n");
+	for (int i = 0; i < TOPPLAYER; i++) {
 		if (!strcmp(arr[i].Name, "\n"))						// 
 			break;											//
 		length = strlen(arr[i].Name) - 1;					//
 		if ((length > 0) && (arr[i].Name[length] == '\n'))	//
-			arr[i].Name[length] = '\0';						// https://stackoverflow.com/questions/25615916/removing-newline-from-fgets
-		printf("%d. %s    %d\n", i + 1, arr[i].Name, arr[i].score);
+			arr[i].Name[length] = '\0';	// https://stackoverflow.com/questions/25615916/removing-newline-from-fgets
+		gotoxy(42, 10+i);
+		printf("%d.", i+1);
+		gotoxy(45, 10+i);
+		printf("%s", arr[i].Name);
+		gotoxy(65, 10+i);
+		printf("%d.\n", arr[i].score);
+
+		//printf("%d. %s    %d\n", i + 1, arr[i].Name, arr[i].score);
 	}
 }
 void BXH() {
