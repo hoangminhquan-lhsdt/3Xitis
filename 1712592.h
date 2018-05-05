@@ -1,12 +1,12 @@
 ﻿#include <stdio.h>
 
-#define Height 30
-#define Width 30
+#define Height 30 // Chiều cao đường đua
+#define Width 30 // Chiều rộng đường đua
 #define MAXMENU 5 //Danh sach max cua Menu
-#define MAXVATCAN 10
+#define MAXVATCAN 10 
 #define MAXCOIN 10
-#define MAXBULLET 6
-#define TOPPLAYER 10
+#define MAXBULLET 6 
+#define TOPPLAYER 10 // 10 người chơi cao điểm nhất
 
 enum TRANGTHAI  { UP,DOWN,LEFT,RIGHT}; // Liệt kê trạng thái gồm có các thành phần UP, DOWN, LEFT, RIGHT
 

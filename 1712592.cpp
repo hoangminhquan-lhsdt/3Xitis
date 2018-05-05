@@ -18,7 +18,7 @@ void Input(int score)
 	PLAYER player;
 	char c;
 	gotoxy(0, 14);
-	printf("Diem: %d",score);
+	printf("Diem: %d\n",score);
 	gotoxy(0, 15);
 	printf("Nhap ten: ");
 	scanf(" %[^\n]s &c", player.Name, &c);
@@ -28,6 +28,7 @@ void Input(int score)
 	c = getch();
 }
 void sortBXH(PLAYER arr[], int n) {
+	//Sắp xếp điểm
 	PLAYER temp;
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < i; j++)
@@ -39,6 +40,7 @@ void sortBXH(PLAYER arr[], int n) {
 				strcpy(arr[j].Name, temp.Name);
 				arr[j].score = temp.score;
 			}
+	//In những người có điểm cao nhất
 	int length;
 	gotoxy(47,8);
 	printf("HIGHEST SCORE\n");
@@ -54,8 +56,6 @@ void sortBXH(PLAYER arr[], int n) {
 		printf("%s", arr[i].Name);
 		gotoxy(65, 10+i);
 		printf("%d.\n", arr[i].score);
-
-		//printf("%d. %s    %d\n", i + 1, arr[i].Name, arr[i].score);
 	}
 }
 void BXH() {
