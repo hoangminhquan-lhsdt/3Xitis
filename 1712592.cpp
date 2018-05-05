@@ -11,6 +11,7 @@
 
 O buffer[30][30]; // khai báo để sử dụng toàn bài
 
+//File
 void Input(int score)
 {
 	system("cls");
@@ -74,7 +75,8 @@ void BXH() {
 	sortBXH(list, i);
 	_getch();
 }
-void gotoxy(int x, int y) //Đưa con trỏ tới vị trí (x,y) trên màn hình console
+//Các hàm tham khảo
+void gotoxy(int x, int y) //Đưa con trỏ tới vị trí (x,y) trên màn hình console: https://daynhauhoc.com/t/xin-giai-thich-ve-ham-gotoxy/13723
 {
 	HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
 	COORD c = { x, y };
@@ -91,6 +93,7 @@ void Nocursortype() // Xóa con trỏ chuột trên màn hình console: https://
 	Info.dwSize = 20;
 	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &Info);
 }
+//Các hàm tính toán
 inline int Random(int a, int b) // random trong đoạn [a,b]
 {
 	return rand() % (b - a - 1) + a;
@@ -99,6 +102,7 @@ inline int Distance(int x, int y) //Khoảng cách giữa các vật theo phươ
 {
 	return abs(x - y);
 }
+//Các hàm trong game
 void Shape(THINGS &thing) //Tạo hình dạng các vật: xe, vật cản, tiền, đạn.
 
 {
@@ -588,6 +592,7 @@ void playTwoCar()//Hàm dưới cho 2 người chơi: Mục đích : ăn nhiều
 		else Sleep(2);
 	}
 }
+//Menu
 void Rule() // Luật chơi
 {
 	gotoxy(40, 7);
@@ -669,7 +674,7 @@ void Menu(char *menu[]) // Menu
 		}
 		case 4: breaker = 0; return;
 		}
-		vitri = VietMenu(menu); // nhớ chọn mục nào, không bị trường hợp auto vào
+		vitri = VietMenu(menu); // nhớ chọn mục nào, không bị trường hợp auto vào khi thoat ra 
 		Sleep(500);
 	}
 }
