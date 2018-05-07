@@ -18,6 +18,7 @@ void Input(int score)
 	FILE *f = fopen("Player.txt", "a");
 	PLAYER player;
 	char c;
+	rewind(stdin);
 	gotoxy(0, 14);
 	printf("Diem: %d\n",score);
 	gotoxy(0, 15);
@@ -293,25 +294,28 @@ void CoinDiChuyen(THINGS &thing) // coin di chuyển
 }
 void ControlBullet(THINGS &thing) // Điều khiển đạn
 {
+	//Tạo đạn
 	if (GetAsyncKeyState(VK_SPACE) && thing.sodan < MAXBULLET)// tạo đạn
 	{
 		//Gán tọa độ vị trí xuất phát của đạn (2 viên): xuất phát ở 2 bánh trước
-		//Viên 1
+		//Viên 1( góc trái)
 		thing.bullet[thing.sodan].toado.x = thing.car.toado.x - 1; 
 		thing.bullet[thing.sodan].toado.y = thing.car.toado.y - 2;
-		//Viên 2			
+		//Viên 2(góc phải)	
 		thing.bullet[thing.sodan + 1].toado.x = thing.car.toado.x + 1;
 		thing.bullet[thing.sodan + 1].toado.y = thing.car.toado.y - 2;
 		thing.sodan+=2; // tăng số đạn
 	}
+	//Đạn di chuyển
 	for (int j = 0; j < thing.sodan; j++)
 	{
 		if (thing.bullet[j].toado.y >= 0 ) // Kiểm tra đạn còn trong khu vực di chuyển không
 			thing.bullet[j].toado.y -= 2; 
 	}
-	if (thing.bullet[0].toado.y <= 0 && thing.bullet[2].toado.y <= 0 && thing.bullet[4].toado.y <= 0 ) // chưa cmt
-		if (thing.sodan >= 5)
-			thing.sodan = 0;
+
+	//Nạp lại đạn
+	if (GetAsyncKeyState(VK_TAB) && thing.sodan == MAXBULLET)
+		thing.sodan = 0;
 }
 void bulletvatcan(THINGS &thing) // Đạn, vật cản ,và tiền
 {
@@ -607,6 +611,8 @@ void Rule() // Luật chơi
 	printf("Nhan phim DOWN de di xong\n");
 	gotoxy(40, 17);
 	printf("Nhan SPACE de ban\n");
+	gotoxy(40, 19);
+	printf("Nhan TAB de nap lai dan\n");
 }
 int VietMenu(char *menu[]) // Viết menu
 {
