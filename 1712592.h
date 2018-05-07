@@ -65,6 +65,7 @@ void sortBXH(PLAYER arr[], int n);
 void BXH();
 //Các hàm tham khảo
 void gotoxy(int x, int y);
+void SetColorAndBackground(int ForgC, int BackC);
 void drawBuffer(int dong, int cot, char kytu);
 void Nocursortype();
 // các hàm tính toán

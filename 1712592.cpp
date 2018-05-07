@@ -46,7 +46,7 @@ void sortBXH(PLAYER arr[], int n) {
 	int length;
 	gotoxy(47,8);
 	printf("HIGHEST SCORE\n");
-	for (int i = 0; i < TOPPLAYER; i++) {
+	for (int i = 0; i < n && i < TOPPLAYER; i++) {
 		if (!strcmp(arr[i].Name, "\n"))						// 
 			break;											//
 		length = strlen(arr[i].Name) - 1;					//
@@ -82,6 +82,12 @@ void gotoxy(int x, int y) //Đưa con trỏ tới vị trí (x,y) trên màn hì
 	HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
 	COORD c = { x, y };
 	SetConsoleCursorPosition(h, c);
+}
+void SetColorAndBackground(int ForgC, int BackC) // https://stackoverflow.com/questions/7539614/what-do-this-expression-mean-setconsoletextattribute-function-in-c
+{
+	WORD wColor = ((BackC & 0x0F) << 4) + (ForgC & 0x0F);
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), wColor);
+	return;
 }
 void drawBuffer(int dong, int cot, char kytu) // Giam giat cho man hinh console, link: https://www.youtube.com/watch?v=hsvzJlxG2LY
 {
