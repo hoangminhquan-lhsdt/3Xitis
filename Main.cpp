@@ -10,6 +10,7 @@
 
 void main()
 {
+	SetColorAndBackground(11, 1);
 	char *menu[] = { "Play game","2 Player","Rule","BXH","Exit" };
 	srand((unsigned)time(NULL));
 	// https://daynhauhoc.com/t/long-nhac-mp3-vao-ung-dung-console-c/34035
