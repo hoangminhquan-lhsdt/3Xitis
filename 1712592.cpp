@@ -76,7 +76,7 @@ void BXH() {
 	sortBXH(list, i);
 	_getch();
 }
-void readRacingCar()
+void readRacingCar()// ASCII text: tạo chữ "RACING CAR" khi vào menu game, tạo kiểu chữ: http://www.network-science.de/ascii/
 {
 	int i = 0;
 	char str[90];
@@ -336,8 +336,9 @@ void ControlBullet(THINGS &thing) // Điều khiển đạn
 	}
 
 	//Nạp lại đạn
-	if (GetAsyncKeyState(VK_TAB) && thing.sodan == MAXBULLET)
-		thing.sodan = 0;
+	if(thing.bullet[0].toado.y <= 0 && thing.bullet[2].toado.y <= 0 && thing.bullet[4].toado.y <= 0)
+		if (thing.sodan >= 5)
+			thing.sodan = 0;
 }
 void bulletvatcan(THINGS &thing) // Đạn, vật cản ,và tiền
 {
