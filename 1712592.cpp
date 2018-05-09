@@ -254,7 +254,51 @@ void CarDiChuyen(CAR &car) // Điều khiển xe
 			car.toado.y++;
 	}
 }
+<<<<<<< HEAD
+void ControlBullet(THINGS &thing)
+{
+		if (GetAsyncKeyState(VK_SPACE) && thing.sodan<6)//create bullet
+		{
+			thing.bullet[thing.sodan].toado.x = thing.car.toado.x - 1;
+			thing.bullet[thing.sodan].toado.y = thing.car.toado.y - 2;
+			thing.bullet[thing.sodan + 1].toado.x = thing.car.toado.x + 1;
+			thing.bullet[thing.sodan + 1].toado.y = thing.car.toado.y - 2;
+			thing.sodan+=2;
+		}
+		int j;
+		for (j = 0; j < thing.sodan; j++)
+		{
+			if (thing.bullet[j].toado.y >= 0)
+				thing.bullet[j].toado.y -= 2;
+		}
+		if (thing.bullet[0].toado.y <= 0 && thing.bullet[2].toado.y <= 0 && thing.bullet[4].toado.y <= 0 )
+			if (thing.sodan >= 5)
+				thing.sodan = 0;
+
+}
+void bulletvatcan(THINGS &thing)
+{
+	int i,j,k;
+	for (i = 0; i < thing.sodan; i++)
+	{
+		for (j = 0; j < 10; j++)	
+			if (Distance(thing.bullet[i].toado.x, thing.coin[j].toado.x) == 0 && Distance(thing.bullet[i].toado.y, thing.coin[j].toado.y) == 0)
+			{
+				thing.coin[j].toado.x = random(thing.riatruoc, thing.riasau);
+				thing.coin[j].toado.y = rand() % 4;
+				thing.car.score++;
+			}
+		for (k = 0; k < thing.sovatcan; k++)
+			if (Distance(thing.bullet[i].toado.x, thing.vatcan[k].toado.x) == 0 && Distance(thing.bullet[i].toado.y, thing.vatcan[k].toado.y) == 0)
+			thing.vatcan[k].toado.y-=2;
+	}	
+}
+
+void moveVatCan(THINGS &thing)
+
+=======
 void moveVatCan(THINGS &thing) // Vật cản đứng yên
+>>>>>>> e2d3344649ee95ce63de2eee8aeed790253eacdd
 {
 	for (int i = 0; i < thing.sovatcan; i++)
 	{

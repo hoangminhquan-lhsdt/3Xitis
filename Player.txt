@@ -6,6 +6,7 @@ hac3
 	14
 hac4
 	17
+<<<<<<< HEAD
 Ho Phan Minh
 	68
 Ho Phan Minh
@@ -60,3 +61,7 @@ HP M
 	33
 h
 	2
+=======
+12
+	21
+>>>>>>> 6f7e4ad60f60d5de11ceef9aebc90f9e248ac5a1
