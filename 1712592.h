@@ -40,7 +40,7 @@ struct TOADO // tọa độ của 1 điểm
 {
 	int x, y; //x: hoanh do, y: tung do
 };
-struct SHAPE // hình mạng của các vật
+struct SHAPE // hình mảng của các vật
 {
 	char o[3][3];
 };
@@ -55,7 +55,6 @@ struct VATCAN
 	SHAPE hinhdang;
 	TOADO toado, bientrai, bienphai;
 	TRANGTHAI trangthai;
-	int sovatcan;
 };
 struct COIN
 {
@@ -80,7 +79,6 @@ struct O
 	char kytu;
 	int mau;
 };
-
 //File, sắp xếp
 void Input(int score);
 void sortBXH(PLAYER arr[], int n);

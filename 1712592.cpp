@@ -15,15 +15,15 @@ O buffer[30][30]; // khai báo để sử dụng toàn bài
 void Input(int score)
 {
 	system("cls");
-	FILE *f = fopen("Player.txt", "a");
+	FILE *f = fopen("Player.txt", "at");
 	PLAYER player;
 	char c;
 	rewind(stdin);
 	gotoxy(0, 14);
-	printf("Diem: %d\n",score);
+	printf("Diem: %d\n", score);
 	gotoxy(0, 15);
 	printf("Nhap ten: ");
-	scanf(" %[^\n]s &c", player.Name, &c);
+	scanf("%[^\n]s &c", player.Name, &c);
 	fprintf(f, "%s\n", player.Name);
 	fprintf(f, "	%d\n", score);
 	fclose(f);
@@ -35,7 +35,7 @@ void sortBXH(PLAYER arr[], int n) {
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < i; j++)
 			if (arr[i].score > arr[j].score) {
-				strcpy(temp.Name,arr[i].Name);
+				strcpy(temp.Name, arr[i].Name);
 				temp.score = arr[i].score;
 				strcpy(arr[i].Name, arr[j].Name);
 				arr[i].score = arr[j].score;
@@ -44,7 +44,7 @@ void sortBXH(PLAYER arr[], int n) {
 			}
 	//In những người có điểm cao nhất
 	int length;
-	gotoxy(47,8);
+	gotoxy(47, 8);
 	printf("HIGHEST SCORE\n");
 	for (int i = 0; i < n && i < TOPPLAYER; i++) {
 		if (!strcmp(arr[i].Name, "\n"))						// 
@@ -52,16 +52,15 @@ void sortBXH(PLAYER arr[], int n) {
 		length = strlen(arr[i].Name) - 1;					//
 		if ((length > 0) && (arr[i].Name[length] == '\n'))	//
 			arr[i].Name[length] = '\0';	// https://stackoverflow.com/questions/25615916/removing-newline-from-fgets
-		gotoxy(42, 10+i);
-		printf("%d.", i+1);
-		gotoxy(45, 10+i);
+		gotoxy(42, 10 + i);
+		printf("%d.", i + 1);
+		gotoxy(45, 10 + i);
 		printf("%s", arr[i].Name);
-		gotoxy(65, 10+i);
+		gotoxy(65, 10 + i);
 		printf("%d.\n", arr[i].score);
 	}
 }
-void BXH() {
-	//char c;
+void BXH() { 
 	int length;
 	system("cls");
 	PLAYER list[1000];
@@ -98,7 +97,7 @@ void gotoxy(int x, int y) //Đưa con trỏ tới vị trí (x,y) trên màn hì
 	COORD c = { x, y };
 	SetConsoleCursorPosition(h, c);
 }
-void drawBuffer(int dong, int cot, char kytu, int mau ) // Giam giat cho man hinh console, link: https://www.youtube.com/watch?v=hsvzJlxG2LY
+void drawBuffer(int dong, int cot, char kytu, int mau) // Giam giat cho man hinh console, link: https://www.youtube.com/watch?v=hsvzJlxG2LY
 {
 	buffer[dong][cot].kytu = kytu;
 	buffer[dong][cot].mau = mau;
@@ -114,7 +113,6 @@ void textColor(int color) // Tạo màu: https://www.youtube.com/watch?v=hsvzJlx
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
 }
-
 //Các hàm tính toán
 inline int Random(int a, int b) // random trong đoạn [a,b]
 {
@@ -131,9 +129,9 @@ void Shape(THINGS &thing) //Tạo hình dạng các vật: xe, vật cản, ti�
 	int i, k;
 	// Xe
 	/*	Hình dạng
-						O-O
-						|M|
-						O-O
+								O-O
+								|M|
+								O-O
 	*/
 	thing.car.hinhdang.o[0][0] = 'O'; thing.car.hinhdang.o[0][2] = 'O'; //Bánh trước
 	thing.car.hinhdang.o[2][0] = 'O'; thing.car.hinhdang.o[2][2] = 'O'; //Bánh sau
@@ -141,16 +139,16 @@ void Shape(THINGS &thing) //Tạo hình dạng các vật: xe, vật cản, ti�
 	thing.car.hinhdang.o[1][0] = '|'; thing.car.hinhdang.o[1][2] = '|'; // Thân bên hông trái và phải
 	thing.car.hinhdang.o[1][1] = 'M'; //Trung tâm xe
 	//Tọa độ xe và điểm người chơi
-	thing.car.toado.x = (thing.riasau+ thing.riatruoc)/2; // Cho xe ở giữa đường đua
+	thing.car.toado.x = (thing.riasau + thing.riatruoc) / 2; // Cho xe ở giữa đường đua
 	thing.car.toado.y = 28; // xe nằm ở cuối đường đua
 	thing.car.score = 0; // Điểm
 
 	//Vật cản
 	/*	Hình dạng
-						█ █
-						███
-						█ █
-	*/
+						 █ █
+						 ███
+						 █ █
+	 */
 	for (i = 0; i < MAXVATCAN; i++) // MAXVATCAN == 10
 	{
 		thing.vatcan[i].hinhdang.o[0][0] = 219; thing.vatcan[i].hinhdang.o[0][2] = 219;
@@ -162,7 +160,7 @@ void Shape(THINGS &thing) //Tạo hình dạng các vật: xe, vật cản, ti�
 		//Gán tọa độ vật cản
 		thing.vatcan[i].toado.x = Random(thing.riatruoc, thing.riasau); //Chú thích ở hàm random
 		thing.vatcan[i].toado.y = rand() % 4 - 6 * i; // Làm các vật cản không bị dính vào nhau qua việc -6*i
-		
+
 		//random chiều vật cản sẽ đi: trái hoặc phải
 		k = rand() % 2;
 		if (k == 0)
@@ -189,14 +187,14 @@ void Shape(THINGS &thing) //Tạo hình dạng các vật: xe, vật cản, ti�
 void Lane(int riatruoc, int riasau) //Tạo đường đua (lane)
 {
 	/* Hình dạng lane
-			|	|
-			|	|
+						|	|
+						|	|
 	*/
 	// vẽ lane vào buffer
 	for (int i = 0; i < Height; i++)
 	{
 		drawBuffer(i, riatruoc, '|', ColorCode_White);
-		drawBuffer(i, riasau - 1, '|',ColorCode_White);
+		drawBuffer(i, riasau - 1, '|', ColorCode_White);
 	}
 }
 void Create(THINGS thing) // Vẽ các vật: xe, vật cản, tiền, đạn.
@@ -205,32 +203,33 @@ void Create(THINGS thing) // Vẽ các vật: xe, vật cản, tiền, đạn.
 	//Vẽ xe vào buffer
 	for (i = -1; i < 2; i++)
 		for (j = -1; j < 2; j++)
-			drawBuffer(thing.car.toado.y + i, thing.car.toado.x + j, thing.car.hinhdang.o[i + 1][j + 1], ColorCode_Green); //Ve xe vào buffer
+			drawBuffer(thing.car.toado.y + i, thing.car.toado.x + j, thing.car.hinhdang.o[i + 1][j + 1], ColorCode_Green); 
 
 	//Vẽ tiền vào buffer
 	for (k = 0; k < MAXCOIN; k++)
-		drawBuffer(thing.coin[k].toado.y, thing.coin[k].toado.x, '$', ColorCode_Yellow); // ve tien vao buffer
+		drawBuffer(thing.coin[k].toado.y, thing.coin[k].toado.x, '$', ColorCode_Yellow); 
 
 	//Vẽ vật cản vào buffer
 	for (k = 0; k < thing.sovatcan; k++)
 	{
-		if (thing.vatcan[k].toado.y > 0 && thing.vatcan[k].toado.y < Height) //Nam ngoai man hinh thi ko dua vao
+		if (thing.vatcan[k].toado.y > 0 && thing.vatcan[k].toado.y < Height) //Nằm ngoài không đưa vào
 			for (i = -1; i < 2; i++)
 				for (j = -1; j < 2; j++)
-					drawBuffer(thing.vatcan[k].toado.y + i, thing.vatcan[k].toado.x + j, thing.vatcan[k].hinhdang.o[i + 1][j + 1], ColorCode_Red); //Ve vat can vao buffer
+					drawBuffer(thing.vatcan[k].toado.y + i, thing.vatcan[k].toado.x + j, thing.vatcan[k].hinhdang.o[i + 1][j + 1], ColorCode_Red); 
 	}
 
 	//Vẽ đạn vào buffer
 	for (i = 0; i < thing.sodan; i++)
 	{
-		drawBuffer(thing.bullet[i].toado.y, thing.bullet[i].toado.x, thing.bullet[i].bullet, ColorCode_Cyan);
+		if(thing.bullet[i].toado.y>0)
+			drawBuffer(thing.bullet[i].toado.y, thing.bullet[i].toado.x, thing.bullet[i].bullet, ColorCode_Cyan);
 	}
 
 	//Vẽ lại lane vào buffer
 	Lane(thing.riatruoc, thing.riasau);
 
 	//In buffer ra màn hình
-	for(i=0;i<Height;i++)
+	for (i = 0; i<Height; i++)
 		for (j = thing.riatruoc; j < thing.riasau; j++)
 		{
 			textColor(buffer[i][j].mau);
@@ -238,7 +237,7 @@ void Create(THINGS thing) // Vẽ các vật: xe, vật cản, tiền, đạn.
 			putchar(buffer[i][j].kytu);
 			buffer[i][j].kytu = ' '; // sau khi in xong, trả về ký tự ' ' tại vị trí vừa in (xóa dấu tích)
 		}
-	
+
 }
 void CarDiChuyen(CAR &car) // Điều khiển xe
 {
@@ -254,51 +253,7 @@ void CarDiChuyen(CAR &car) // Điều khiển xe
 			car.toado.y++;
 	}
 }
-<<<<<<< HEAD
-void ControlBullet(THINGS &thing)
-{
-		if (GetAsyncKeyState(VK_SPACE) && thing.sodan<6)//create bullet
-		{
-			thing.bullet[thing.sodan].toado.x = thing.car.toado.x - 1;
-			thing.bullet[thing.sodan].toado.y = thing.car.toado.y - 2;
-			thing.bullet[thing.sodan + 1].toado.x = thing.car.toado.x + 1;
-			thing.bullet[thing.sodan + 1].toado.y = thing.car.toado.y - 2;
-			thing.sodan+=2;
-		}
-		int j;
-		for (j = 0; j < thing.sodan; j++)
-		{
-			if (thing.bullet[j].toado.y >= 0)
-				thing.bullet[j].toado.y -= 2;
-		}
-		if (thing.bullet[0].toado.y <= 0 && thing.bullet[2].toado.y <= 0 && thing.bullet[4].toado.y <= 0 )
-			if (thing.sodan >= 5)
-				thing.sodan = 0;
-
-}
-void bulletvatcan(THINGS &thing)
-{
-	int i,j,k;
-	for (i = 0; i < thing.sodan; i++)
-	{
-		for (j = 0; j < 10; j++)	
-			if (Distance(thing.bullet[i].toado.x, thing.coin[j].toado.x) == 0 && Distance(thing.bullet[i].toado.y, thing.coin[j].toado.y) == 0)
-			{
-				thing.coin[j].toado.x = random(thing.riatruoc, thing.riasau);
-				thing.coin[j].toado.y = rand() % 4;
-				thing.car.score++;
-			}
-		for (k = 0; k < thing.sovatcan; k++)
-			if (Distance(thing.bullet[i].toado.x, thing.vatcan[k].toado.x) == 0 && Distance(thing.bullet[i].toado.y, thing.vatcan[k].toado.y) == 0)
-			thing.vatcan[k].toado.y-=2;
-	}	
-}
-
-void moveVatCan(THINGS &thing)
-
-=======
 void moveVatCan(THINGS &thing) // Vật cản đứng yên
->>>>>>> e2d3344649ee95ce63de2eee8aeed790253eacdd
 {
 	for (int i = 0; i < thing.sovatcan; i++)
 	{
@@ -306,7 +261,7 @@ void moveVatCan(THINGS &thing) // Vật cản đứng yên
 		if (thing.vatcan[i].toado.y > Height) //Vật cản ra khỏi đường đua, tạo vật cản mới
 		{
 			thing.car.score++; // tăng điểm cho người chơi
-							   //Tạo vật cản mới
+			//Tạo vật cản mới
 			thing.vatcan[i].toado.x = Random(thing.riatruoc, thing.riasau);
 			thing.vatcan[i].toado.y = rand() % 2;
 		}
@@ -365,22 +320,22 @@ void ControlBullet(THINGS &thing) // Điều khiển đạn
 	{
 		//Gán tọa độ vị trí xuất phát của đạn (2 viên): xuất phát ở 2 bánh trước
 		//Viên 1( góc trái)
-		thing.bullet[thing.sodan].toado.x = thing.car.toado.x - 1; 
+		thing.bullet[thing.sodan].toado.x = thing.car.toado.x - 1;
 		thing.bullet[thing.sodan].toado.y = thing.car.toado.y - 2;
 		//Viên 2(góc phải)	
 		thing.bullet[thing.sodan + 1].toado.x = thing.car.toado.x + 1;
 		thing.bullet[thing.sodan + 1].toado.y = thing.car.toado.y - 2;
-		thing.sodan+=2; // số đạn được bắn ra tăng lên
+		thing.sodan += 2; // số đạn được bắn ra tăng lên
 	}
 	//Đạn di chuyển
 	for (int j = 0; j < thing.sodan; j++)
 	{
-		if (thing.bullet[j].toado.y >= 0 ) // Kiểm tra đạn còn trong khu vực di chuyển không
-			thing.bullet[j].toado.y -= 2; 
+		if (thing.bullet[j].toado.y >= 0) // Kiểm tra đạn còn trong khu vực di chuyển không
+			thing.bullet[j].toado.y -= 2;
 	}
 
 	//Nạp lại đạn
-	if(thing.bullet[0].toado.y <= 0 && thing.bullet[2].toado.y <= 0 && thing.bullet[4].toado.y <= 0)
+	if (thing.bullet[0].toado.y <= 0 && thing.bullet[2].toado.y <= 0 && thing.bullet[4].toado.y <= 0)
 		if (thing.sodan >= 5)
 			thing.sodan = 0;
 }
@@ -397,7 +352,7 @@ void bulletvatcan(THINGS &thing) // Đạn, vật cản ,và tiền
 				thing.coin[j].toado.x = Random(thing.riatruoc, thing.riasau); // chú thích ở hàm random
 				thing.coin[j].toado.y = rand() % 4;
 				// tăng điểm cho người chơi
-				thing.car.score++; 
+				thing.car.score++;
 			}
 		//Đạn trúng vật cản: đầy lùi vật cản về sau
 		for (k = 0; k < thing.sovatcan; k++)
@@ -474,7 +429,7 @@ void Ai(THINGS &thing) // chua tinh truong hop car.toado.x == 2 vay no sang left
 bool GameOver(THINGS thing) // Đụng vật cản
 {
 	for (int i = 0; i < thing.sovatcan; i++)
-		if ((Distance(thing.car.toado.x, thing.vatcan[i].toado.x) < 3) && (Distance(thing.car.toado.y, thing.vatcan[i].toado.y) < 3)) 
+		if ((Distance(thing.car.toado.x, thing.vatcan[i].toado.x) < 3) && (Distance(thing.car.toado.y, thing.vatcan[i].toado.y) < 3))
 			return true;
 	return false;
 }
@@ -493,10 +448,10 @@ void playGame() // Dành cho 1 người chơi (Solo)
 	while (1)
 	{
 		//Các vật di chuyển: xe, vật cản, tiền, đạn.
-		Control(thing); 
+		Control(thing);
 
 		//Vẽ các vật ra màn hình
-		Create(thing); 
+		Create(thing);
 
 		//Làm xe di chuyển mượt hơn
 		CarDiChuyen(thing.car);
@@ -506,7 +461,7 @@ void playGame() // Dành cho 1 người chơi (Solo)
 		score = Score(thing); //Điểm
 		gotoxy(31, 15);
 		printf("Score: %d", score); //Viết điểm
-		if ((score % 20 == 0)&& temp!=score && score >1 && score <101) //Tăng dần các vật cản
+		if ((score % 20 == 0) && temp != score && score >1 && score <101) //Tăng dần các vật cản
 		{
 			temp = score;
 			thing.sovatcan++;
@@ -525,7 +480,7 @@ void playGame() // Dành cho 1 người chơi (Solo)
 			Sleep(time); //Diem cang cao cang nhanh 
 		else Sleep(2); // Tối đa nhịp game là: 2 ms
 	}
-	
+
 }
 void controlTwoCar(THINGS &thing1, THINGS &thing2)// Điều khiển 2 xe
 {
@@ -579,9 +534,9 @@ void playTwoCar()//Hàm dưới cho 2 người chơi: Mục đích : ăn nhiều
 	thing1.riasau = Width;
 	//Thing2: người chơi 2
 	thing2.sovatcan = 5,
-	thing2.riatruoc=90;
+		thing2.riatruoc = 90;
 	thing2.riasau = 120;
-	int score1, score2, time, temp1 =-1, temp2 = -1;
+	int score1, score2, time, temp1 = -1, temp2 = -1;
 	system("cls");
 
 	//CB cac thu can thiet
@@ -605,14 +560,14 @@ void playTwoCar()//Hàm dưới cho 2 người chơi: Mục đích : ăn nhiều
 		Create(thing1); //Player 1
 		Create(thing2);//Player 2
 
-		//Làm mượt
-		controlTwoCar(thing1,thing2);
+	    //Làm mượt
+		controlTwoCar(thing1, thing2);
 		Create(thing1); //Player 1
 		Create(thing2);//Player 2
 
-		//Điểm
+        //Điểm
 		score1 = Score(thing1);
-		score2 = Score(thing2);//Diem
+		score2 = Score(thing2);
 		if ((score1 % 20 == 0) && temp1 != score1 && score1 >1 && score1 <101) //Tăng vật cản
 		{
 			temp1 = score1;
@@ -625,7 +580,7 @@ void playTwoCar()//Hàm dưới cho 2 người chơi: Mục đích : ăn nhiều
 		}
 		//Ghi điểm
 		gotoxy(31, 7);
-		printf("Score 1: %d", score1); 
+		printf("Score 1: %d", score1);
 		gotoxy(78, 7);
 		printf("Score 2: %d", score2);
 		//Gameover
@@ -654,12 +609,12 @@ void playTwoCar()//Hàm dưới cho 2 người chơi: Mục đích : ăn nhiều
 				return;
 			}
 		}
-		//Xoa con tro chuot
+		//Xóa con trỏ chuột
 		Nocursortype();
 		//Nhip game
 		time = 100 - score1;
 		if (time>2)
-			Sleep(time); //Diem cang cao cang nhanh 
+			Sleep(time); //Điểm càng cao càng nhanh
 		else Sleep(2);
 	}
 }
@@ -720,7 +675,7 @@ void Menu(char *menu[]) // Menu
 {
 	int breaker = 1;
 	int vitri;
-	
+
 	while (breaker) {
 		vitri = VietMenu(menu); // nhớ chọn mục nào
 		switch (vitri) {
@@ -754,7 +709,3 @@ void Menu(char *menu[]) // Menu
 		Sleep(500);
 	}
 }
-
-
-
-
