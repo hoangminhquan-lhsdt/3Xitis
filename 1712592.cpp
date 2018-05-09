@@ -76,6 +76,21 @@ void BXH() {
 	sortBXH(list, i);
 	_getch();
 }
+void readRacingCar()
+{
+	int i = 0;
+	char str[90];
+	FILE *file = fopen("RACINGCAR.txt", "rt");
+	while (!feof(file))
+	{
+		fgets(str, 90, file);
+		gotoxy(0, i);
+		textColor(ColorCode_Yellow);
+		printf("%s", str);
+		i++;
+	}
+	fclose(file);
+}
 //Các hàm tham khảo
 void gotoxy(int x, int y) //Đưa con trỏ tới vị trí (x,y) trên màn hình console: https://daynhauhoc.com/t/xin-giai-thich-ve-ham-gotoxy/13723
 {
@@ -83,15 +98,10 @@ void gotoxy(int x, int y) //Đưa con trỏ tới vị trí (x,y) trên màn hì
 	COORD c = { x, y };
 	SetConsoleCursorPosition(h, c);
 }
-void SetColorAndBackground(int ForgC, int BackC) // https://stackoverflow.com/questions/7539614/what-do-this-expression-mean-setconsoletextattribute-function-in-c
-{
-	WORD wColor = ((BackC & 0x0F) << 4) + (ForgC & 0x0F);
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), wColor);
-	return;
-}
-void drawBuffer(int dong, int cot, char kytu) // Giam giat cho man hinh console, link: https://www.youtube.com/watch?v=hsvzJlxG2LY
+void drawBuffer(int dong, int cot, char kytu, int mau ) // Giam giat cho man hinh console, link: https://www.youtube.com/watch?v=hsvzJlxG2LY
 {
 	buffer[dong][cot].kytu = kytu;
+	buffer[dong][cot].mau = mau;
 }
 void Nocursortype() // Xóa con trỏ chuột trên màn hình console: https://daynhauhoc.com/t/hoi-ve-con-tro-chuot-tren-man-hinh-console/34411/3
 {
@@ -100,6 +110,11 @@ void Nocursortype() // Xóa con trỏ chuột trên màn hình console: https://
 	Info.dwSize = 20;
 	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &Info);
 }
+void textColor(int color) // Tạo màu: https://www.youtube.com/watch?v=hsvzJlxG2LY
+{
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
+}
+
 //Các hàm tính toán
 inline int Random(int a, int b) // random trong đoạn [a,b]
 {
@@ -180,8 +195,8 @@ void Lane(int riatruoc, int riasau) //Tạo đường đua (lane)
 	// vẽ lane vào buffer
 	for (int i = 0; i < Height; i++)
 	{
-		drawBuffer(i, riatruoc, '|');
-		drawBuffer(i, riasau - 1, '|');
+		drawBuffer(i, riatruoc, '|', ColorCode_White);
+		drawBuffer(i, riasau - 1, '|',ColorCode_White);
 	}
 }
 void Create(THINGS thing) // Vẽ các vật: xe, vật cản, tiền, đạn.
@@ -190,11 +205,11 @@ void Create(THINGS thing) // Vẽ các vật: xe, vật cản, tiền, đạn.
 	//Vẽ xe vào buffer
 	for (i = -1; i < 2; i++)
 		for (j = -1; j < 2; j++)
-			drawBuffer(thing.car.toado.y + i, thing.car.toado.x + j, thing.car.hinhdang.o[i + 1][j + 1]); //Ve xe vào buffer
+			drawBuffer(thing.car.toado.y + i, thing.car.toado.x + j, thing.car.hinhdang.o[i + 1][j + 1], ColorCode_Green); //Ve xe vào buffer
 
 	//Vẽ tiền vào buffer
 	for (k = 0; k < MAXCOIN; k++)
-		drawBuffer(thing.coin[k].toado.y, thing.coin[k].toado.x, '$'); // ve tien vao buffer
+		drawBuffer(thing.coin[k].toado.y, thing.coin[k].toado.x, '$', ColorCode_Yellow); // ve tien vao buffer
 
 	//Vẽ vật cản vào buffer
 	for (k = 0; k < thing.sovatcan; k++)
@@ -202,13 +217,13 @@ void Create(THINGS thing) // Vẽ các vật: xe, vật cản, tiền, đạn.
 		if (thing.vatcan[k].toado.y > 0 && thing.vatcan[k].toado.y < Height) //Nam ngoai man hinh thi ko dua vao
 			for (i = -1; i < 2; i++)
 				for (j = -1; j < 2; j++)
-					drawBuffer(thing.vatcan[k].toado.y + i, thing.vatcan[k].toado.x + j, thing.vatcan[k].hinhdang.o[i + 1][j + 1]); //Ve vat can vao buffer
+					drawBuffer(thing.vatcan[k].toado.y + i, thing.vatcan[k].toado.x + j, thing.vatcan[k].hinhdang.o[i + 1][j + 1], ColorCode_Red); //Ve vat can vao buffer
 	}
 
 	//Vẽ đạn vào buffer
 	for (i = 0; i < thing.sodan; i++)
 	{
-		drawBuffer(thing.bullet[i].toado.y, thing.bullet[i].toado.x, thing.bullet[i].bullet);
+		drawBuffer(thing.bullet[i].toado.y, thing.bullet[i].toado.x, thing.bullet[i].bullet, ColorCode_Cyan);
 	}
 
 	//Vẽ lại lane vào buffer
@@ -218,6 +233,7 @@ void Create(THINGS thing) // Vẽ các vật: xe, vật cản, tiền, đạn.
 	for(i=0;i<Height;i++)
 		for (j = thing.riatruoc; j < thing.riasau; j++)
 		{
+			textColor(buffer[i][j].mau);
 			gotoxy(j, i);
 			putchar(buffer[i][j].kytu);
 			buffer[i][j].kytu = ' '; // sau khi in xong, trả về ký tự ' ' tại vị trí vừa in (xóa dấu tích)
@@ -310,7 +326,7 @@ void ControlBullet(THINGS &thing) // Điều khiển đạn
 		//Viên 2(góc phải)	
 		thing.bullet[thing.sodan + 1].toado.x = thing.car.toado.x + 1;
 		thing.bullet[thing.sodan + 1].toado.y = thing.car.toado.y - 2;
-		thing.sodan+=2; // tăng số đạn
+		thing.sodan+=2; // số đạn được bắn ra tăng lên
 	}
 	//Đạn di chuyển
 	for (int j = 0; j < thing.sodan; j++)
@@ -462,7 +478,7 @@ void playGame() // Dành cho 1 người chơi (Solo)
 		time = 100 - score;
 		if (time>2)
 			Sleep(time); //Diem cang cao cang nhanh 
-		else Sleep(2);  // Tối đa nhịp game là: 2 ms
+		else Sleep(2); // Tối đa nhịp game là: 2 ms
 	}
 	
 }
@@ -643,7 +659,9 @@ int VietMenu(char *menu[]) // Viết menu
 		}
 		for (int i = 0; i < MAXMENU; i++)
 		{
-			gotoxy(40, 15 + i);
+			readRacingCar();
+			textColor(ColorCode_White);
+			gotoxy(60, 15 + i);
 			if (vitri == i)
 				printf(">>%s<<\n", menu[i]);
 			else printf("--%s--\n", menu[i]);
@@ -657,6 +675,7 @@ void Menu(char *menu[]) // Menu
 {
 	int breaker = 1;
 	int vitri;
+	
 	while (breaker) {
 		vitri = VietMenu(menu); // nhớ chọn mục nào
 		switch (vitri) {

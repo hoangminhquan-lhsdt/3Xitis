@@ -8,6 +8,27 @@
 #define MAXBULLET 6 
 #define TOPPLAYER 10 // 10 người chơi cao điểm nhất
 
+//Màu
+#define ColorCode_Back			0
+#define ColorCode_DarkBlue		1
+#define ColorCode_DarkGreen		2
+#define ColorCode_DarkCyan		3
+#define ColorCode_DarkRed		4
+#define ColorCode_DarkPink		5
+#define ColorCode_DarkYellow	6
+#define ColorCode_DarkWhite		7
+#define ColorCode_Grey			8
+#define ColorCode_Blue			9
+#define ColorCode_Green			10
+#define ColorCode_Cyan			11
+#define ColorCode_Red			12
+#define ColorCode_Pink			13
+#define ColorCode_Yellow		14
+#define ColorCode_White			15
+
+#define default_ColorCode		7
+
+
 enum TRANGTHAI  { UP,DOWN,LEFT,RIGHT}; // Liệt kê trạng thái gồm có các thành phần UP, DOWN, LEFT, RIGHT
 
 struct PLAYER // Thông tin người chơi: họ tên, điểm ghi được
@@ -57,17 +78,19 @@ struct THINGS
 struct O
 {
 	char kytu;
+	int mau;
 };
 
 //File, sắp xếp
 void Input(int score);
 void sortBXH(PLAYER arr[], int n);
 void BXH();
+void readRacingCar();
 //Các hàm tham khảo
 void gotoxy(int x, int y);
-void SetColorAndBackground(int ForgC, int BackC);
-void drawBuffer(int dong, int cot, char kytu);
+void drawBuffer(int dong, int cot, char kytu, int mau = 7);
 void Nocursortype();
+void textColor(int color);
 // các hàm tính toán
 inline int Random(int a, int b);
 inline int Distance(int x, int y);
