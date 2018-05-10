@@ -18,11 +18,15 @@ void Input(int score)
 	FILE *f = fopen("Player.txt", "a");
 	PLAYER player;
 	char c;
+	PLAYER player;
+	char c;
+	_getch();
 	gotoxy(0, 14);
 	printf("Diem: %d\n", score);
 	gotoxy(0, 15);
 	printf("Nhap ten: ");
 	scanf("%[^\n]s &c", player.Name, &c);
+	FILE *f = fopen("Player.txt", "at");
 	fprintf(f, "%s\n", player.Name);
 	fprintf(f, "	%d\n", score);
 	fclose(f);
@@ -468,6 +472,7 @@ void playGame() // Dành cho 1 người chơi (Solo)
 		//Game over
 		if (GameOver(thing))
 		{
+			flushall();
 			Input(score);
 			return;
 		}
