@@ -16,18 +16,16 @@ void Input(int score)
 {
 	system("cls");
 	PLAYER player;
-	char c;
 	_getch();
 	gotoxy(0, 14);
 	printf("Diem: %d\n", score);
 	gotoxy(0, 15);
 	printf("Nhap ten: ");
-	scanf("%[^\n]s &c", player.Name, &c);
+	scanf("%[^\n]s ", player.Name);
 	FILE *f = fopen("Player.txt", "at");
 	fprintf(f, "%s\n", player.Name);
 	fprintf(f, "	%d\n", score);
 	fclose(f);
-	c = getch();
 }
 void sortBXH(PLAYER arr[], int n) {
 	//Sắp xếp điểm
@@ -640,9 +638,8 @@ void Rule() // Luật chơi
 	gotoxy(10, 23);
 	printf("Doi voi che do choi 2 nguoi, nguoi choi 2 dung cac phim: 2, 4, 6, 8. Tuong ung voi: XUONG, TRAI, PHAI, LEN\n");
 }
-int VietMenu(char *menu[]) // Viết menu
+int VietMenu(char *menu[], int vitri) // Viết menu
 {
-	int vitri = 0;
 	while (1)
 	{
 		system("cls");
@@ -678,10 +675,10 @@ int VietMenu(char *menu[]) // Viết menu
 void Menu(char *menu[]) // Menu
 {
 	int breaker = 1;
-	int vitri;
+	int vitri = 0, i =1;
 
 	while (breaker) {
-		vitri = VietMenu(menu); // nhớ chọn mục nào
+		vitri = VietMenu(menu, vitri);// nhớ chọn mục nào
 		switch (vitri) {
 		case 0:
 		{
@@ -709,7 +706,7 @@ void Menu(char *menu[]) // Menu
 		}
 		case 4: breaker = 0; return;
 		}
-		vitri = VietMenu(menu); // nhớ chọn mục nào, không bị trường hợp auto vào khi thoat ra 
-		Sleep(500);
+		vitri = VietMenu(menu, vitri);// nhớ chọn mục nào, không bị trường hợp auto vào khi thoat ra 
+		Sleep(100);
 	}
 }

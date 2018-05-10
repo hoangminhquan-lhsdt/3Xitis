@@ -112,7 +112,7 @@ void control2Player(THINGS &thing1, THINGS &thing2);
 void playTwoCar();
 //Menu
 void Rule();
-int VietMenu(char *menu[]);
+int VietMenu(char *menu[], int vitri);
 void Menu(char *menu[]);
 
 
