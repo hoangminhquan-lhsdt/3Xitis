@@ -15,9 +15,6 @@ O buffer[30][30]; // khai báo để sử dụng toàn bài
 void Input(int score)
 {
 	system("cls");
-	FILE *f = fopen("Player.txt", "a");
-	PLAYER player;
-	char c;
 	PLAYER player;
 	char c;
 	_getch();
