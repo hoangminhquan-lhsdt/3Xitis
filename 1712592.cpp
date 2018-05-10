@@ -15,10 +15,9 @@ O buffer[30][30]; // khai báo để sử dụng toàn bài
 void Input(int score)
 {
 	system("cls");
-	FILE *f = fopen("Player.txt", "at");
+	FILE *f = fopen("Player.txt", "a");
 	PLAYER player;
 	char c;
-	rewind(stdin);
 	gotoxy(0, 14);
 	printf("Diem: %d\n", score);
 	gotoxy(0, 15);
@@ -635,6 +634,9 @@ void Rule() // Luật chơi
 	printf("Nhan SPACE de ban\n");
 	gotoxy(40, 19);
 	printf("Nhan TAB de nap lai dan\n");
+	textColor(ColorCode_Pink);
+	gotoxy(10, 23);
+	printf("Doi voi che do choi 2 nguoi, nguoi choi 2 dung cac phim: 2, 4, 6, 8. Tuong ung voi: XUONG, TRAI, PHAI, LEN\n");
 }
 int VietMenu(char *menu[]) // Viết menu
 {
