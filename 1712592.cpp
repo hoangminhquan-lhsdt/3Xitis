@@ -14,6 +14,7 @@ O buffer[30][30]; // khai báo để sử dụng toàn bài
 //File
 void Input(int score)
 {
+	rewind(stdin);
 	system("cls");
 	PLAYER player;
 	_getch();
@@ -21,7 +22,7 @@ void Input(int score)
 	printf("Diem: %d\n", score);
 	gotoxy(0, 15);
 	printf("Nhap ten: ");
-	scanf("%[^\n]s ", player.Name);
+	scanf("%[^\n]s ", &player.Name);
 	FILE *f = fopen("Player.txt", "at");
 	fprintf(f, "%s\n", player.Name);
 	fprintf(f, "	%d\n", score);
