@@ -122,7 +122,6 @@ inline int Distance(int x, int y) //Khoảng cách giữa các vật theo phươ
 }
 //Các hàm trong game
 void Shape(THINGS &thing) //Tạo hình dạng các vật: xe, vật cản, tiền, đạn.
-
 {
 	int i, k;
 	// Xe
@@ -195,7 +194,7 @@ void Lane(int riatruoc, int riasau) //Tạo đường đua (lane)
 		drawBuffer(i, riasau - 1, '|', ColorCode_White);
 	}
 }
-void Create(THINGS thing) // Vẽ các vật: xe, vật cản, tiền, đạn.
+void Create(THINGS thing) // Vẽ các vật: xe, vật cản, tiền, đạn vào lane.
 {
 	int i, j, k;
 	//Vẽ xe vào buffer
@@ -370,7 +369,7 @@ void Control(THINGS &thing) // Điều khiển
 	//Coin
 	CoinDiChuyen(thing);
 
-	//Vật cản và vật cản di chuyển
+	//Vật cản và vật cản di chuyển: điểm >=30 vật cản bắt đầu di chuyển
 	if (thing.car.score < 30)
 		moveVatCan(thing);
 	else VatCanDiChuyen(thing);
@@ -387,42 +386,6 @@ int Score(THINGS &thing) // Điểm
 		}
 	}
 	return thing.car.score;
-}
-void Ai(THINGS &thing) // chua tinh truong hop car.toado.x == 2 vay no sang left 1 cai thi dung cmn
-{
-	//Chi an coin[0] thoi
-	if (thing.car.toado.x < thing.coin[0].toado.x)
-		thing.car.toado.x++;
-	if (thing.car.toado.x > thing.coin[0].toado.x)
-		thing.car.toado.x--;
-	for (int i = 0; i < thing.sovatcan; i++)
-	{
-		if (thing.vatcan[i].toado.x + 1 == thing.car.toado.x - 1)
-		{
-			thing.car.toado.x++;
-			//return;
-		}
-		if (thing.vatcan[i].toado.x - 1 == thing.car.toado.x + 1)
-		{
-			thing.car.toado.x--;
-			//return;
-		}
-		if (thing.car.toado.x == thing.vatcan[i].toado.x - 1)
-		{
-			thing.car.toado.x = thing.car.toado.x--;
-			//return;
-		}
-		if (thing.car.toado.x == thing.vatcan[i].toado.x + 1)
-		{
-			thing.car.toado.x = thing.car.toado.x++;
-			//return;
-		}
-		if (thing.car.toado.x == thing.vatcan[i].toado.x)
-		{
-			thing.car.toado.x = thing.car.toado.x++;
-			//return;
-		}
-	}
 }
 bool GameOver(THINGS thing) // Đụng vật cản
 {
@@ -445,17 +408,17 @@ void playGame() // Dành cho 1 người chơi (Solo)
 	//Bat dau game
 	while (1)
 	{
-		//Các vật di chuyển: xe, vật cản, tiền, đạn.
+		//Các vật di chuyển: xe, vật cản, tiền, đạn. (điều khiển)
 		Control(thing);
 
-		//Vẽ các vật ra màn hình
+		//Vẽ các vật ra màn hình (hiện thị)
 		Create(thing);
 
 		//Làm xe di chuyển mượt hơn
 		CarDiChuyen(thing.car);
 		Create(thing); // vẽ lại
 
-		//Tính điểm và ghi điểm ra màn hình
+		//Tính điểm và ghi điểm ra màn hình (Xử lý)
 		score = Score(thing); //Điểm
 		gotoxy(31, 15);
 		printf("Score: %d", score); //Viết điểm
@@ -476,7 +439,7 @@ void playGame() // Dành cho 1 người chơi (Solo)
 		//Nhip game
 		time = 100 - score;
 		if (time>2)
-			Sleep(time); //Diem cang cao cang nhanh 
+			Sleep(time); //Điểm càng cao, nhịp game càng nhanh
 		else Sleep(2); // Tối đa nhịp game là: 2 ms
 	}
 
@@ -680,17 +643,17 @@ void Menu(char *menu[]) // Menu
 	while (breaker) {
 		vitri = VietMenu(menu, vitri);// nhớ chọn mục nào
 		switch (vitri) {
-		case 0:
+		case 0: // Play game
 		{
 			playGame();
 			break;
 		}
-		case 1:
+		case 1: // 2 players
 		{
 			playTwoCar();
 			break;
 		}
-		case 2:
+		case 2: // luật chơi
 		{
 			system("cls");
 			Rule();
