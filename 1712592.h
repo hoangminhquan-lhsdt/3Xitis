@@ -33,7 +33,7 @@ enum TRANGTHAI  { UP,DOWN,LEFT,RIGHT}; // Liệt kê trạng thái gồm có cá
 
 struct PLAYER // Thông tin người chơi: họ tên, điểm ghi được
 {
-	char Name[30] = {'a'};
+	char Name[30] = "a";
 	int score;
 };
 struct TOADO // tọa độ của 1 điểm
@@ -104,7 +104,6 @@ void ControlBullet(THINGS &thing);
 void bulletvatcan(THINGS &thing);
 void Control(THINGS &thing);
 int Score(THINGS &thing);
-void Ai(THINGS &thing);
 bool GameOver(THINGS thing);
 void playGame();
 void controlTwoCar(THINGS &thing1, THINGS &thing2);
