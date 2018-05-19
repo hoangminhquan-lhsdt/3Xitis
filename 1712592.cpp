@@ -12,8 +12,7 @@
 O buffer[30][30]; // khai báo để sử dụng toàn bài
 
 //File
-void Input(int score)
-{
+void Input(int score) { //Hàm nhận tên người chơi và lưu tên+điểm vào file
 	rewind(stdin);
 	system("cls");
 	PLAYER player;
@@ -28,7 +27,7 @@ void Input(int score)
 	fprintf(f, "	%d\n", score);
 	fclose(f);
 }
-void sortBXH(PLAYER arr[], int n) {
+void sortBXH(PLAYER arr[], int n) { //Sắp xếp và in ra danh sách 10 người chơi điểm cao nhất
 	//Sắp xếp điểm
 	PLAYER temp;
 	for (int i = 0; i < n; i++)
@@ -59,7 +58,7 @@ void sortBXH(PLAYER arr[], int n) {
 		printf("%d.\n", arr[i].score);
 	}
 }
-void BXH() { 
+void BXH() { //Đọc file lưu điểm người chơi
 	int length;
 	system("cls");
 	PLAYER list[1000];
